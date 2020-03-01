@@ -9,11 +9,12 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtClass',   
-  download_url = 'https://github.com/tadorfer/ProtClass/archive/v_01.tar.gz',  
+  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.0-alpha.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   install_requires=[            
-          'validators',
-          'beautifulsoup4',
+          'numpy',
+          'pandas',
+          'scikit-learn'
       ],
   classifiers=[
     'Development Status :: 3 - Alpha',      
