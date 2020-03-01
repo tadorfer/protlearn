@@ -8,8 +8,8 @@ setup(
   description = 'Preprocessing and feature engineering for proteins and peptides',   
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
-  url = 'https://github.com/thomasadorfer/ProtClass',   
-  download_url = 'https://github.com/thomasadorfer/ProtClass/archive/v_01.tar.gz',  
+  url = 'https://github.com/tadorfer/ProtClass',   
+  download_url = 'https://github.com/tadorfer/ProtClass/archive/v_01.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   install_requires=[            
           'validators',
