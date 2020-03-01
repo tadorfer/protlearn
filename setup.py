@@ -5,7 +5,7 @@ setup(
   packages = ['protclass'],   
   version = '1.0',      
   license='MIT',        
-  description = 'Preprocessing and feature engineering for proteins and peptides',   
+  description = 'Preprocessing and feature engineering for proteins and peptides prior to classification',   
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtClass',   
