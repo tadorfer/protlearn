@@ -115,12 +115,14 @@ def composition(X, method='relative', round_fraction=3):
         return pd.DataFrame(np.asarray(comp_rel), columns=amino_acids)
         
 
-def aaindex1(X, standardize='None'):
-    """ Compute amino acid indices from aaindex1
+def aaindex1(X, standardize='none'):
+    """ Compute amino acid indices from AAIndex1
 
-    AAindex1 ver.9.2 (release Feb, 2017) is a set of 20 numerical int_values
+    AAindex1 ver.9.2 (release Feb, 2017) is a set of 20 numerical values
     representing different physicochemical and biological properties of amino
     acids. Currently, it contains 566 such indices.
+    The indices will be collected for each amino acid in the sequence, then
+    averaged across the sequence. 
 
     Parameters
     ----------
@@ -129,9 +131,9 @@ def aaindex1(X, standardize='None'):
         The column containing protein or peptide sequences must be labeled
         'Sequence'.
 
-    standardize : string, default='None'
+    standardize : string, default='none'
 
-        'None' : unstandardized index matrix will be returned
+        'none' : unstandardized index matrix will be returned
         'zscore' : index matrix is standardized across columns (indices) to have
                    a mean of 0 and standard deviation of 1 (unit variance).
         'minmax' : index matrix is scaled (normalized) across columns (indices)
@@ -139,8 +141,8 @@ def aaindex1(X, standardize='None'):
 
     Returns
     -------
-    arr_index1 : ndarray of shape (n_samples, 566) if standardize='None'
-        Column size could vary when standardize != 'None'.
+    arr_index1 : ndarray of shape (n_samples, 566) if standardize='none'
+        Column size could vary when standardize != 'none'.
 
     Notes
     -----
@@ -153,8 +155,10 @@ def aaindex1(X, standardize='None'):
     """
     
     # load AAIndex1 data
-    aaind1 = pd.read_csv('docs/AAIndex/AAIndex1.csv')
-    descriptions = aaind1['Description'].values
+    aaind1 = pd.read_csv('docs/AAIndex1.csv')
+
+    # get descriptions of all 566 indices
+    desc = aaind1['Description'].values
 
     # initialize empty array with shape (n_samples, n_aa1_indices)
     aaind_arr = np.zeros((len(X), aaind1.shape[0]))
@@ -172,25 +176,123 @@ def aaindex1(X, standardize='None'):
         # fill rows with mean vector of tmp_arr
         aaind_arr[i,:] = tmp_arr.mean(axis=1)
 
-    if standardize == 'None':
-        return pd.DataFrame(aaind_arr, columns=descriptions)
+    if standardize == 'none':
+        return pd.DataFrame(aaind_arr, columns=desc)
 
     else:
         # finding and removing columns with n_aa1_indices
         inds_nan = np.argwhere(np.isnan(aaind_arr))
         cols_nan = np.unique(inds_nan[:,1])
         aaind_arr = np.delete(aaind_arr, cols_nan, axis=1)
-        descriptions = np.delete(descriptions, cols_nan)
+        desc = np.delete(desc, cols_nan)
 
         # standardization
         if standardize == 'zscore':
             scaler = StandardScaler().fit(aaind_arr)
             aaind_arr = scaler.transform(aaind_arr)
             
-            return pd.DataFrame(aaind_arr, columns=descriptions)
+            return pd.DataFrame(aaind_arr, columns=desc)
 
+        # normalization
         elif standardize == 'minmax':
             scaler = MinMaxScaler().fit(aaind_arr)
             aaind_arr = scaler.transform(aaind_arr)
 
-            return pd.DataFrame(aaind_arr, columns=descriptions)
+            return pd.DataFrame(aaind_arr, columns=desc)
+
+
+def aaindex3(X, standardize='none'):
+    """ Compute amino acid indices from AAIndex3
+
+    AAindex3 ver.9.2 (release Feb, 2017) is a set of lower triangular matrices 
+    of shape (20, 20) and include a collection of published protein pairwise
+    contact potentials. Currently, it contains 47 such matrices.
+    The pairwise contact potentials will be collected for each amino acid pair
+    in the sequence, then averaged across the sequence.
+
+    Parameters
+    ----------
+
+    X : Pandas DataFrame 
+        The column containing protein or peptide sequences must be labeled
+        'Sequence'.
+
+    standardize : string, default='none'
+
+        'none' : unstandardized index matrix will be returned
+        'zscore' : index matrix is standardized across columns (indices) to have
+                   a mean of 0 and standard deviation of 1 (unit variance).
+        'minmax' : index matrix is scaled (normalized) across columns (indices)
+                   to have a range of [0, 1].
+
+    Returns
+    -------
+    arr_index3 : ndarray of shape (n_samples, 566) if standardize='none'
+        Column size could vary when standardize != 'none'.
+
+    Notes
+    -----
+    For standardization, columns (indices) containing NaNs will be removed.
+    Thus, the resulting index matrix might have a reduced column size.
+
+    The returned dataframe 'arr_index1' can easily be converted into a numpy 
+    array with the command 'np.asarray(comp)', if desired.
+
+    """
+    
+    # load AAIndex1 data
+    aaind3 = pd.read_csv('docs/AAIndex3.csv')
+
+    # get descriptions of all 47 indices
+    desc = [aaind3['Description'][i] for i in np.arange(0, aaind3.shape[0], 20)]
+    
+    # drop descriptions column to facilitate easy indexing
+    aaind3 = aaind3.drop(['Description', 'Amino Acids'], 
+                         axis=1).reset_index(drop=True)
+
+    LENGTH = len(desc)
+    inds_all = np.arange(0, aaind3.shape[0], aaind3.shape[1])
+    aa_dict = {aaind3.columns[i]: i for i in range(aaind3.shape[1])}
+
+    aaind_arr = np.zeros((len(X), LENGTH))
+    
+    for a, seq in enumerate(range(len(X))):
+        sequence = X['Sequence'][seq]
+        conpot = np.zeros((len(sequence), LENGTH))
+
+        for i in range(len(sequence)-1):
+            aa1, aa2 = sequence[i], sequence[i+1]
+            aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
+            if aa1_ind > aa2_ind:
+                aa1_ind += inds_all
+                conpot[i,:] = aaind3.iloc[aa1_ind, aa2_ind]
+
+            else:
+                aa2_ind += inds_all
+                conpot[i,:] = aaind3.iloc[aa2_ind, aa1_ind]
+
+        aaind_arr[a, :] = np.asarray(conpot.mean(axis=0))
+
+    if standardize == 'none':
+        return pd.DataFrame(aaind_arr, columns=desc)
+
+    else:
+        # finding and removing columns with n_aa1_indices
+        inds_nan = np.argwhere(np.isnan(aaind_arr))
+        cols_nan = np.unique(inds_nan[:,1])
+        aaind_arr = np.delete(aaind_arr, cols_nan, axis=1)
+        desc = np.delete(desc, cols_nan)
+
+        # standardization
+        if standardize == 'zscore':
+            scaler = StandardScaler().fit(aaind_arr)
+            aaind_arr = scaler.transform(aaind_arr)
+            
+            return pd.DataFrame(aaind_arr, columns=desc)
+
+        # normalization
+        elif standardize == 'minmax':
+            scaler = MinMaxScaler().fit(aaind_arr)
+            aaind_arr = scaler.transform(aaind_arr)
+
+            return pd.DataFrame(aaind_arr, columns=desc)
