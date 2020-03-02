@@ -19,7 +19,6 @@ Thomas Dorfer.
 
 ### Dependencies
 
-- Python 
 - NumPy 
 - Pandas 
 - scikil-learn
