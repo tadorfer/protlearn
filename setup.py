@@ -1,11 +1,19 @@
 from setuptools import setup
+from os import path
+from io import open
+
+here = path.abspath(path.dirname(__file__))
+
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
   name = 'protclass',       
   packages = ['protclass'],   
   version = '1.0',      
   license='MIT',        
-  description = 'Preprocessing and feature engineering for proteins and peptides prior to classification',   
+  description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
+  long_description=long_description,  
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtClass',   
