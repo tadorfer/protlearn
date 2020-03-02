@@ -1,8 +1,10 @@
 # Project description
 
-[![PyPI](https://img.shields.io/pypi/v/ProtClass)](https://img.shields.io/pypi/v/ProtClass)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/ansicolortags.svg)](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8-blue)
+[![PyPI](https://img.shields.io/pypi/v/ProtClass)](https://pypi.org/project/protclass/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtClass)](https://img.shields.io/pypi/pyversions/ProtClass)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+
+
 
 ## protclass
 
