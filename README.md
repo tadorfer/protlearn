@@ -1,5 +1,7 @@
 # Project description
 
+[![PyPI license](https://img.shields.io/pypi/l/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
+
 ## protclass
 
 protclass is a Python module for preprocessing amino acid sequences (i.e. 
