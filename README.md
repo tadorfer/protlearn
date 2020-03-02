@@ -21,7 +21,7 @@ Thomas Dorfer.
 ### User Installation
 
 ```
-pip install protclass
+$ pip install protclass
 ```
 
 ## Documentation
