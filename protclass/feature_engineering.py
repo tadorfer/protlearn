@@ -150,12 +150,12 @@ def aaindex1(X, standardize='none'):
     Thus, the resulting index matrix might have a reduced column size.
 
     The returned dataframe 'arr_index1' can easily be converted into a numpy 
-    array with the command 'np.asarray(comp)', if desired.
+    array with the command 'np.asarray(arr_index1)', if desired.
 
     """
     
     # load AAIndex1 data
-    aaind1 = pd.read_csv('docs/AAIndex1.csv')
+    aaind1 = pd.read_csv('docs/aaindex1.csv')
 
     # get descriptions of all 566 indices
     desc = aaind1['Description'].values
@@ -199,14 +199,137 @@ def aaindex1(X, standardize='none'):
             aaind_arr = scaler.transform(aaind_arr)
 
             return pd.DataFrame(aaind_arr, columns=desc)
+        
+        
+def aaindex2(X, standardize='none'):
+    """ Compute amino acid indices from AAIndex2
+
+    AAindex2 ver.9.2 (release Feb, 2017) is a set of lower triangular (67), 
+    square (21), and rectangular (6) matrices and includes a collection of 
+    published amino acid substitution matrices. Currently, it contains 
+    94 such matrices. Some of the square and rectangular matrices include
+    gaps and various metrics for cysteines (disulfide-bonded and free), which
+    are removed for all computations (only the standard 20 amino acids are
+    used here). 
+    
+    The substitution score will be collected for each amino acid pair in the 
+    sequence, then averaged across the sequence.
+
+    Parameters
+    ----------
+
+    X : Pandas DataFrame 
+        The column containing protein or peptide sequences must be labeled
+        'Sequence'.
+
+    standardize : string, default='none'
+
+        'none' : unstandardized index matrix will be returned
+        'zscore' : index matrix is standardized across columns (indices) to have
+                   a mean of 0 and standard deviation of 1 (unit variance).
+        'minmax' : index matrix is scaled (normalized) across columns (indices)
+                   to have a range of [0, 1].
+
+    Returns
+    -------
+    arr_index2 : ndarray of shape (n_samples, 94) if standardize='none'
+        Column size could vary when standardize != 'none'.
+
+    Notes
+    -----
+    For standardization, columns (indices) containing NaNs will be removed.
+    Thus, the resulting index matrix might have a reduced column size.
+
+    The returned dataframe 'arr_index2' can easily be converted into a numpy 
+    array with the command 'np.asarray(arr_index1)', if desired.
+
+    """
+    
+    # load AAIndex2 data
+    raw_lt = pd.read_csv('docs/aaindex2_lowtri.csv')
+    raw_sq = pd.read_csv('docs/aaindex2_square.csv')
+
+    def compute_aaind2(index, shape):
+        "Compute AAIndex2 for all shapes"
+        
+        # get unique index descriptions
+        desc = [index['Description'][i] for i in\
+                np.arange(0, index.shape[0], 20)]
+        
+        # drop columns to facilitate easier indexing
+        index = index.drop(['Description', 'Amino Acids'], 
+                            axis=1).reset_index(drop=True)
+        
+        # get lengths and indices (e.g. 0, 20, 40,...)
+        LENGTH = len(desc)
+        inds = np.arange(0, index.shape[0], 20)
+        
+        # compute dict for indexing ({'A': 0, 'R': 1, ...})
+        aa_dict = {index.columns[i]: i for i in range(index.shape[1])}
+        
+        # initialitze empty array
+        arr = np.zeros((len(X), LENGTH))
+        
+        for a, seq in enumerate(range(len(X))):
+            sequence = X['Sequence'][seq]
+            conpot = np.zeros((len(sequence)-1, LENGTH))
+
+            for i in range(len(sequence)-1):
+                aa1, aa2 = sequence[i], sequence[i+1]
+                aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
+
+                if shape == 'square':
+                    aa1_ind = aa1_ind + inds
+                    conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
+
+                elif shape == 'lowtri':
+                    if aa1_ind > aa2_ind:
+                        aa1_ind += inds
+                        conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
+                    else:
+                        aa2_ind += inds
+                        conpot[i,:] = index.iloc[aa2_ind, aa1_ind]
+
+            arr[a,:] = np.asarray(conpot.mean(axis=0))
+            
+        if standardize == 'none':
+            return pd.DataFrame(arr, columns=desc)
+        
+        else:
+            # finding and removing columns with n_aa2_indices
+            inds_nan = np.argwhere(np.isnan(index))
+            cols_nan = np.unique(inds_nan[:,1])
+            index = np.delete(index, cols_nan, axis=1)
+            desc = np.delete(desc, cols_nan)
+            
+            # standardization
+            if standardize == 'zscore':
+                scaler = StandardScaler().fit(arr)
+                arr = scaler.transform(arr)
+                
+                return pd.DataFrame(arr, columns=desc)
+            
+            elif standardize == 'minmax':
+                scaler = MinMaxScaler().fit(arr)
+                arr = scaler.transform(arr)
+                
+                return pd.DataFrame(arr, columns=desc)
+            
+        
+    # get aaindices2
+    lt = compute_aaind2(raw_lt, 'lowtri')
+    sq = compute_aaind2(raw_sq, 'square')
+    
+    return pd.concat([lt, sq], axis=1)
+    
 
 
 def aaindex3(X, standardize='none'):
     """ Compute amino acid indices from AAIndex3
 
-    AAindex3 ver.9.2 (release Feb, 2017) is a set of lower triangular matrices 
-    of shape (20, 20) and include a collection of published protein pairwise
-    contact potentials. Currently, it contains 47 such matrices.
+    AAindex3 ver.9.2 (release Feb, 2017) is a set of lower triangular (44)
+    and square (3) matrices and includes a collection of published protein 
+    pairwise contact potentials. Currently, it contains 47 such matrices.
     The pairwise contact potentials will be collected for each amino acid pair
     in the sequence, then averaged across the sequence.
 
@@ -227,7 +350,7 @@ def aaindex3(X, standardize='none'):
 
     Returns
     -------
-    arr_index3 : ndarray of shape (n_samples, 566) if standardize='none'
+    arr_index3 : ndarray of shape (n_samples, 47) if standardize='none'
         Column size could vary when standardize != 'none'.
 
     Notes
@@ -235,64 +358,84 @@ def aaindex3(X, standardize='none'):
     For standardization, columns (indices) containing NaNs will be removed.
     Thus, the resulting index matrix might have a reduced column size.
 
-    The returned dataframe 'arr_index1' can easily be converted into a numpy 
-    array with the command 'np.asarray(comp)', if desired.
+    The returned dataframe 'arr_index3' can easily be converted into a numpy 
+    array with the command 'np.asarray(arr_index3)', if desired.
 
     """
     
-    # load AAIndex1 data
-    aaind3 = pd.read_csv('docs/AAIndex3.csv')
+    # load AAIndex3 data
+    raw_lt = pd.read_csv('docs/aaindex3_lowtri.csv')
+    raw_sq = pd.read_csv('docs/aaindex3_square.csv')
 
-    # get descriptions of all 47 indices
-    desc = [aaind3['Description'][i] for i in np.arange(0, aaind3.shape[0], 20)]
-    
-    # drop descriptions column to facilitate easy indexing
-    aaind3 = aaind3.drop(['Description', 'Amino Acids'], 
-                         axis=1).reset_index(drop=True)
+    def compute_aaind3(index, shape):
+        "Compute AAIndex3 for all shapes"
+        
+        # get unique index descriptions
+        desc = [index['Description'][i] for i in\
+                      np.arange(0, index.shape[0], 20)]
+        
+        # drop columns to facilitate easier indexing
+        index = index.drop(['Description', 'Amino Acids'], 
+                            axis=1).reset_index(drop=True)
+        
+        # get lengths and indices (e.g. 0, 20, 40,...)
+        LENGTH = len(desc)
+        inds = np.arange(0, index.shape[0], 20)
+        
+        # compute dict for indexing ({'A': 0, 'R': 1, ...})
+        aa_dict = {index.columns[i]: i for i in range(index.shape[1])}
+        
+        # initialitze empty array
+        arr = np.zeros((len(X), LENGTH))
+        
+        for a, seq in enumerate(range(len(X))):
+            sequence = X['Sequence'][seq]
+            conpot = np.zeros((len(sequence)-1, LENGTH))
 
-    LENGTH = len(desc)
-    inds_all = np.arange(0, aaind3.shape[0], aaind3.shape[1])
-    aa_dict = {aaind3.columns[i]: i for i in range(aaind3.shape[1])}
+            for i in range(len(sequence)-1):
+                aa1, aa2 = sequence[i], sequence[i+1]
+                aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
 
-    aaind_arr = np.zeros((len(X), LENGTH))
-    
-    for a, seq in enumerate(range(len(X))):
-        sequence = X['Sequence'][seq]
-        conpot = np.zeros((len(sequence), LENGTH))
+                if shape == 'square':
+                    aa1_ind = aa1_ind + inds
+                    conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
 
-        for i in range(len(sequence)-1):
-            aa1, aa2 = sequence[i], sequence[i+1]
-            aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
-            if aa1_ind > aa2_ind:
-                aa1_ind += inds_all
-                conpot[i,:] = aaind3.iloc[aa1_ind, aa2_ind]
+                elif shape == 'lowtri':
+                    if aa1_ind > aa2_ind:
+                        aa1_ind += inds
+                        conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
+                    else:
+                        aa2_ind += inds
+                        conpot[i,:] = index.iloc[aa2_ind, aa1_ind]
 
-            else:
-                aa2_ind += inds_all
-                conpot[i,:] = aaind3.iloc[aa2_ind, aa1_ind]
-
-        aaind_arr[a, :] = np.asarray(conpot.mean(axis=0))
-
-    if standardize == 'none':
-        return pd.DataFrame(aaind_arr, columns=desc)
-
-    else:
-        # finding and removing columns with n_aa1_indices
-        inds_nan = np.argwhere(np.isnan(aaind_arr))
-        cols_nan = np.unique(inds_nan[:,1])
-        aaind_arr = np.delete(aaind_arr, cols_nan, axis=1)
-        desc = np.delete(desc, cols_nan)
-
-        # standardization
-        if standardize == 'zscore':
-            scaler = StandardScaler().fit(aaind_arr)
-            aaind_arr = scaler.transform(aaind_arr)
+            arr[a,:] = np.asarray(conpot.mean(axis=0))
             
-            return pd.DataFrame(aaind_arr, columns=desc)
-
-        # normalization
-        elif standardize == 'minmax':
-            scaler = MinMaxScaler().fit(aaind_arr)
-            aaind_arr = scaler.transform(aaind_arr)
-
-            return pd.DataFrame(aaind_arr, columns=desc)
+        if standardize == 'none':
+            return pd.DataFrame(arr, columns=desc)
+        
+        else:
+            # finding and removing columns with n_aa3_indices
+            inds_nan = np.argwhere(np.isnan(index))
+            cols_nan = np.unique(inds_nan[:,1])
+            index = np.delete(index, cols_nan, axis=1)
+            desc = np.delete(desc, cols_nan)
+            
+            # standardization
+            if standardize == 'zscore':
+                scaler = StandardScaler().fit(arr)
+                arr = scaler.transform(arr)
+                
+                return pd.DataFrame(arr, columns=desc)
+            
+            elif standardize == 'minmax':
+                scaler = MinMaxScaler().fit(arr)
+                arr = scaler.transform(arr)
+                
+                return pd.DataFrame(arr, columns=desc)
+            
+        
+    # get aaindices3
+    lt = compute_aaind3(raw_lt, 'lowtri')
+    sq = compute_aaind3(raw_sq, 'square')
+    
+    return pd.concat([lt, sq], axis=1)
