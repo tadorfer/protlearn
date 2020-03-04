@@ -1,11 +1,9 @@
-# Project description
-
 [![Travis (.org)](https://img.shields.io/travis/tadorfer/ProtClass)](https://travis-ci.org/tadorfer/ProtClass)
 [![PyPI](https://img.shields.io/pypi/v/ProtClass)](https://pypi.org/project/protclass/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtClass)](https://img.shields.io/pypi/pyversions/ProtClass)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 
-## protclass
+# protclass
 
 protclass is a Python module for preprocessing amino acid sequences (i.e. 
 proteins and peptides) and subsequent feature engineering, both of which are
