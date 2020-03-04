@@ -19,6 +19,7 @@ setup(
   url = 'https://github.com/tadorfer/ProtClass',   
   download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.0-alpha.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
+  setup_requires = ['wheel'],
   install_requires=[            
           'numpy',
           'pandas',
