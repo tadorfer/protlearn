@@ -4,7 +4,7 @@ import pandas as pd
 def test_encoding_string(padding=True):
 
     # data
-    X = pd.DataFrame(['A', 'C', 'M', 'P'], ['D', 'S', 'V'])
+    X = pd.DataFrame([['ACMP'], ['DSV']], columns=['Sequence'])
 
     # list of amino acids for integer encoding
     amino_acids = ['A','C','D','E','F','G','H','I','K','L',
