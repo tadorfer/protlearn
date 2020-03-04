@@ -29,7 +29,7 @@ $ pip install protclass
 
 ## Documentation
 
-Currently, protclass is comprised of two preprocessing functions and four 
+Currently, protclass is comprised of two preprocessing functions and five 
 feature engineering functions.
 
 ### Preprocessing
@@ -72,6 +72,7 @@ enc = integer_encode(data_df, padding=False)
 - <i>length</i>
 - <i>composition</i>
 - <i>aaindex1</i>
+- <i>aaindex2</i>
 - <i>aaindex3</i>
 
 #### length
@@ -97,16 +98,25 @@ comp = composition(data_df, method='relative', round_fraction=3)
 #### aaindex1
 
 This function computes the physicochemical properties of each amino acid 
-comprising the sequence and returns the mean for each amino acid index.
+comprising the sequence and returns the mean each amino acid index per
+sequence.
 
 ```
 aand1 = aaindex1(data_df, standardize='none')
 ```
 
+#### aaindex2
+
+This function computes the substitution matrices of all amino acids of a 
+sequence and returns the mean of all substitution scores per sequence.
+
+```
+aaind2 = aaindex2(data_df, standardize='none')
+
 #### aaindex3
 
 This function computes the pairwise contact potentials between all amino acids
-of a sequence and returns the mean value of each index.
+of a sequence and returns the mean of all contact potentials per sequence.
 
 ``` 
 aaind3 = aaindex3(data_df, standardize='none')
