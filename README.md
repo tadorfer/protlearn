@@ -113,6 +113,7 @@ sequence and returns the mean of all substitution scores per sequence.
 
 ```
 aaind2 = aaindex2(data_df, standardize='none')
+```
 
 #### aaindex3
 
