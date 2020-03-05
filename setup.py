@@ -9,7 +9,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
   name = 'protclass',       
-  packages = ['protclass'],   
+  packages = find_packages(), #['protclass'],   
   version = '1.2',      
   license='MIT',        
   description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
