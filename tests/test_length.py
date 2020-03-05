@@ -11,7 +11,7 @@ def test_lengths():
     "Test sequence lengths"
     
     # load data
-    df = txt_to_df('docs/test_seq.txt', 0)
+    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
     
     # test integer lengths
     len_int = length(df, 'int')

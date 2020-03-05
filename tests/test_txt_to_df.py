@@ -9,7 +9,7 @@ def test_conversion():
     "Test txt_to_df conversion"
     
     # load data
-    df = txt_to_df('docs/test_seq.txt', 0)
+    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
     
     # test labels and df shape
     assert df.columns[0] == 'Sequence'
