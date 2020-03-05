@@ -1,5 +1,7 @@
+import os
 import sys
-path = "/home/travis/build/tadorfer/ProtClass"
+path = os.environ.get('TRAVIS_BUILD_DIR')
+#path = "/home/travis/build/tadorfer/ProtClass"
 sys.path.insert(0, path+'/protclass')
 import numpy as np
 
