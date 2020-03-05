@@ -11,7 +11,7 @@ def test_composition():
     "Test sequence compositions"
     
     # load data
-    df = txt_to_df('docs/test_seq.txt', 0)
+    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
     
     # test relative composition
     comp_rel = composition(df, 'relative')
