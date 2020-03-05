@@ -3,6 +3,9 @@
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+import pkg_resources
+
+PATH = pkg_resources.resource_filename('protclass', 'docs/')
 
 def length(X, method='int'):
     """Compute the length of proteins or peptides.
@@ -155,7 +158,7 @@ def aaindex1(X, standardize='none'):
     """
     
     # load AAIndex1 data
-    aaind1 = pd.read_csv('docs/aaindex1.csv')
+    aaind1 = pd.read_csv(PATH+'aaindex1.csv')
 
     # get descriptions of all 566 indices
     desc = aaind1['Description'].values
@@ -246,8 +249,8 @@ def aaindex2(X, standardize='none'):
     """
     
     # load AAIndex2 data
-    raw_lt = pd.read_csv('docs/aaindex2_lowtri.csv')
-    raw_sq = pd.read_csv('docs/aaindex2_square.csv')
+    raw_lt = pd.read_csv(PATH+'aaindex2_lowtri.csv')
+    raw_sq = pd.read_csv(PATH+'aaindex2_square.csv')
 
     def compute_aaind2(index, shape):
         "Compute AAIndex2 for all shapes"
@@ -364,8 +367,8 @@ def aaindex3(X, standardize='none'):
     """
     
     # load AAIndex3 data
-    raw_lt = pd.read_csv('docs/aaindex3_lowtri.csv')
-    raw_sq = pd.read_csv('docs/aaindex3_square.csv')
+    raw_lt = pd.read_csv(PATH+'aaindex3_lowtri.csv')
+    raw_sq = pd.read_csv(PATH+'aaindex3_square.csv')
 
     def compute_aaind3(index, shape):
         "Compute AAIndex3 for all shapes"
