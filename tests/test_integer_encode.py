@@ -1,7 +1,7 @@
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.getcwd())+'/ProtClass/protclass')
-print(sys.path)
+path = os.environ.get('TRAVIS_BUILD_DIR')
+sys.path.insert(0, path+'/protclass')
 import numpy as np
 
 from preprocessing import txt_to_df
@@ -12,7 +12,7 @@ def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
+    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
     enc, labels = integer_encode(df)
     
     # test array shape and type

@@ -1,6 +1,7 @@
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.getcwd())+'/ProtClass/protclass')
+path = os.environ.get('TRAVIS_BUILD_DIR')
+sys.path.insert(0, path+'/protclass')
 
 from preprocessing import txt_to_df
 
@@ -9,7 +10,7 @@ def test_conversion():
     "Test txt_to_df conversion"
     
     # load data
-    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
+    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
     
     # test labels and df shape
     assert df.columns[0] == 'Sequence'

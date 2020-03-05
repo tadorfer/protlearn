@@ -1,11 +1,10 @@
 import os
 import sys
 path = os.environ.get('TRAVIS_BUILD_DIR')
-#path = "/home/travis/build/tadorfer/ProtClass"
 sys.path.insert(0, path+'/protclass')
 import numpy as np
 
-from preprocessing import txt_to_df, integer_encode
+from preprocessing import txt_to_df
 from feature_engineering import length
 
 
@@ -13,7 +12,7 @@ def test_lengths():
     "Test sequence lengths"
     
     # load data
-    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
+    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
     
     # test integer lengths
     len_int = length(df, 'int')
