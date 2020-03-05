@@ -1,0 +1,8 @@
+# pyache & ipynb checkpoints
+__pycache__/
+.ipynb_checkpoints/
+
+# package-associated
+build/
+dist/
+protclass.egg-info
