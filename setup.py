@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from os import path
 from io import open
 
@@ -21,7 +21,9 @@ setup(
   download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.4.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   setup_requires = ['wheel'],
-  include_package_data=True,
+  package_data={
+                "protclass": ["docs/*.csv"]
+                },
   install_requires=[            
           'numpy',
           'pandas',
