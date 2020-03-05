@@ -1,6 +1,6 @@
-import os
 import sys
-sys.path.insert(0, os.path.dirname(os.getcwd())+'/ProtClass/protclass')
+path = "/home/travis/build/tadorfer/ProtClass"
+sys.path.insert(0, path+'/protclass')
 import numpy as np
 
 from preprocessing import txt_to_df, integer_encode
