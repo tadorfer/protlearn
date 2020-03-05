@@ -1,6 +1,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.dirname(os.getcwd())+'/protclass')
+print(sys.path)
 import numpy as np
 
 from preprocessing import txt_to_df
