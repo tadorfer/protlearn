@@ -11,14 +11,14 @@ def test_lengths():
     "Test sequence lengths"
     
     # load data
-    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
+    df = txt_to_df('docs/test_seq.txt', 0)
     
     # test integer lengths
     len_int = length(df, 'int')
-    assert np.array_equal(len_int, np.array([[1., 0., 0.],
-                                             [0., 0., 1.],
-                                             [0., 1., 0.]]))
+    assert np.array_equal(len_int, np.array([6, 9, 7]))
     
     # test one-hot-encoded lengths
     len_ohe = length(df, 'ohe')
-    assert np.array_equal(len_ohe, np.array([6, 9, 7]))
+    assert np.array_equal(len_ohe, np.array([[1., 0., 0.],
+                                             [0., 0., 1.],
+                                             [0., 1., 0.]]))
