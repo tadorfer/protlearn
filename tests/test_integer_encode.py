@@ -12,7 +12,7 @@ def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    df = txt_to_df('docs/test_seq.txt', 0)
+    df = txt_to_df('/home/travis/build/tadorfer/ProtClass/tests/docs/test_seq.txt', 0)
     enc, labels = integer_encode(df)
     
     # test array shape and type
