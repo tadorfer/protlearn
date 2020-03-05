@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.getcwd())+'/protclass')
+sys.path.insert(0, os.path.dirname(os.getcwd())+'/ProtClass/protclass')
 print(sys.path)
 import numpy as np
 
