@@ -11,7 +11,7 @@ setup(
   name = 'protclass',       
   packages = ['protclass'], 
   package_data={'protclass': ['docs/*.csv']},  
-  version = '1.6',      
+  version = '1.0',      
   license='MIT',        
   description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtClass',   
-  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.6.tar.gz',  
+  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.0.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   setup_requires = ['wheel'],
   install_requires=[            
@@ -29,7 +29,7 @@ setup(
           'scikit-learn'
       ],
   classifiers=[
-    'Development Status :: 3 - Alpha',      
+    'Development Status :: 4 - Beta',      
     'Intended Audience :: Science/Research',      # Define that your audience are developers
     'Topic :: Software Development :: Build Tools',
     'License :: OSI Approved :: MIT License',   # Again, pick a license
