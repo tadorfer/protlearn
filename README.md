@@ -19,6 +19,7 @@ Thomas Dorfer.
 - NumPy 
 - Pandas 
 - scikil-learn
+- Cython
 
 ### User Installation
 
