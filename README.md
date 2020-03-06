@@ -122,3 +122,7 @@ of a sequence and returns the mean of all contact potentials per sequence.
 ``` 
 aaind3 = aaindex3(data_df, standardize='none')
 ```
+
+<br>
+Additional features such as di- and tripeptide compositions will be added to 
+this package soon.
