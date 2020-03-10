@@ -21,7 +21,7 @@ def test_conversion():
     assert df['Sequence'][0] == 'AGTYLK'
     assert df['Sequence'][1] == 'VCIMMMPFP'
     assert df['Sequence'][2] == 'LRSAHHN'
-    assert df['Sequence'][2] == 'AQEEWD'
+    assert df['Sequence'][3] == 'AQEEWD'
     
     # test labels
     for i in range(df.shape[0]):

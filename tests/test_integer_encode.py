@@ -23,7 +23,7 @@ def test_integer_encode():
     assert np.array_equal(enc[0], np.array([1, 6, 17, 20, 10, 9]))
     assert np.array_equal(enc[1], np.array([18, 2, 8, 11, 11, 11, 13, 5, 13]))
     assert np.array_equal(enc[2], np.array([10, 15, 16, 1, 7, 7, 12]))
-    assert np.array_equal(enc[2], np.array([1, 14, 4, 4, 19, 3]))
+    assert np.array_equal(enc[3], np.array([1, 14, 4, 4, 19, 3]))
     
     # test labels
     assert len(labels) == 4
