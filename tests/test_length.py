@@ -16,10 +16,12 @@ def test_lengths():
     
     # test integer lengths
     len_int = length(df, 'int')
-    assert np.array_equal(len_int, np.array([6, 9, 7]))
+    assert np.array_equal(len_int, np.array([6, 9, 7, 6]))
     
     # test one-hot-encoded lengths
     len_ohe = length(df, 'ohe')
+    # columns: [6, 7, 9]
     assert np.array_equal(len_ohe, np.array([[1., 0., 0.],
                                              [0., 0., 1.],
-                                             [0., 1., 0.]]))
+                                             [0., 1., 0.],
+                                             [1., 0., 0.]]))

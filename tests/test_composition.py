@@ -32,6 +32,6 @@ def test_composition():
     comp_abs = composition(df, 'absolute')
     
     # test if frequences == sequence length
-    all_lengths = [6, 9, 7]
+    all_lengths = [6, 9, 7, 6]
     for i in range(df.shape[0]):
         assert comp_abs.iloc[i,:].sum() == all_lengths[i]

@@ -15,12 +15,13 @@ def test_conversion():
     # test labels and df shape
     assert df.columns[0] == 'Sequence'
     assert df.columns[1] == 'Label'
-    assert df.shape == (3, 2)
+    assert df.shape == (4, 2)
     
     # test sequences
     assert df['Sequence'][0] == 'AGTYLK'
-    assert df['Sequence'][1] == 'VTAYKLLLF'
-    assert df['Sequence'][2] == 'ARALTYI'
+    assert df['Sequence'][1] == 'VCIMMMPFP'
+    assert df['Sequence'][2] == 'LRSAHHN'
+    assert df['Sequence'][2] == 'AQEEWD'
     
     # test labels
     for i in range(df.shape[0]):
