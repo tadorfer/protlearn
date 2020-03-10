@@ -3,6 +3,7 @@
 import numpy as np
 import pandas as pd
 
+
 def txt_to_df(X, label):
     """Convert .txt file containing peptide sequences into Pandas DataFrame 
 

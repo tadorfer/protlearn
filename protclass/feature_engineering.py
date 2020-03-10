@@ -5,6 +5,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pkg_resources
 
+
 PATH = pkg_resources.resource_filename('protclass', 'docs/')
 
 def length(X, method='int'):
