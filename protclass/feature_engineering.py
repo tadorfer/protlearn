@@ -183,11 +183,23 @@ def aaindex1(X, standardize='none'):
         return pd.DataFrame(aaind_arr, columns=desc)
 
     else:
-        # finding and removing columns with n_aa1_indices
+        # finding and removing columns with NaNs and all zeros
         inds_nan = np.argwhere(np.isnan(aaind_arr))
-        cols_nan = np.unique(inds_nan[:,1])
-        aaind_arr = np.delete(aaind_arr, cols_nan, axis=1)
-        desc = np.delete(desc, cols_nan)
+        if len(inds_nan) != 0:
+            cols_nan = np.unique(inds_nan[:,1])
+            cols_nan = np.hstack(cols_nan)
+
+        cols_zeros = np.argwhere(np.all(aaind_arr == 0, axis=0))
+        if len(cols_zeros) != 0:
+            cols_zeros = np.hstack(cols_zeros)
+            cols_all = np.array((cols_nan, cols_zeros))
+            cols_all = np.hstack(cols_all)
+        else:
+            cols_all = cols_nan
+
+        if len(cols_all) != 0:
+            aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
+            desc = np.delete(desc, cols_all)
 
         # standardization
         if standardize == 'zscore':
@@ -299,11 +311,16 @@ def aaindex2(X, standardize='none'):
             return pd.DataFrame(arr, columns=desc)
         
         else:
-            # finding and removing columns with n_aa2_indices
+            # finding and removing columns with NaNs and all zeros
             inds_nan = np.argwhere(np.isnan(index))
             cols_nan = np.unique(inds_nan[:,1])
-            index = np.delete(index, cols_nan, axis=1)
-            desc = np.delete(desc, cols_nan)
+            cols_nan = np.hstack(cols_nan)
+            cols_zeros = np.argwhere(np.all(index == 0, axis=0))
+            cols_zeros = np.hstack(cols_zeros)
+            cols_all = np.array((cols_nan, cols_zeros))
+            cols_all = np.hstack(cols_all)
+            index = np.delete(index, cols_all, axis=1)
+            desc = np.delete(desc, cols_all)
             
             # standardization
             if standardize == 'zscore':
@@ -417,11 +434,16 @@ def aaindex3(X, standardize='none'):
             return pd.DataFrame(arr, columns=desc)
         
         else:
-            # finding and removing columns with n_aa3_indices
+            # finding and removing columns with NaNs and all zeros
             inds_nan = np.argwhere(np.isnan(index))
             cols_nan = np.unique(inds_nan[:,1])
-            index = np.delete(index, cols_nan, axis=1)
-            desc = np.delete(desc, cols_nan)
+            cols_nan = np.hstack(cols_nan)
+            cols_zeros = np.argwhere(np.all(index == 0, axis=0))
+            cols_zeros = np.hstack(cols_zeros)
+            cols_all = np.array((cols_nan, cols_zeros))
+            cols_all = np.hstack(cols_all)
+            index = np.delete(index, cols_all, axis=1)
+            desc = np.delete(desc, cols_all)
             
             # standardization
             if standardize == 'zscore':
