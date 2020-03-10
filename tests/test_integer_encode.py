@@ -36,4 +36,4 @@ def test_integer_encode():
     assert enc.shape == (4, 9)
     assert [enc[0][i] == 0 for i in [6, 7, 8]]
     assert [enc[2][i] == 0 for i in [7, 8]]
-    assert [enc[4][i] == 0 for i in [6, 7, 8]]
+    assert [enc[3][i] == 0 for i in [6, 7, 8]]
