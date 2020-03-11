@@ -185,6 +185,7 @@ def aaindex1(X, standardize='none'):
 
     else:
         # finding and removing columns with NaNs and all zeros
+        cols_all = []
         inds_nan = np.argwhere(np.isnan(aaind_arr))
         if len(inds_nan) != 0:
             cols_nan = np.unique(inds_nan[:,1])
@@ -204,7 +205,7 @@ def aaindex1(X, standardize='none'):
         elif len(inds_nan) == 0 and len(cols_zeros) != 0:
             cols_all = cols_zeros
 
-        if cols_all:
+        if len(cols_all) > 0:
             aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
             desc = np.delete(desc, cols_all)
 
@@ -319,6 +320,7 @@ def aaindex2(X, standardize='none'):
         
         else:
             # finding and removing columns with NaNs and all zeros
+            cols_all = []
             inds_nan = np.argwhere(np.isnan(arr))
             if len(inds_nan) != 0:
                 cols_nan = np.unique(inds_nan[:,1])
@@ -338,7 +340,7 @@ def aaindex2(X, standardize='none'):
             elif len(inds_nan) == 0 and len(cols_zeros) != 0:
                 cols_all = cols_zeros
 
-            if cols_all:
+            if len(cols_all) > 0:
                 aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
                 desc = np.delete(desc, cols_all)
             
@@ -455,6 +457,7 @@ def aaindex3(X, standardize='none'):
         
         else:
             # finding and removing columns with NaNs and all zeros
+            cols_all = []
             inds_nan = np.argwhere(np.isnan(arr))
             if len(inds_nan) != 0:
                 cols_nan = np.unique(inds_nan[:,1])
@@ -474,7 +477,7 @@ def aaindex3(X, standardize='none'):
             elif len(inds_nan) == 0 and len(cols_zeros) != 0:
                 cols_all = cols_zeros
 
-            if cols_all:
+            if len(cols_all) > 0:
                 aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
                 desc = np.delete(desc, cols_all)
             
