@@ -12,7 +12,7 @@ def test_aaindex2():
     "Test AAIndex2"
     
     # load data
-    df = txt_to_df('docs/test_seq.txt', 0)
+    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
     
     # get aaindex2
     aaind2 = aaindex2(df)
