@@ -341,7 +341,7 @@ def aaindex2(X, standardize='none'):
                 cols_all = cols_zeros
 
             if len(cols_all) > 0:
-                aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
+                arr = np.delete(arr, cols_all, axis=1)
                 desc = np.delete(desc, cols_all)
             
             # standardization
@@ -478,7 +478,7 @@ def aaindex3(X, standardize='none'):
                 cols_all = cols_zeros
 
             if len(cols_all) > 0:
-                aaind_arr = np.delete(aaind_arr, cols_all, axis=1)
+                arr = np.delete(arr, cols_all, axis=1)
                 desc = np.delete(desc, cols_all)
             
             # standardization
