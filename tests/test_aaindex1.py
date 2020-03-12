@@ -24,12 +24,12 @@ def test_aaindex1():
     ANDN920101 = np.array([4.3, 4.40555, 4.48714, 4.46])
     QIAN880126 = np.array([.01166, -.17111, .05857, -.04333])
     KARS160122 = np.array([2.014, 5.48522, 2.789, 1.751])
-    assert np.array_equal(np.round(aaind1['ANDN920101'], 3),\
-                          np.round(ANDN920101, 3))
-    assert np.array_equal(np.round(aaind1['QIAN880126'], 3),\
-                          np.round(QIAN880126, 3))
-    assert np.array_equal(np.round(aaind1['KARS160122'], 3),\
-                          np.round(KARS160122, 3))
+    np.testing.assert_equal(np.round(aaind1['ANDN920101'], 3),\
+                            np.round(ANDN920101, 3))
+    np.testing.assert_equal(np.round(aaind1['QIAN880126'], 3),\
+                            np.round(QIAN880126, 3))
+    np.testing.assert_equal(np.round(aaind1['KARS160122'], 3),\
+                            np.round(KARS160122, 3))
     
     # test standardization (zscore)
     aaind1_z = aaindex1(df, 'zscore')

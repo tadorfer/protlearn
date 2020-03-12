@@ -24,23 +24,23 @@ def test_aaindex2():
     ALTS910101 = np.array([-2, -.125, .333, -2])
     VOGG950101 = np.array([4.28, 5.2, 6.05, 4.32])
     CROG050101 = np.array([-1.8, .625, .5, -.4])
-    assert np.array_equal(np.round(aaind2['ALTS910101'], 3),\
-                          np.round(ALTS910101, 3))
-    assert np.array_equal(np.round(aaind2['VOGG950101'], 3),\
-                          np.round(VOGG950101, 3))
-    assert np.array_equal(np.round(aaind2['CROG050101'], 3),\
-                          np.round(CROG050101, 3))
+    np.testing.assert_equal(np.round(aaind2['ALTS910101'], 3),\
+                            np.round(ALTS910101, 3))
+    np.testing.assert_equal(np.round(aaind2['VOGG950101'], 3),\
+                            np.round(VOGG950101, 3))
+    np.testing.assert_equal(np.round(aaind2['CROG050101'], 3),\
+                            np.round(CROG050101, 3))
     
     # test some square indices
     LINK010101 = np.array([.0266, .0955, .13, .1276])
     KOSJ950108 = np.array([1.62, 18.0875, 16.05, 14.68])
     DOSZ010101 = np.array([1.32, 15.7625, -1.1833, -5.12])
-    assert np.array_equal(np.round(aaind2['LINK010101'], 3),\
-                          np.round(LINK010101, 3))
-    assert np.array_equal(np.round(aaind2['KOSJ950108'], 3),\
-                          np.round(KOSJ950108, 3))
-    assert np.array_equal(np.round(aaind2['DOSZ010101'], 3),\
-                          np.round(DOSZ010101, 3))
+    np.testing.assert_equal(np.round(aaind2['LINK010101'], 3),\
+                            np.round(LINK010101, 3))
+    np.testing.assert_equal(np.round(aaind2['KOSJ950108'], 3),\
+                            np.round(KOSJ950108, 3))
+    np.testing.assert_equal(np.round(aaind2['DOSZ010101'], 3),\
+                            np.round(DOSZ010101, 3))
     
     # test standardization (zscore)
     aaind2_z = aaindex2(df, 'zscore')
