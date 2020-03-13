@@ -11,7 +11,7 @@ setup(
   name = 'protclass',       
   packages = ['protclass'], 
   package_data={'protclass': ['docs/*.csv']},  
-  version = '1.10',      
+  version = '1.11',      
   license='MIT',        
   description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtClass',   
-  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.10.tar.gz',  
+  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.11.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   setup_requires = ['wheel'],
   install_requires=[            
