@@ -49,7 +49,7 @@ containing their corresponding class ['Label'] (this could correspond to the
 protein family the sequence belongs, or whether a peptide is immunogenic or
 not, etc.).
 
-```
+```python
 data_df = txt_to_df(raw_txt_file, integer_label)
 ```
 
@@ -64,7 +64,7 @@ integer values between 1-20. Zero, in this case, is reserved for padding these
 sequences at the end to make them conform to a universal length (i.e. the 
 length of the longest sequence in the dataset).
 
-```
+```python
 enc = integer_encode(data_df, padding=False)
 ```
 
@@ -83,7 +83,7 @@ sequences. The method can also be set to 'ohe', short for one-hot-encoding,
 which leads to the generation of an array with n rows and the number of columns
 corresponding to the longest sequence.
 
-```
+```python
 lengths = length(data_df, method='int')
 ```
 
@@ -92,7 +92,7 @@ lengths = length(data_df, method='int')
 This function returns an array of shape (n, 20) containing the absolute or
 relative frequencies of each amino acid that the sequence is comprised of.
 
-```
+```python
 comp = composition(data_df, method='relative', round_fraction=3)
 ```
 
@@ -102,7 +102,7 @@ This function computes the physicochemical properties of each amino acid
 comprising the sequence and returns the mean each amino acid index per
 sequence.
 
-```
+```python
 aand1 = aaindex1(data_df, standardize='none')
 ```
 
@@ -111,7 +111,7 @@ aand1 = aaindex1(data_df, standardize='none')
 This function computes the substitution matrices of all amino acids of a 
 sequence and returns the mean of all substitution scores per sequence.
 
-```
+```python
 aaind2 = aaindex2(data_df, standardize='none')
 ```
 
@@ -120,10 +120,14 @@ aaind2 = aaindex2(data_df, standardize='none')
 This function computes the pairwise contact potentials between all amino acids
 of a sequence and returns the mean of all contact potentials per sequence.
 
-``` 
+```python
 aaind3 = aaindex3(data_df, standardize='none')
 ```
 
-<br>
-Additional features such as di- and tripeptide compositions will be added to 
-this package soon.
+## Authors
+
+This package is maintained by [Thomas Dorfer](https://github.com/tadorfer)
+
+## License
+
+This package is licensed under the [MIT License](https://github.com/tadorfer/ProtClass/blob/master/LICENSE).
