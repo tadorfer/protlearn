@@ -25,7 +25,6 @@ setup(
   install_requires=[            
           'numpy',
           'pandas',
-          'cython',
           'scikit-learn'
       ],
   classifiers=[
