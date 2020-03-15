@@ -2,6 +2,7 @@
 [![PyPI](https://img.shields.io/pypi/v/ProtClass)](https://pypi.org/project/protclass/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtClass)](https://img.shields.io/pypi/pyversions/ProtClass)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/protclass)](https://pypistats.org/packages/protclass)
 
 # protclass
 
