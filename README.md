@@ -55,7 +55,7 @@ df = txt_to_df(test_seq.txt, label=1)
 ```
 
 <p align="center">
-  <img src="dems/txt_to_df.png" height="220" width="500">
+  <img src="dems/txttodf.png" height="270" width="550">
 </p>
 
 #### integer_encoding
