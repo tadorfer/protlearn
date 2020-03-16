@@ -32,10 +32,19 @@ $ pip install protlearn
 Currently, protlearn is comprised of two preprocessing functions and six 
 feature engineering functions.
 
-### Preprocessing
+* [Preprocessing](#preprocessing)
+    - [txt_to_df](#txt_to_df)
+    - [integer_encode](#integer_encode)
+* [Feature Engineering](#feature-engineering)
+    - [length](#length)
+    - [composition](#composition)
+    - [aaindex1](#aaindex1)
+    - [aaindex2](#aaindex2)
+    - [aaindex3](#aaindex3)
+    - [ngram_composition](#ngram_composition)
 
-- <i>txt_to_df</i>
-- <i>integer_encoding</i>
+
+### Preprocessing
 
 #### txt_to_df
 
@@ -58,7 +67,7 @@ df = txt_to_df(test_seq.txt, label=1)
   <img src="dems/txttodf.png" height="300" width="610">
 </p>
 
-#### integer_encoding
+#### integer_encode
 
 Machine learning algorithms can only handle numerical inputs. Therefore, the 
 amino acid sequences need to be converted into numerical information, which is
@@ -80,13 +89,6 @@ enc = integer_encode(df, padding=True)
 </p>
 
 ### Feature engineering
-
-- <i>length</i>
-- <i>composition</i>
-- <i>aaindex1</i>
-- <i>aaindex2</i>
-- <i>aaindex3</i>
-- <i>ngram_composition</i>
 
 #### length
 
