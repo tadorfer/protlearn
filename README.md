@@ -60,11 +60,11 @@ not, etc.).
 <b>Example:</b>
 
 ```python
-df = txt_to_df(test_seq.txt, label=1)
+df = txt_to_df(test_seq.txt)
 ```
 
 <p align="center">
-  <img src="dems/txttodf.png" height="300" width="610">
+  <img src="dems/text_to_df.png" height="260" width="460">
 </p>
 
 #### integer_encode
