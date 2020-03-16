@@ -1,12 +1,12 @@
-[![Travis (.org)](https://img.shields.io/travis/tadorfer/ProtClass)](https://travis-ci.org/tadorfer/ProtClass)
-[![PyPI](https://img.shields.io/pypi/v/ProtClass)](https://pypi.org/project/protclass/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtClass)](https://img.shields.io/pypi/pyversions/ProtClass)
+[![Travis (.org)](https://img.shields.io/travis/tadorfer/ProtLearn)](https://travis-ci.org/tadorfer/ProtLearn)
+[![PyPI](https://img.shields.io/pypi/v/ProtLearn)](https://pypi.org/project/protlearn/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtLearn)](https://img.shields.io/pypi/pyversions/ProtLearn)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-[![PyPI - Downloads](https://img.shields.io/pypi/dm/protclass)](https://pypistats.org/packages/protclass)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/protlearn)](https://pypistats.org/packages/protlearn)
 
-# protclass
+# protlearn
 
-protclass is a Python module for preprocessing amino acid sequences (i.e. 
+protlearn is a Python module for preprocessing amino acid sequences (i.e. 
 proteins and peptides) and subsequent feature engineering, both of which are
 crucial steps to take prior to classification or regression problems.
 
@@ -20,17 +20,16 @@ Thomas Dorfer.
 - NumPy 
 - Pandas 
 - scikit-learn
-- Cython
 
 ### User Installation
 
 ```
-$ pip install protclass
+$ pip install protlearn
 ```
 
 ## Documentation
 
-Currently, protclass is comprised of two preprocessing functions and five 
+Currently, protlearn is comprised of two preprocessing functions and six 
 feature engineering functions.
 
 ### Preprocessing
@@ -49,9 +48,15 @@ containing their corresponding class ['Label'] (this could correspond to the
 protein family the sequence belongs, or whether a peptide is immunogenic or
 not, etc.).
 
+<b>Example:</b>
+
 ```python
-data_df = txt_to_df(raw_txt_file, integer_label)
+df = txt_to_df(test_seq.txt, label=1)
 ```
+
+<p align="center">
+  <img src="dems/txt_to_df.png" height="220" width="500">
+</p>
 
 #### integer_encoding
 
@@ -64,9 +69,15 @@ integer values between 1-20. Zero, in this case, is reserved for padding these
 sequences at the end to make them conform to a universal length (i.e. the 
 length of the longest sequence in the dataset).
 
+<b>Example:</b>
+
 ```python
-enc = integer_encode(data_df, padding=False)
+enc = integer_encode(df, padding=True)
 ```
+
+<p align="center">
+  <img src="dems/integer_encode.png" height="220" width="580">
+</p>
 
 ### Feature engineering
 
@@ -75,6 +86,7 @@ enc = integer_encode(data_df, padding=False)
 - <i>aaindex1</i>
 - <i>aaindex2</i>
 - <i>aaindex3</i>
+- <i>ngram_composition</i>
 
 #### length
 
@@ -83,46 +95,91 @@ sequences. The method can also be set to 'ohe', short for one-hot-encoding,
 which leads to the generation of an array with n rows and the number of columns
 corresponding to the longest sequence.
 
+<b>Example:</b>
+
 ```python
-lengths = length(data_df, method='int')
+lengths = length(df)
 ```
+
+<p align="center">
+  <img src="dems/length.png" height="300" width="460">
+</p>
 
 #### composition
 
 This function returns an array of shape (n, 20) containing the absolute or
 relative frequencies of each amino acid that the sequence is comprised of.
 
+<b>Example:</b>
+
 ```python
-comp = composition(data_df, method='relative', round_fraction=3)
+comp = composition(df, method='absolute')
 ```
+
+<p align="center">
+  <img src="dems/composition.png" height="250" width="590">
+</p>
 
 #### aaindex1
 
 This function computes the physicochemical properties of each amino acid 
-comprising the sequence and returns the mean each amino acid index per
+comprising the sequence and returns the mean of each amino acid index per
 sequence.
 
+<b>Example:</b>
+
 ```python
-aand1 = aaindex1(data_df, standardize='none')
+aand1 = aaindex1(df, standardize='none')
 ```
+
+<p align="center">
+  <img src="dems/aaindex1.png" height="250" width="760">
+</p>
 
 #### aaindex2
 
 This function computes the substitution matrices of all amino acids of a 
 sequence and returns the mean of all substitution scores per sequence.
 
+<b>Example:</b>
+
 ```python
-aaind2 = aaindex2(data_df, standardize='none')
+aaind2 = aaindex2(df, standardize='none')
 ```
+
+<p align="center">
+  <img src="dems/aaindex2.png" height="420" width="760">
+</p>
 
 #### aaindex3
 
 This function computes the pairwise contact potentials between all amino acids
 of a sequence and returns the mean of all contact potentials per sequence.
 
+<b>Example:</b>
+
 ```python
-aaind3 = aaindex3(data_df, standardize='none')
+aaind3 = aaindex3(df, standardize='none')
 ```
+
+<p align="center">
+  <img src="dems/aaindex3.png" height="420" width="760">
+</p>
+
+#### ngram_composition
+
+This function computes the di-, tri-, or quadpeptide composition of any given
+amino acid sequence.
+
+<b>Example:</b>
+
+```python
+ngram = ngram_composition(df)
+```
+
+<p align="center">
+  <img src="dems/ngram.png" height="350" width="450">
+</p>
 
 ## Authors
 
@@ -130,4 +187,4 @@ This package is maintained by [Thomas Dorfer](https://github.com/tadorfer)
 
 ## License
 
-This package is licensed under the [MIT License](https://github.com/tadorfer/ProtClass/blob/master/LICENSE).
+This package is licensed under the [MIT License](https://github.com/tadorfer/ProtLearn/blob/master/LICENSE).
