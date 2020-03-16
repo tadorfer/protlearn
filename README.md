@@ -55,7 +55,7 @@ df = txt_to_df(test_seq.txt, label=1)
 ```
 
 <p align="center">
-  <img src="dems/txttodf.png" height="300" width="580">
+  <img src="dems/txttodf.png" height="300" width="610">
 </p>
 
 #### integer_encoding
@@ -76,7 +76,7 @@ enc = integer_encode(df, padding=True)
 ```
 
 <p align="center">
-  <img src="dems/integer_encode.png" height="220" width="580">
+  <img src="dems/integer_encode.png" height="220" width="560">
 </p>
 
 ### Feature engineering
