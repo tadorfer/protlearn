@@ -156,13 +156,13 @@ def aaindex1(X, standardize='none'):
     Returns
     -------
 
-    arr_index1 : ndarray of shape (n_samples, 553) 
+    arr_index1 : ndarray of shape (n_samples, 553-566) 
 
     Notes
     -----
 
     Columns (indices) containing NaNs will be removed. Thus, the resulting index
-    matrix will have a column size of 553, rather than 566.
+    matrix will have a column size of 553-566.
 
     The returned dataframe 'arr_index1' can easily be converted into a numpy 
     array with the command 'np.asarray(arr_index1)', if desired.
