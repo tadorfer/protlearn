@@ -18,7 +18,7 @@ def test_aaindex3():
     aaind3 = aaindex3(df)
     
     # test shape
-    assert aaind3.shape == (4, 47)
+    assert aaind3.shape == (4, 43)
     
     # test some triangular indices
     TANS760101 = np.array([-4.72, -5.975, -4.18333, -4.04])

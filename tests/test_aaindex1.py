@@ -18,7 +18,7 @@ def test_aaindex1():
     aaind1 = aaindex1(df)
     
     # test shape
-    assert aaind1.shape == (4, 566)
+    assert aaind1.shape == (4, 553)
     
     # test some indices
     ANDN920101 = np.array([4.3, 4.40555, 4.48714, 4.46])
