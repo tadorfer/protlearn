@@ -6,12 +6,9 @@
 
 # protlearn
 
-protlearn is a Python module for preprocessing amino acid sequences (i.e. 
-proteins and peptides) and subsequent feature engineering, both of which are
-crucial steps to take prior to classification or regression problems.
-
-The module is distributed under the MIT license and is being maintained by
-Thomas Dorfer.
+protlearn is a Python package for preprocessing amino acid sequences (i.e. 
+proteins and peptides) and subsequent feature engineering. Its functions are
+particularly suited for the preparation of classification and regression tasks.
 
 ## Installation
 
@@ -29,9 +26,6 @@ $ pip install protlearn
 
 ## Documentation
 
-Currently, protlearn is comprised of two preprocessing functions and six 
-feature engineering functions.
-
 * [Preprocessing](#preprocessing)
     - [txt_to_df](#txt_to_df)
     - [integer_encode](#integer_encode)
@@ -46,20 +40,21 @@ feature engineering functions.
 
 ### Preprocessing
 
-#### txt_to_df
+#### `txt_to_df`
 
-When working with protein or peptide sequences, the data almost always comes in
-form of raw .txt files containing these sequences (typically one per row). 
+This function converts sequences from a raw `.txt file` into a Python-friendly 
+Pandas DataFrame with the column name 'Sequence'. For classification tasks, it
+provides the option of including an additional class column with the name 
+'Label' by passing an integer value (denoting the class) to the function 
+argument `label`. 
 
-This function converts these sequences into a Python-friendly Pandas DataFrame
-with one column containing the sequences ['Sequence'] and a second column 
-containing their corresponding class ['Label'] (this could correspond to the
-protein family the sequence belongs, or whether a peptide is immunogenic or
-not, etc.).
+<br>
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df
+
 df = txt_to_df(test_seq.txt)
 ```
 
@@ -67,20 +62,29 @@ df = txt_to_df(test_seq.txt)
   <img src="dems/text_to_df.png" height="260" width="460">
 </p>
 
-#### integer_encode
+For more information --> `help(txt_to_df`)
 
-Machine learning algorithms can only handle numerical inputs. Therefore, the 
-amino acid sequences need to be converted into numerical information, which is
-achieved in the form of integers. 
+<br>
 
-This function converts amino acids of proteins or peptides into corresponding
-integer values between 1-20. Zero, in this case, is reserved for padding these
-sequences at the end to make them conform to a universal length (i.e. the 
+#### `integer_encode`
+
+This function converts amino acid sequences into corresponding integer values 
+between 1-20. Zero, in this case, is reserved for the optional `padding` of 
+these sequences at the end to make them conform to a universal length (i.e. the 
 length of the longest sequence in the dataset).
+
+The following amino acid order is used for conversion (1-20):
+
+A C D E F G H I K L M N P Q R S T V W Y
+
+<br>
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, integer_encode
+
+df = txt_to_df(test_seq.txt)
 enc = integer_encode(df, padding=True)
 ```
 
@@ -88,18 +92,29 @@ enc = integer_encode(df, padding=True)
   <img src="dems/integer_encode.png" height="220" width="560">
 </p>
 
+If `padding=True`, a numpy array of shape (n_samples, longest_sequence) will be
+returned. Otherwise, a numpy array of shape (n_samples, ) containing each 
+integer-encoded sequence as separate numpy arrays will be returned.
+
+For more information --> `help(integer_encode)`
+
+<br>
+
 ### Feature engineering
 
-#### length
+#### `length`
 
-This function returns an n-dimensional array containing the lengths of all
-sequences. The method can also be set to 'ohe', short for one-hot-encoding,
+This function returns an n-dimensional array containing the length of all
+sequences. The `method` can also be set to 'ohe', short for one-hot-encoding,
 which leads to the generation of an array with n rows and the number of columns
-corresponding to the longest sequence.
+corresponding to the number of unique sequence lengths.
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, length
+
+df = txt_to_df(test_seq.txt)
 lengths = length(df)
 ```
 
@@ -107,14 +122,28 @@ lengths = length(df)
   <img src="dems/length.png" height="300" width="460">
 </p>
 
-#### composition
+This illustration shows that, if `method='ohe'`, the columns correspond to the 
+unique lengths of the sequences (in order). In this case, there is no sequence 
+with length 8, so the columns correspond to sequence lengths 6, 7, and 9. 
 
-This function returns an array of shape (n, 20) containing the absolute or
-relative frequencies of each amino acid that the sequence is comprised of.
+For more information --> `help(length)`
+
+<br>
+
+#### `composition`
+
+This function returns an array of shape (n_samples, n_unique_amino_acids) 
+containing the absolute frequencies of each amino acid that the sequence is 
+comprised of. If `method='relative'`, the absolute count of each amino acid is
+divided by the sequence length and returned as a fraction, whose number of 
+decimals can be chosen with the argument `round_fraction`. 
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, composition
+
+df = txt_to_df(test_seq.txt)
 comp = composition(df, method='absolute')
 ```
 
@@ -122,15 +151,29 @@ comp = composition(df, method='absolute')
   <img src="dems/composition.png" height="250" width="590">
 </p>
 
-#### aaindex1
+This illustration shows the absolute frequency of amino acids of each input
+sequence. If a particular amino acid is not present in any of the input 
+sequences, its column will not be returned to avoid all-zero columns. Therefore,
+the number of columns of the returned dataframe is not always 20, but can vary.
 
-This function computes the physicochemical properties of each amino acid 
-comprising the sequence and returns the mean of each amino acid index per
-sequence.
+For more information --> `help(composition)`
+
+<br>
+
+#### `aaindex1`
+
+This function computes the physicochemical properties of each amino acid in the
+sequence and returns the mean of each index per sequence. Currently, ver.9.2 
+(release Feb, 2017) contains 566 indices. However, due to 13 of these indices
+containing NaNs, the returned dataframe will have a column size of 553. More
+information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, aaindex1
+
+df = txt_to_df(test_seq.txt)
 aand1 = aaindex1(df, standardize='none')
 ```
 
@@ -138,7 +181,15 @@ aand1 = aaindex1(df, standardize='none')
   <img src="dems/aaindex1.png" height="250" width="760">
 </p>
 
-#### aaindex2
+This illustration shows how AAIndex1 is computed, using 'ARN' as a sample 
+sequence. It is highly recommended to pass `standardize=zscore` if the resulting
+dataframe is intended to serve as input to a classifier/regressor.
+
+For more information --> `help(aaindex1)`
+
+<br>
+
+#### `aaindex2`
 
 This function computes the substitution matrices of all amino acids of a 
 sequence and returns the mean of all substitution scores per sequence.
@@ -153,7 +204,7 @@ aaind2 = aaindex2(df, standardize='none')
   <img src="dems/aaindex2.png" height="420" width="760">
 </p>
 
-#### aaindex3
+#### `aaindex3`
 
 This function computes the pairwise contact potentials between all amino acids
 of a sequence and returns the mean of all contact potentials per sequence.
@@ -168,7 +219,7 @@ aaind3 = aaindex3(df, standardize='none')
   <img src="dems/aaindex3.png" height="420" width="760">
 </p>
 
-#### ngram_composition
+#### `ngram_composition`
 
 This function computes the di-, tri-, or quadpeptide composition of any given
 amino acid sequence.
