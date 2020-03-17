@@ -585,6 +585,7 @@ def ngram_composition(X, ngram=2):
                    'M','N','P','Q','R','S','T','V','W','Y']
 
     def combo(seq, prefix, n, k):
+        "Generate every possible ngram combination"
         if k == 0: 
             aa_combo.append(prefix)
             return aa_combo  
