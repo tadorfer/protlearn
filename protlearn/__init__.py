@@ -6,3 +6,4 @@ from protlearn.feature_engineering import composition
 from protlearn.feature_engineering import aaindex1
 from protlearn.feature_engineering import aaindex2
 from protlearn.feature_engineering import aaindex3
+from protlearn.feature_engineering import ngram_composition
