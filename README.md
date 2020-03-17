@@ -59,7 +59,7 @@ df = txt_to_df(test_seq.txt)
 ```
 
 <p align="center">
-  <img src="dems/text_to_df.png" height="260" width="460">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/text_to_df.png" height="260" width="460">
 </p>
 
 For more information --> `help(txt_to_df`)
@@ -89,7 +89,7 @@ enc = integer_encode(df, padding=True)
 ```
 
 <p align="center">
-  <img src="dems/integer_encode.png" height="220" width="560">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/integer_encode.png" height="220" width="560">
 </p>
 
 If `padding=True`, a numpy array of shape (n_samples, longest_sequence) will be
@@ -119,7 +119,7 @@ lengths = length(df)
 ```
 
 <p align="center">
-  <img src="dems/length.png" height="300" width="460">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/length.png" height="300" width="460">
 </p>
 
 This illustration shows that, if `method='ohe'`, the columns correspond to the 
@@ -148,7 +148,7 @@ comp = composition(df, method='absolute')
 ```
 
 <p align="center">
-  <img src="dems/composition.png" height="250" width="590">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/composition.png" height="250" width="590">
 </p>
 
 This illustration shows the absolute frequency of amino acids of each input
@@ -180,7 +180,7 @@ aand1 = aaindex1(df, standardize='none')
 ```
 
 <p align="center">
-  <img src="dems/aaindex1.png" height="250" width="760">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/aaindex1.png" height="250" width="760">
 </p>
 
 This illustration shows how AAIndex1 is computed, using 'ARN' as a sample 
@@ -214,7 +214,7 @@ aaind2 = aaindex2(df, standardize='none')
 ```
 
 <p align="center">
-  <img src="dems/aaindex2.png" height="420" width="760">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/aaindex2.png" height="420" width="760">
 </p>
 
 This illustration shows how AAIndex2 is computed, using 'ARN' as a sample 
@@ -246,7 +246,7 @@ aaind3 = aaindex3(df, standardize='none')
 ```
 
 <p align="center">
-  <img src="dems/aaindex3.png" height="420" width="760">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/aaindex3.png" height="420" width="760">
 </p>
 
 This illustration shows how AAIndex3 is computed, using 'ARN' as a sample 
@@ -273,7 +273,7 @@ ngram = ngram_composition(df)
 ```
 
 <p align="center">
-  <img src="dems/ngram.png" height="350" width="450">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/ngram.png" height="350" width="450">
 </p>
 
 This illustration shows the di-, tri-, and quadpeptide composition of the 
