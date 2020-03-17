@@ -182,7 +182,7 @@ aand1 = aaindex1(df, standardize='none')
 </p>
 
 This illustration shows how AAIndex1 is computed, using 'ARN' as a sample 
-sequence. It is highly recommended to pass `standardize=zscore` if the resulting
+sequence. It is highly recommended to `standardize` the data if the resulting
 dataframe is intended to serve as input to a classifier/regressor.
 
 For more information --> `help(aaindex1)`
@@ -191,12 +191,20 @@ For more information --> `help(aaindex1)`
 
 #### `aaindex2`
 
-This function computes the substitution matrices of all amino acids of a 
-sequence and returns the mean of all substitution scores per sequence.
+This function computes the substitution matrices of each amino acid pair of a 
+sequence and returns the mean of all substitution scores per sequence. 
+Currently, ver.9.2 (release Feb, 2017) contains 94 indices. However, due to two
+of these indices containing NaNs, the column size of the returned dataframe can
+vary between 92-94, depending on whether any of the sequences contains an amino
+acid pair whose index is NaN, in which case the entire column will be removed.
+More information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, aaindex2
+
+df = txt_to_df(test_seq.txt)
 aaind2 = aaindex2(df, standardize='none')
 ```
 
@@ -204,14 +212,31 @@ aaind2 = aaindex2(df, standardize='none')
   <img src="dems/aaindex2.png" height="420" width="760">
 </p>
 
+This illustration shows how AAIndex2 is computed, using 'ARN' as a sample 
+sequence. It also shows that this index contains both lower triangular as well 
+as square matrices. It is highly recommended to `standardize` the data if the
+resulting dataframe is intended to serve as input to a classifier/regressor.
+
+For more information --> `help(aaindex2)`
+
+<br>
+
 #### `aaindex3`
 
-This function computes the pairwise contact potentials between all amino acids
-of a sequence and returns the mean of all contact potentials per sequence.
+This function computes the pairwise contact potentials between all amino acid
+pairs in a sequence and returns the mean of all contact potentials per sequence.
+Currently, ver.9.2 (release Feb, 2017) contains 47 indices. However, due to four
+of these indices containing NaNs, the column size of the returned dataframe can
+vary between 43-47, depending on whether any of the sequences contains an amino
+acid pair whose index is NaN, in which case the entire column will be removed.
+More information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, aaindex3
+
+df = txt_to_df(test_seq.txt)
 aaind3 = aaindex3(df, standardize='none')
 ```
 
@@ -219,20 +244,40 @@ aaind3 = aaindex3(df, standardize='none')
   <img src="dems/aaindex3.png" height="420" width="760">
 </p>
 
+This illustration shows how AAIndex3 is computed, using 'ARN' as a sample 
+sequence. It also shows that this index contains both lower triangular as well 
+as square matrices. It is highly recommended to `standardize` the data if the
+resulting dataframe is intended to serve as input to a classifier/regressor.
+
+For more information --> `help(aaindex3)`
+
+<br>
+
 #### `ngram_composition`
 
 This function computes the di-, tri-, or quadpeptide composition of any given
-amino acid sequence.
+amino acid sequence. 
 
 <b>Example:</b>
 
 ```python
+from protlearn import txt_to_df, ngram_composition
+
+df = txt_to_df(test_seq.txt)
 ngram = ngram_composition(df)
 ```
 
 <p align="center">
   <img src="dems/ngram.png" height="350" width="450">
 </p>
+
+This illustration shows the di-, tri-, and quadpeptide composition of the 
+sequence 'ALLLFTY'. As can be observed, not all possible combinations (20^ngram)
+are returned, but only those whose values are non-zero.
+
+For more information --> `help(ngram_composition)`
+
+<br>
 
 ## Authors
 
