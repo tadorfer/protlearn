@@ -29,7 +29,7 @@ def txt_to_df(X, label=None):
 
     df = pd.read_csv(X, names=['Sequence'], header=None)
 
-    if label:
+    if label != None:
         df['Label'] = np.ones(df.shape[0])*label
         
     return df
