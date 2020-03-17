@@ -13,7 +13,7 @@ def test_integer_encode():
     
     # load data
     df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
-    enc, labels = integer_encode(df)
+    enc = integer_encode(df)
     
     # test array shape and type
     assert enc.shape == (4,)
