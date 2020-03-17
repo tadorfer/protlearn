@@ -152,7 +152,7 @@ comp = composition(df, method='absolute')
 </p>
 
 This illustration shows the absolute frequency of amino acids of each input
-sequence. If a particular amino acid is not present in any of the input 
+sequence. If a particular amino acid is not present in all of the input 
 sequences, its column will not be returned to avoid all-zero columns. Therefore,
 the number of columns of the returned dataframe is not always 20, but can vary.
 
@@ -165,8 +165,10 @@ For more information --> `help(composition)`
 This function computes the physicochemical properties of each amino acid in the
 sequence and returns the mean of each index per sequence. Currently, ver.9.2 
 (release Feb, 2017) contains 566 indices. However, due to 13 of these indices
-containing NaNs, the returned dataframe will have a column size of 553. More
-information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
+containing NaNs, the returned dataframe will have a column size of 553-566, 
+depending on the number of amino acids in the sequence whose index is NaN, in
+which case this index column will be removed. More information on the AAindex1 
+can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
@@ -197,7 +199,10 @@ Currently, ver.9.2 (release Feb, 2017) contains 94 indices. However, due to two
 of these indices containing NaNs, the column size of the returned dataframe can
 vary between 92-94, depending on whether any of the sequences contains an amino
 acid pair whose index is NaN, in which case the entire column will be removed.
-More information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
+Furthermore, some of the square and rectangular matrices originally include gaps 
+and various metrics for cysteines (disulfide-bonded and free), which are removed
+for all computations (only the standard 20 amino acids are used here). More 
+information on the AAindex2 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
@@ -229,7 +234,7 @@ Currently, ver.9.2 (release Feb, 2017) contains 47 indices. However, due to four
 of these indices containing NaNs, the column size of the returned dataframe can
 vary between 43-47, depending on whether any of the sequences contains an amino
 acid pair whose index is NaN, in which case the entire column will be removed.
-More information on the AAindex1 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
+More information on the AAindex3 can be found on [GenomeNet Database Resources](https://www.genome.jp/aaindex/).
 
 <b>Example:</b>
 
@@ -245,8 +250,8 @@ aaind3 = aaindex3(df, standardize='none')
 </p>
 
 This illustration shows how AAIndex3 is computed, using 'ARN' as a sample 
-sequence. It also shows that this index contains both lower triangular as well 
-as square matrices. It is highly recommended to `standardize` the data if the
+sequence. As with AAIndex2, is also contains both lower triangular as well as
+square matrices. It is highly recommended to `standardize` the data if the
 resulting dataframe is intended to serve as input to a classifier/regressor.
 
 For more information --> `help(aaindex3)`
