@@ -26,8 +26,8 @@ def test_aaindex3():
     ZHAC000106 = np.array([.196, -.34875, .46666, .972])
     np.testing.assert_equal(np.round(aaind3['TANS760101'], 3),\
                             np.round(TANS760101, 3))
-    np.testing.assert_equal(np.round(aaind3['GODA950101'], 3),\
-                            np.round(GODA950101, 3))
+    # this column contains NaNs
+    assert ('GODA950101' in aaind3) == False
     np.testing.assert_equal(np.round(aaind3['ZHAC000106'], 3),\
                             np.round(ZHAC000106, 3))
     
