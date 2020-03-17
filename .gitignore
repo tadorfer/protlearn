@@ -5,4 +5,4 @@ __pycache__/
 # package-associated
 build/
 dist/
-protclass.egg-info
+protlearn.egg-info
