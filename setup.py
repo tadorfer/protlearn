@@ -8,18 +8,18 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-  name = 'protclass',       
-  packages = ['protclass'], 
-  package_data={'protclass': ['docs/*.csv']},  
-  version = '1.11',      
+  name = 'protlearn',       
+  packages = ['protlearn'], 
+  package_data={'protlearn': ['docs/*.csv']},  
+  version = '1.0',      
   license='MIT',        
   description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
   long_description_content_type='text/markdown',
   long_description=long_description,  
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
-  url = 'https://github.com/tadorfer/ProtClass',   
-  download_url = 'https://github.com/tadorfer/ProtClass/archive/v1.11.tar.gz',  
+  url = 'https://github.com/tadorfer/ProtLearn',   
+  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.0.tar.gz',  
   keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
   setup_requires = ['wheel'],
   install_requires=[            
