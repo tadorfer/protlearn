@@ -25,8 +25,8 @@ setup(
   install_requires=[            
           'numpy',
           'pandas',
-          'scikit-learn'
-          'seaborn'
+          'scikit-learn',
+          'seaborn',
           'matplotlib'
       ],
   classifiers=[
