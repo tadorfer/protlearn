@@ -310,7 +310,7 @@ viz_length(df)
 ```
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_length.png" height="240" width="570">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_len.png" height="240" width="580">
 </p>
 
 This illustration shows the frequency of all lengths of sequences found in the 
@@ -337,7 +337,7 @@ viz_composition(df)
 ```
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_composition.png" height="250" width="600">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_comp.png" height="250" width="620">
 </p>
 
 This illustration shows the frequency of all amino acids of sequences found in 
@@ -364,7 +364,7 @@ viz_ngram(df, ngram=2, top=20)
 ```
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_ngram.png" height="250" width="620">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_ng.png" height="250" width="630">
 </p>
 
 This illustration shows the frequency of the top 20% (`top=20`) of dipeptide 
