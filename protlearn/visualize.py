@@ -4,7 +4,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib as mpl
 from collections import Counter
-from feature_engineering import ngram_composition
 
 
 def viz_length(X, method='absolute', sort=True, get_data=False, plot=True):
