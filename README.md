@@ -36,6 +36,10 @@ $ pip install protlearn
     - [aaindex2](#aaindex2)
     - [aaindex3](#aaindex3)
     - [ngram_composition](#ngram_composition)
+* [Visualization](#visualization)  
+    - [viz_length](#viz_length)
+    - [viz_composition](#viz_composition)
+    - [viz_ngram](viz_ngram)
 
 
 ### Preprocessing
@@ -281,6 +285,89 @@ sequence 'ALLLFTY'. As can be observed, not all possible combinations (20^ngram)
 are returned, but only those whose values are non-zero.
 
 For more information --> `help(ngram_composition)`
+
+<br>
+
+### Visualization
+
+#### `viz_length`
+
+This function returns a bar plot displaying the frequency of sequence lengths
+in descending order.
+
+<b>Example:</b>
+
+```python
+from protlearn import txt_to_df, viz_length
+
+df = txt_to_df(test_seq.txt)
+viz_length(df)
+```
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_length.png" height="240" width="570">
+</p>
+
+This illustration shows the frequency of all lengths of sequences found in the 
+`test_seq.txt` file. The data used for this plot can also be retrieved by 
+passing the argument `get_data=True`. In this case, the function should then be
+called as follows: `lengths = viz_length(df, get_data=True)`.
+
+For more information --> `help(viz_length)`
+
+<br>
+
+#### `viz_composition`
+
+This function returns a bar plot displaying the frequency of amino acids
+present in the dataset (in descending order).
+
+<b>Example:</b>
+
+```python
+from protlearn import txt_to_df, viz_composition
+
+df = txt_to_df(test_seq.txt)
+viz_composition(df)
+```
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_composition.png" height="250" width="600">
+</p>
+
+This illustration shows the frequency of all amino acids of sequences found in 
+the `test_seq.txt` file. The data used for this plot can also be retrieved by 
+passing the argument `get_data=True`. In this case, the function should then be
+called as follows: `comp = viz_composition(df, get_data=True)`.
+
+For more information --> `help(viz_composition)`
+
+<br>
+
+#### `viz_ngram`
+
+This function returns a bar plot displaying the frequency of the selected ngram
+composition (di-, tri-, or quadpeptide) of the sequence (in descending order).
+
+<b>Example:</b>
+
+```python
+from protlearn import txt_to_df, viz_ngram
+
+df = txt_to_df(test_seq.txt)
+viz_ngram(df, top=20)
+```
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_ngram.png" height="250" width="620">
+</p>
+
+This illustration shows frequency of the top 20% of dipeptide combinations of 
+sequences found in the `test_seq.txt` file. The data used for this plot can also
+be retrieved by passing the argument `get_data=True`. In this case, the function
+should then be called as follows: `ng = viz_ngram(df, get_data=True)`.
+
+For more information --> `help(viz_ngram)`
 
 <br>
 
