@@ -363,7 +363,7 @@ viz_ngram(df, ngram=2, top=20)
 </p>
 
 This illustration shows the frequency of the top 20% (`top=20`) of dipeptide 
-combinations ((`ngram=2`) of sequences found in the `test_seq.txt` file. The 
+combinations (`ngram=2`) of sequences found in the `test_seq.txt` file. The 
 data used for this plot can also be retrieved by passing the argument 
 `get_data=True`. In this case, the function should be called as follows: 
 `ng = viz_ngram(df, get_data=True)`.
