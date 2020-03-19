@@ -30,7 +30,7 @@ def length(X, method='int'):
     Returns
     -------
 
-    lengths : ndarray of shape (n_samples, ) if method = 'int'.
+    lengths : ndarray of shape (n_samples, ) if method = 'int'
               ndarray of shape (n_samples, n_unique_lengths) if method = 'ohe'
 
     """
@@ -156,7 +156,7 @@ def aaindex1(X, standardize='none'):
     Returns
     -------
 
-    arr_index1 : ndarray of shape (n_samples, 553-566) 
+    arr_index1 : Pandas DataFrame of shape (n_samples, 553-566) 
 
     Notes
     -----
@@ -274,7 +274,7 @@ def aaindex2(X, standardize='none'):
     Returns
     -------
 
-    arr_index2 : ndarray of shape (n_samples, 92-94) if standardize='none'
+    arr_index2 : Pandas DataFrame of shape (n_samples, 92-94) 
         Column size could vary when standardize != 'none'.
 
     Notes
@@ -420,7 +420,7 @@ def aaindex3(X, standardize='none'):
     Returns
     -------
 
-    arr_index3 : ndarray of shape (n_samples, 43-47) if standardize='none'
+    arr_index3 : Pandas DataFrame of shape (n_samples, 43-47) 
         Column size could vary when standardize != 'none'.
 
     Notes
@@ -560,8 +560,8 @@ def ngram_composition(X, ngram=2):
     Returns
     -------
     
-    arr_ngram : ndarray of shape (n_samples, n_unique_20^ngram)
-        Depending on ngram, returned array will be of size:
+    arr_ngram : Pandas DataFrame of shape (n_samples, n_unique_20^ngram)
+        Depending on ngram, the returned dataframe will be of size:
         - (n_samples, 400) for dipeptide composition
         - (n_samples, 8000) for tripeptide composition
         - (n_samples, 160000) for quadpeptide composition
@@ -598,7 +598,7 @@ def ngram_composition(X, ngram=2):
     
     # create dataframe with all zeros
     arr_ngram = np.zeros((len(X), len(aa_combo)))
-    arr_ngram = pd.DataFrame(arr_ngram, columns=aa_combo)
+    df_ngram = pd.DataFrame(arr_ngram, columns=aa_combo)
     
     # define n-gram function
     def n_gram(seq):
@@ -615,9 +615,9 @@ def ngram_composition(X, ngram=2):
         pep_comp = n_gram(X['Sequence'][i])
         for j in range(len(pep_comp)):
             keys = list(pep_comp)
-            arr_ngram[keys[j]][i] = pep_comp[keys[j]]
+            df_ngram[keys[j]][i] = pep_comp[keys[j]]
 
     # delete zero columns
-    arr_ngram = arr_ngram.loc[:, (arr_ngram!=0).any(axis=0)]
+    df_ngram = df_ngram.loc[:, (df_ngram!=0).any(axis=0)]
             
-    return arr_ngram
+    return df_ngram

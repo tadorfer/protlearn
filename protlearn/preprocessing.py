@@ -23,7 +23,8 @@ def txt_to_df(X, label=None):
     Returns
     -------
 
-    df: DataFrame of shape (n_samples, 2) with columns 'Sequence' and 'Label'
+    df: Pandas DataFrame of shape (n_samples, 2) with columns 'Sequence' and 
+        'Label'
 
     """
 
