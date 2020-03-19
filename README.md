@@ -17,6 +17,8 @@ particularly suited for the preparation of classification and regression tasks.
 - NumPy 
 - Pandas 
 - scikit-learn
+- seaborn
+- matplotlib
 
 ### User Installation
 
@@ -289,6 +291,9 @@ For more information --> `help(ngram_composition)`
 <br>
 
 ### Visualization
+
+The following bar plots use a `coolwarm` color palette, meaning that there is a
+gradient from higher bars (red) to lower bars (blue).
 
 #### `viz_length`
 
