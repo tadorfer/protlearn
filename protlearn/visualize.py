@@ -6,6 +6,10 @@ import matplotlib as mpl
 from collections import Counter
 
 
+# set sns style settings
+sns.set(font_scale=1.3)
+sns.set_style('white', {'axes.spines.top': False, 'axes.spines.right': False})
+
 def viz_length(X, method='absolute', sort=True, get_data=False, plot=True):
     """Bar plot of the length of a sequence or set of sequences. 
 
@@ -76,8 +80,6 @@ def viz_length(X, method='absolute', sort=True, get_data=False, plot=True):
         elif method == 'absolute':
             ylabel = 'Absolute Frequency'
 
-        sns.set_style('white', {'axes.spines.top': False, 
-                                'axes.spines.right': False})
         ax = sns.barplot(x=df.columns, y=df.iloc[0], 
                          palette=mpl.cm.ScalarMappable(cmap='coolwarm').\
                          to_rgba(df.iloc[0]), order=df.columns)
