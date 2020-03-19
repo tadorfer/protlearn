@@ -310,7 +310,7 @@ viz_length(df)
 
 This illustration shows the frequency of all lengths of sequences found in the 
 `test_seq.txt` file. The data used for this plot can also be retrieved by 
-passing the argument `get_data=True`. In this case, the function should then be
+passing the argument `get_data=True`. In this case, the function should be
 called as follows: `lengths = viz_length(df, get_data=True)`.
 
 For more information --> `help(viz_length)`
@@ -337,7 +337,7 @@ viz_composition(df)
 
 This illustration shows the frequency of all amino acids of sequences found in 
 the `test_seq.txt` file. The data used for this plot can also be retrieved by 
-passing the argument `get_data=True`. In this case, the function should then be
+passing the argument `get_data=True`. In this case, the function should be
 called as follows: `comp = viz_composition(df, get_data=True)`.
 
 For more information --> `help(viz_composition)`
@@ -355,17 +355,18 @@ composition (di-, tri-, or quadpeptide) of the sequence (in descending order).
 from protlearn import txt_to_df, viz_ngram
 
 df = txt_to_df(test_seq.txt)
-viz_ngram(df, top=20)
+viz_ngram(df, ngram=2, top=20)
 ```
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_ngram.png" height="250" width="620">
 </p>
 
-This illustration shows frequency of the top 20% of dipeptide combinations of 
-sequences found in the `test_seq.txt` file. The data used for this plot can also
-be retrieved by passing the argument `get_data=True`. In this case, the function
-should then be called as follows: `ng = viz_ngram(df, get_data=True)`.
+This illustration shows the frequency of the top 20% (`top=20`) of dipeptide 
+combinations ((`ngram=2`) of sequences found in the `test_seq.txt` file. The 
+data used for this plot can also be retrieved by passing the argument 
+`get_data=True`. In this case, the function should be called as follows: 
+`ng = viz_ngram(df, get_data=True)`.
 
 For more information --> `help(viz_ngram)`
 
