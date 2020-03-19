@@ -26,6 +26,8 @@ setup(
           'numpy',
           'pandas',
           'scikit-learn'
+          'seaborn'
+          'matplotlib'
       ],
   classifiers=[
     'Development Status :: 4 - Beta',      
