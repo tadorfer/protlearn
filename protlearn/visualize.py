@@ -4,7 +4,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib as mpl
 from collections import Counter
-from feature_engineering import ngram_composition
+from protlearn.feature_engineering import ngram_composition
 
 
 # set sns style settings
