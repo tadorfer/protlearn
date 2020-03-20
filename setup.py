@@ -20,7 +20,7 @@ setup(
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtLearn',   
   download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.5.tar.gz',  
-  keywords = ['proteins', 'peptides', 'preprocessing', 'feature engineering', 'AA Index'], 
+  keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'visualization'], 
   setup_requires = ['wheel'],
   install_requires=[            
           'numpy',
