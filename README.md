@@ -41,7 +41,7 @@ $ pip install protlearn
 * [Visualization](#visualization)  
     - [viz_length](#viz_length)
     - [viz_composition](#viz_composition)
-    - [viz_ngram](viz_ngram)
+    - [viz_ngram](#viz_ngram)
 
 
 ### Preprocessing
