@@ -313,10 +313,10 @@ viz_length(df)
   <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/viz_len.png" height="240" width="580">
 </p>
 
-This illustration shows the frequency of all lengths of sequences found in the 
-`test_seq.txt` file. The data used for this plot can also be retrieved by 
-passing the argument `get_data=True`. In this case, the function should be
-called as follows: `lengths = viz_length(df, get_data=True)`.
+This illustration shows the frequency of all lengths of sequences found in 
+`test_seq.txt`. The data used for this plot can also be retrieved by passing the
+argument `get_data=True`. In this case, the function should be called as 
+follows: `lengths = viz_length(df, get_data=True)`.
 
 For more information --> `help(viz_length)`
 
@@ -341,9 +341,9 @@ viz_composition(df)
 </p>
 
 This illustration shows the frequency of all amino acids of sequences found in 
-the `test_seq.txt` file. The data used for this plot can also be retrieved by 
-passing the argument `get_data=True`. In this case, the function should be
-called as follows: `comp = viz_composition(df, get_data=True)`.
+`test_seq.txt`. The data used for this plot can also be retrieved by passing the
+argument `get_data=True`. In this case, the function should be called as 
+follows: `comp = viz_composition(df, get_data=True)`.
 
 For more information --> `help(viz_composition)`
 
@@ -368,9 +368,9 @@ viz_ngram(df, ngram=2, top=20)
 </p>
 
 This illustration shows the frequency of the top 20% (`top=20`) of dipeptide 
-combinations (`ngram=2`) of sequences found in the `test_seq.txt` file. The 
-data used for this plot can also be retrieved by passing the argument 
-`get_data=True`. In this case, the function should be called as follows: 
+combinations (`ngram=2`) of sequences found in `test_seq.txt`. The data used for
+this plot can also be retrieved by passing the argument `get_data=True`. In this
+case, the function should be called as follows: 
 `ng = viz_ngram(df, get_data=True)`.
 
 For more information --> `help(viz_ngram)`
