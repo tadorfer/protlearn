@@ -352,7 +352,8 @@ For more information --> `help(viz_composition)`
 #### `viz_ngram`
 
 This function returns a bar plot displaying the frequency of the selected ngram
-composition (di-, tri-, or quadpeptide) of the sequence (in descending order).
+composition (di-, tri-, or quadpeptide) of the sequence data (in descending 
+order).
 
 <b>Example:</b>
 
