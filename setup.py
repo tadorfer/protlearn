@@ -13,7 +13,7 @@ setup(
   package_data={'protlearn': ['docs/*.csv']},  
   version = '1.4',      
   license='MIT',        
-  description = 'Preprocessing and feature engineering for proteins and peptides prior to classification', 
+  description = 'Preprocessing, feature engineering, and visualization of proteins and peptides', 
   long_description_content_type='text/markdown',
   long_description=long_description,  
   author = 'Thomas Dorfer',                   
