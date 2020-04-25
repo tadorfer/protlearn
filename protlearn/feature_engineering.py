@@ -254,7 +254,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
             return pd.DataFrame(aaind_arr, columns=desc)
         
         
-def aaindex2(X, standardize='none'):
+def aaindex2(X, standardize='none', start=1, end=None):
     """Compute amino acid indices from AAIndex2.
 
     AAindex2 ver.9.2 (release Feb, 2017) is a set of lower triangular (67), 
@@ -284,6 +284,12 @@ def aaindex2(X, standardize='none'):
                    a mean of 0 and standard deviation of 1 (unit variance).
         'minmax' : index matrix is scaled (normalized) across columns (indices)
                    to have a range of [0, 1].
+
+    start : int, default=1
+        Determines the starting point of the amino acid sequence.
+
+    end : int, default=None
+        Determines the end point of the amino acid sequence.
 
     Returns
     -------
@@ -329,6 +335,7 @@ def aaindex2(X, standardize='none'):
         
         for a, seq in enumerate(range(len(X))):
             sequence = X['Sequence'][seq]
+            sequence = sequence[start-1:end]
             conpot = np.zeros((len(sequence)-1, LENGTH))
 
             for i in range(len(sequence)-1):
@@ -404,7 +411,7 @@ def aaindex2(X, standardize='none'):
     return pd.concat([lt, sq], axis=1)
 
 
-def aaindex3(X, standardize='none'):
+def aaindex3(X, standardize='none', start=1, end=None):
     """Compute amino acid indices from AAIndex3.
 
     AAindex3 ver.9.2 (release Feb, 2017) is a set of lower triangular (44)
@@ -430,6 +437,12 @@ def aaindex3(X, standardize='none'):
                    a mean of 0 and standard deviation of 1 (unit variance).
         'minmax' : index matrix is scaled (normalized) across columns (indices)
                    to have a range of [0, 1].
+
+    start : int, default=1
+        Determines the starting point of the amino acid sequence.
+
+    end : int, default=None
+        Determines the end point of the amino acid sequence.
 
     Returns
     -------
@@ -475,6 +488,7 @@ def aaindex3(X, standardize='none'):
         
         for a, seq in enumerate(range(len(X))):
             sequence = X['Sequence'][seq]
+            sequence = sequence[start-1:end]
             conpot = np.zeros((len(sequence)-1, LENGTH))
 
             for i in range(len(sequence)-1):
@@ -550,7 +564,7 @@ def aaindex3(X, standardize='none'):
     return pd.concat([lt, sq], axis=1)
 
 
-def ngram_composition(X, ngram=2):
+def ngram_composition(X, ngram=2, start=1, end=None):
     """Compute n-gram peptide composition.
     
     This function computes the di-, tri-, or quadpeptide composition of
@@ -570,6 +584,12 @@ def ngram_composition(X, ngram=2):
         2 : dipeptide composition
         3 : tripepitde composition
         4 : quadpeptide composition
+
+    start : int, default=1
+        Determines the starting point of the amino acid sequence.
+
+    end : int, default=None
+        Determines the end point of the amino acid sequence.
         
     Returns
     -------
@@ -626,7 +646,9 @@ def ngram_composition(X, ngram=2):
     
     # compute n-gram composition
     for i in range(len(X)):
-        pep_comp = n_gram(X['Sequence'][i])
+        sequence = X['Sequence'][i]
+        sequence = sequence[start-1:end]
+        pep_comp = n_gram(sequence)
         for j in range(len(pep_comp)):
             keys = list(pep_comp)
             df_ngram[keys[j]][i] = pep_comp[keys[j]]
