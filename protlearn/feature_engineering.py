@@ -59,7 +59,7 @@ def length(X, method='int'):
     }.get(method, lambda: None)()
 
 
-def composition(X, method='absolute', round_fraction=3):
+def composition(X, method='absolute', start=1, end=None, round_fraction=3):
     """Compute the amino acid composition of proteins or peptides.
 
     The frequency of each of the 20 amino acids in a protein or peptide are 
@@ -79,6 +79,12 @@ def composition(X, method='absolute', round_fraction=3):
 
         'absolute' : compute absolute amino acid composition
         'relative' : compute relative amino acid composition
+
+    start : int, default=1
+        Determines the starting point of the amino acid sequence.
+
+    end : int, default=None
+        Determines the end point of the amino acid sequence.
 
     round_fraction : int, default=3
         This applies only if method='relative'. For shorter peptides with only 
@@ -109,6 +115,7 @@ def composition(X, method='absolute', round_fraction=3):
     # fill array with frequency of amino acids per protein/peptide
     for i in range(X.shape[0]):
         seq = [aa for aa in X['Sequence'][i]]
+        seq = seq[start-1:end] # positional information
         values, counts = np.unique(seq, return_counts=True)
         indices = [amino_acids.index(j) for j in values]
         comp_arr[i,indices] = counts
@@ -129,7 +136,7 @@ def composition(X, method='absolute', round_fraction=3):
         return pd.DataFrame(np.asarray(comp_rel), columns=amino_acids)
         
 
-def aaindex1(X, standardize='none'):
+def aaindex1(X, standardize='none', start=1, end=None):
     """Compute amino acid indices from AAIndex1.
 
     AAindex1 ver.9.2 (release Feb, 2017) is a set of 20 numerical values
@@ -152,6 +159,12 @@ def aaindex1(X, standardize='none'):
                    a mean of 0 and standard deviation of 1 (unit variance).
         'minmax' : index matrix is scaled (normalized) across columns (indices)
                    to have a range of [0, 1].
+
+    start : int, default=1
+        Determines the starting point of the amino acid sequence.
+
+    end : int, default=None
+        Determines the end point of the amino acid sequence.
 
     Returns
     -------
@@ -181,6 +194,7 @@ def aaindex1(X, standardize='none'):
     # fill array with mean of indices per protein/peptide
     for i, seq in enumerate(range(len(X))):
         sequence = X['Sequence'][seq]
+        sequence = sequence[start-1:end] # positional information
         tmp_arr = np.zeros((aaind1.shape[0], len(sequence)) )
 
         # fill temporary array with indices for each amino acid of the sequence
