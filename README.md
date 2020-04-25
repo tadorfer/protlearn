@@ -6,9 +6,10 @@
 
 # protlearn
 
-protlearn is a Python package for preprocessing amino acid sequences (i.e. 
-proteins and peptides) and subsequent feature engineering. Its functions are
-particularly suited for the preparation of classification and regression tasks.
+protlearn is a Python package for the preprocessing, feature engineering, and
+visualization of amino acid sequences (i.e. proteins and peptides). Its 
+functions are particularly suited for the preparation of classification and 
+regression tasks.
 
 ## Installation
 
