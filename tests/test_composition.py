@@ -21,10 +21,10 @@ def test_composition():
         assert round(comp_rel.iloc[0,:].sum()) == 1
         
     # test decimal places
-    comp_dec2 = composition(df, 'relative', 2)
+    comp_dec2 = composition(df, 'relative', round_fraction=2)
     x = str(comp_dec2['A'][0])
     assert x[::-1].find('.') == 2
-    comp_dec2 = composition(df, 'relative', 5)
+    comp_dec2 = composition(df, 'relative', round_fraction=5)
     y = str(comp_dec2['A'][0])
     assert y[::-1].find('.') == 5
     
