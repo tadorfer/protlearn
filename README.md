@@ -108,6 +108,14 @@ For more information --> `help(integer_encode)`
 
 ### Feature engineering
 
+**Note**: For the following functions, except `length`, features can be 
+computed for the entire amino acid sequences (default), or only for a desired
+fraction of the sequences. The keyword arguments `start` and `stop` can be used
+to define this fraction. For instance, if you have a sequence 'ACDIKLR', and you
+are only interested in amino acid positions 3-5, because this region is claimed
+to be important, then by simply defining `start=3` and `end=5`, the following 
+features will only be computed for 'DIK'.
+
 #### `length`
 
 This function returns an n-dimensional array containing the length of all
