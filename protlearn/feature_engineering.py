@@ -656,4 +656,4 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     # delete zero columns
     df_ngram = df_ngram.loc[:, (df_ngram!=0).any(axis=0)]
             
-    return df_ngram
+    return df_ngramc
