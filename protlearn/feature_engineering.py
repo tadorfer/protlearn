@@ -657,3 +657,57 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     df_ngram = df_ngram.loc[:, (df_ngram!=0).any(axis=0)]
             
     return df_ngram
+
+
+def position_enrichment(X, position, aminoacid):
+    """Compute the presence of an amino acid at a specific position.
+
+    This function returns a binary feature vector or matrix in which ones 
+    indicate the presence of the given amino acid(s) at the specified 
+    position(s), and zeros indicate their absence. 
+
+    Parameters
+    ----------
+    
+    X : Pandas DataFrame 
+        The column containing protein or peptide sequences must be labeled
+        'Sequence'.
+       
+    position : int or list
+        Integer or list of integers denoting the position(s) in the sequence.
+
+    aminoacid : string or list
+        String or list of strings indicating the amino acid(s) of interest.
+        
+    Returns
+    -------
+    
+    pos : ndarray of shape (n_samples, ) or (n_samples, n_positions)
+       
+    """
+
+    if isinstance(position, int) and isinstance(aminoacid, str):
+        pos = np.zeros((X.shape[0],))
+        for a, seq in enumerate(range(len(X))):
+            sequence = X['Sequence'][seq]
+            for i, aa in enumerate(sequence):
+                if i == position-1 and aa == aminoacid:
+                    pos[a] = 1
+        return pos
+    
+    elif isinstance(position, list) and isinstance(aminoacid, list):
+    
+        if len(position) != len(aminoacid):
+            raise ValueError("Number of positions does not match number of amino acids")
+
+        pos = np.zeros((X.shape[0], len(position)))
+
+        for a, seq in enumerate(range(len(X))):
+            sequence = X['Sequence'][seq]
+            for i in range(len(position)):
+                if sequence[position[i]-1] == aminoacid[i]:
+                    pos[a, i] = 1
+        return pos
+    
+    else:
+        raise ValueError("The arguments position and aminoacid must either be integer/string or lists of integers/strings.")
