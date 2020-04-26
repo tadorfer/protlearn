@@ -11,7 +11,7 @@ setup(
   name = 'protlearn',       
   packages = ['protlearn'], 
   package_data={'protlearn': ['docs/*.csv']},  
-  version = '1.7',      
+  version = '1.8',      
   license='MIT',        
   description = 'Preprocessing, feature engineering, and visualization of protein and peptide sequences', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtLearn',   
-  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.7.tar.gz',  
+  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.8.tar.gz',  
   keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'visualization'], 
   setup_requires = ['wheel'],
   install_requires=[            
@@ -30,7 +30,7 @@ setup(
           'matplotlib'
       ],
   classifiers=[
-    'Development Status :: 4 - Beta',      
+    'Development Status :: 5 - Production/Stable',      
     'Intended Audience :: Science/Research',      # Define that your audience are developers
     'Topic :: Software Development :: Build Tools',
     'License :: OSI Approved :: MIT License',   # Again, pick a license
