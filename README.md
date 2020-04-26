@@ -315,7 +315,7 @@ pos = position_enrichment(df, [1, 4], ['A', 'M'])
 ```
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/pos.png" height="350" width="450">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/pos.png" height="230" width="450">
 </p>
 
 This illustration shows the presence of position/amino acid groups 1A (amino 
