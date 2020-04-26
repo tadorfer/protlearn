@@ -39,6 +39,7 @@ $ pip install protlearn
     - [aaindex2](#aaindex2)
     - [aaindex3](#aaindex3)
     - [ngram_composition](#ngram_composition)
+    - [position_enrichment](#position_enrichment)
 * [Visualization](#visualization)  
     - [viz_length](#viz_length)
     - [viz_composition](#viz_composition)
@@ -296,6 +297,34 @@ sequence 'ALLLFTY'. As can be observed, not all possible combinations (20^ngram)
 are returned, but only those whose values are non-zero.
 
 For more information --> `help(ngram_composition)`
+
+<br>
+
+#### `position_enrichment`
+
+This function computes a binary feature vector or matrix indicative of whether 
+chosen amino acids are present at the given positions (1) or not (0).
+
+<b>Example</b>
+
+```python
+from protlearn import txt_to_df, position_enrichment
+
+df = txt_to_df(test_seq.txt)
+pos = position_enrichment(df, [1, 4], ['A', 'M'])
+```
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/dems/pos.png" height="350" width="450">
+</p>
+
+This illustration shows the presence of position/amino acid groups 1A (amino 
+acid 'A' at position 1) and 4M (amino acid 'M' at position 4).
+
+**Note:** This function uses conventional, non-Pythonic indexing, starting at 1,
+rather than 0. 
+
+For more information --> `help(position_enrichment)`
 
 <br>
 
