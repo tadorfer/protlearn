@@ -1,6 +1,7 @@
 # pyache & ipynb checkpoints
 __pycache__/
 .ipynb_checkpoints/
+*.ipynb
 
 # package-associated
 build/
