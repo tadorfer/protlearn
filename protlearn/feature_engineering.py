@@ -181,9 +181,15 @@ def aaindex1(X, standardize='none', start=1, end=None):
     array with the command 'np.asarray(arr_index1)', if desired.
 
     """
+
+    amino_acids = ['A','C','D','E','F','G','H','I','K','L',
+                   'M','N','P','Q','R','S','T','V','W','Y']    
     
     # load AAIndex1 data
     aaind1 = pd.read_csv(PATH+'aaindex1.csv')
+    _aaind1 = {}
+    for aa in amino_acids:
+        _aaind1[aa] = aaind1[aa].to_numpy()
 
     # get descriptions of all 566 indices
     desc = aaind1['Description'].values
@@ -200,7 +206,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
         # fill temporary array with indices for each amino acid of the sequence
         # and compute their mean across all rows
         for j, aa in enumerate(sequence):
-            tmp_arr[:,j] = np.asarray(aaind1[aa])
+            tmp_arr[:,j] = _aaind1[aa]
 
         # fill rows with mean vector of tmp_arr
         aaind_arr[i,:] = tmp_arr.mean(axis=1)
