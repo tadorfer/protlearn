@@ -10,7 +10,7 @@ def test_composition():
     "Test sequence compositions"
     
     # load data
-    data = open('/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
     
     # test relative composition
     comp_rel = composition(data, 'relative')

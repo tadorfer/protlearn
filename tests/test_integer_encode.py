@@ -11,7 +11,7 @@ def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    data = open('/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
     enc = integer_encode(data)
     
     # test array shape and type

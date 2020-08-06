@@ -11,7 +11,7 @@ def test_aaindex1():
     "Test AAIndex1"
     
     # load data
-    data = open('/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
     
     # get aaindex1
     aaind1 = aaindex1(data)
