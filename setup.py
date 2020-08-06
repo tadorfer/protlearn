@@ -27,7 +27,8 @@ setup(
           'pandas',
           'scikit-learn',
           'seaborn',
-          'matplotlib'
+          'matplotlib',
+          'biopython'
       ],
   classifiers=[
     'Development Status :: 5 - Production/Stable',      
