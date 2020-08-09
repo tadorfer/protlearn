@@ -1,4 +1,6 @@
 language: python
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 python:
   - "3.6"      # current default Python on Travis CI
   - "3.7"
