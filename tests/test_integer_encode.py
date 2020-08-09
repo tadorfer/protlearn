@@ -4,7 +4,6 @@ path = os.environ.get('TRAVIS_BUILD_DIR')
 sys.path.insert(0, path+'/protlearn')
 import numpy as np
 
-from preprocessing import txt_to_df
 from preprocessing import integer_encode
 
 
@@ -12,8 +11,8 @@ def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    df = txt_to_df(path+'/tests/docs/test_seq.txt', 0)
-    enc = integer_encode(df)
+    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
+    enc = integer_encode(data)
     
     # test array shape and type
     assert enc.shape == (4,)
@@ -26,7 +25,7 @@ def test_integer_encode():
     assert np.array_equal(enc[3], np.array([1, 14, 4, 4, 19, 3]))
 
     # test padding
-    enc = integer_encode(df, padding=True)
+    enc = integer_encode(data, padding=True)
     assert enc.shape == (4, 9)
     assert [enc[0][i] == 0 for i in [6, 7, 8]]
     assert [enc[2][i] == 0 for i in [7, 8]]

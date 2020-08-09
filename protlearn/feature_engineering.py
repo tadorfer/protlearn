@@ -1,8 +1,10 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
+import os
 import numpy as np
 import pandas as pd
 from collections import Counter
+from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import pkg_resources
 
@@ -13,14 +15,13 @@ def length(X, method='int'):
     """Compute the length of proteins or peptides.
     
     The number of amino acids that a protein or peptide is comprised of will be
-    counted and returned as either an integer array or a one-hot-encoded array.
+    counted and returned as either an integer (single sequence), array of integers,
+    or a one-hot-encoded array.
 
     Parameters
     ----------
 
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
+    X : string, fasta, or a list thereof 
 
     method : string, default='int'
 
@@ -32,15 +33,43 @@ def length(X, method='int'):
 
     lengths : ndarray of shape (n_samples, ) if method = 'int'
               ndarray of shape (n_samples, n_unique_lengths) if method = 'ohe'
+              int if only sequence provided
 
     """
 
+    # input handling
+    ext = ['.fasta', '.faa', '.fa']
+    if type(X) == str:
+        _, extension = os.path.splitext(X)
+        
+        # fasta format
+        if extension in ext:
+            # single fasta sequence
+            try:
+                X = [str(SeqIO.read(X, 'fasta').seq)]
+                
+            # multiple fasta sequences
+            except:
+                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
+                
+        else:
+            X = [X] 
+    
     # list of protein/peptide lengths
-    all_len = [len(X['Sequence'][i]) for i in range(X.shape[0])]
+    all_len = []
+    for seq in X:
+        if type(seq) != str:
+            seq = str(seq.seq)
+        if str.isalpha(seq) == True:
+            pass
+        else:
+            raise ValueError('Data type must be string!')
+            
+        all_len.append(len(seq))
     
     # one-hot-encoded lengths of proteins/peptides
     len_span = max(all_len) - min(all_len)
-    len_ohe = np.zeros((X.shape[0], len_span+1))
+    len_ohe = np.zeros((len(X), len_span+1))
     len_unique = np.arange(min(all_len), max(all_len)+1)
 
     # fill array with ones based on sequence lengths (columns)
@@ -53,29 +82,27 @@ def length(X, method='int'):
     zero_cols = np.where(~len_ohe.any(axis=0))[0]
     len_ohe = np.delete(len_ohe, zero_cols, axis=1)
 
-    return {
-            'int': lambda: np.asarray(all_len), 
-            'ohe': lambda: len_ohe,
-    }.get(method, lambda: None)()
+    if method == 'int':
+        if len(all_len) == 1:
+            return all_len[0]
+        else:
+            return np.asarray(all_len)
+    elif method == 'ohe':
+        return len_ohe
 
 
-def composition(X, method='absolute', start=1, end=None, round_fraction=3):
+def composition(X, method='relative', start=1, end=None, round_fraction=3):
     """Compute the amino acid composition of proteins or peptides.
 
     The frequency of each of the 20 amino acids in a protein or peptide are 
-    counted and returned using the following column order:
-
-    'A','C','D','E','F','G','H','I','K','L',
-    'M','N','P','Q','R','S','T','V','W','Y'
+    counted and returned using IUPAC's extended protein notation of 26 letters.
 
     Parameters
     ----------
 
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
+    X : string, fasta, or a list thereof 
 
-    method : string, default='absolute'
+    method : string, default='relative'
 
         'absolute' : compute absolute amino acid composition
         'relative' : compute relative amino acid composition
@@ -105,16 +132,40 @@ def composition(X, method='absolute', start=1, end=None, round_fraction=3):
 
     """
 
-    # list of amino acids repesenting array columns
-    amino_acids = ['A','C','D','E','F','G','H','I','K','L',
-                   'M','N','P','Q','R','S','T','V','W','Y']
+    # input handling
+    ext = ['.fasta', '.faa', '.fa']
+    if type(X) == str:
+        _, extension = os.path.splitext(X)
+        
+        # fasta format
+        if extension in ext:
+            # single fasta sequence
+            try:
+                X = [str(SeqIO.read(X, 'fasta').seq)]
+                
+            # multiple fasta sequences
+            except:
+                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
+                
+        else:
+            X = [X] 
+    
+    # list of amino acids (IUPAC extended)
+    amino_acids = IUPAC.ExtendedIUPACProtein().letters
 
     # initialize empty array with shape (n_samples, 20)
-    comp_arr = np.zeros((X.shape[0], len(amino_acids)))
+    comp_arr = np.zeros((len(X), len(amino_acids)))
 
     # fill array with frequency of amino acids per protein/peptide
-    for i in range(X.shape[0]):
-        seq = [aa for aa in X['Sequence'][i]]
+    for i, sequence in enumerate(X):
+        if type(sequence) != str:
+            sequence = str(sequence.seq)
+        if str.isalpha(sequence) == True:
+            pass
+        else:
+            raise ValueError('Data type must be string!')
+            
+        seq = [aa for aa in sequence]
         seq = seq[start-1:end] # positional information
         values, counts = np.unique(seq, return_counts=True)
         indices = [amino_acids.index(j) for j in values]
@@ -129,7 +180,7 @@ def composition(X, method='absolute', start=1, end=None, round_fraction=3):
         return pd.DataFrame(comp_arr, columns=amino_acids)
 
     elif method == 'relative':
-        all_len = [len(X['Sequence'][i]) for i in range(X.shape[0])]
+        all_len = [len(X[i]) for i in range(len(X))]
         comp_rel = [np.round((comp_arr[i]/all_len[i]), round_fraction)\
                     for i in range(comp_arr.shape[0])]
         
@@ -148,9 +199,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
     Parameters
     ----------
 
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
+    X : string, fasta, or a list thereof 
 
     standardize : string, default='none'
 
@@ -179,11 +228,31 @@ def aaindex1(X, standardize='none', start=1, end=None):
 
     The returned dataframe 'arr_index1' can easily be converted into a numpy 
     array with the command 'np.asarray(arr_index1)', if desired.
+    
+    Only the 20 natural amino acids are used here.
 
     """
 
     amino_acids = ['A','C','D','E','F','G','H','I','K','L',
                    'M','N','P','Q','R','S','T','V','W','Y']    
+    
+    # input handling
+    ext = ['.fasta', '.faa', '.fa']
+    if type(X) == str:
+        _, extension = os.path.splitext(X)
+        
+        # fasta format
+        if extension in ext:
+            # single fasta sequence
+            try:
+                X = [str(SeqIO.read(X, 'fasta').seq)]
+                
+            # multiple fasta sequences
+            except:
+                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
+                
+        else:
+            X = [X] 
     
     # load AAIndex1 data
     aaind1 = pd.read_csv(PATH+'aaindex1.csv')
@@ -198,14 +267,20 @@ def aaindex1(X, standardize='none', start=1, end=None):
     aaind_arr = np.zeros((len(X), aaind1.shape[0]))
 
     # fill array with mean of indices per protein/peptide
-    for i, seq in enumerate(range(len(X))):
-        sequence = X['Sequence'][seq]
-        sequence = sequence[start-1:end] # positional information
-        tmp_arr = np.zeros((aaind1.shape[0], len(sequence)) )
+    for i, seq in enumerate(X):
+        if type(seq) != str:
+            seq = str(seq.seq)
+        if str.isalpha(seq) == True:
+            pass
+        else:
+            raise ValueError('Data type must be string!')
+            
+        seq = seq[start-1:end] # positional information
+        tmp_arr = np.zeros((aaind1.shape[0], len(seq)) )
 
         # fill temporary array with indices for each amino acid of the sequence
         # and compute their mean across all rows
-        for j, aa in enumerate(sequence):
+        for j, aa in enumerate(seq):
             tmp_arr[:,j] = _aaind1[aa]
 
         # fill rows with mean vector of tmp_arr
@@ -259,318 +334,8 @@ def aaindex1(X, standardize='none', start=1, end=None):
 
             return pd.DataFrame(aaind_arr, columns=desc)
         
-        
-def aaindex2(X, standardize='none', start=1, end=None):
-    """Compute amino acid indices from AAIndex2.
 
-    AAindex2 ver.9.2 (release Feb, 2017) is a set of lower triangular (67), 
-    square (21), and rectangular (6) matrices and includes a collection of 
-    published amino acid substitution matrices. Currently, it contains 
-    94 such matrices. Some of the square and rectangular matrices include
-    gaps and various metrics for cysteines (disulfide-bonded and free), which
-    are removed for all computations (only the standard 20 amino acids are
-    used here). Also, two indices contain NaNs. Therefore, if any of the 
-    sequences contains an amino acid pair whose index is NaN, the entire
-    column will be removed.
-    
-    The substitution score will be collected for each amino acid pair in the 
-    sequence, then averaged across the sequence.
-
-    Parameters
-    ----------
-
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
-
-    standardize : string, default='none'
-
-        'none' : unstandardized index matrix will be returned
-        'zscore' : index matrix is standardized across columns (indices) to have
-                   a mean of 0 and standard deviation of 1 (unit variance).
-        'minmax' : index matrix is scaled (normalized) across columns (indices)
-                   to have a range of [0, 1].
-
-    start : int, default=1
-        Determines the starting point of the amino acid sequence.
-
-    end : int, default=None
-        Determines the end point of the amino acid sequence.
-
-    Returns
-    -------
-
-    arr_index2 : Pandas DataFrame of shape (n_samples, 92-94) 
-        Column size could vary when standardize != 'none'.
-
-    Notes
-    -----
-
-    Columns (indices) containing NaNs will be removed. Thus, the resulting index
-    matrix will have a column size between 92-94.
-
-    The returned dataframe 'arr_index2' can easily be converted into a numpy 
-    array with the command 'np.asarray(arr_index1)', if desired.
-
-    """
-    
-    # load AAIndex2 data
-    raw_lt = pd.read_csv(PATH+'aaindex2_lowtri.csv')
-    raw_sq = pd.read_csv(PATH+'aaindex2_square.csv')
-
-    def compute_aaind2(index, shape):
-        "Compute AAIndex2 for all shapes"
-        
-        # get unique index descriptions
-        desc = [index['Description'][i] for i in\
-                np.arange(0, index.shape[0], 20)]
-        
-        # drop columns to facilitate easier indexing
-        index = index.drop(['Description', 'Amino Acids'], 
-                            axis=1).reset_index(drop=True)
-        
-        # get lengths and indices (e.g. 0, 20, 40,...)
-        LENGTH = len(desc)
-        inds = np.arange(0, index.shape[0], 20)
-        
-        # compute dict for indexing ({'A': 0, 'R': 1, ...})
-        aa_dict = {index.columns[i]: i for i in range(index.shape[1])}
-        
-        # initialitze empty array
-        arr = np.zeros((len(X), LENGTH))
-        
-        for a, seq in enumerate(range(len(X))):
-            sequence = X['Sequence'][seq]
-            sequence = sequence[start-1:end]
-            conpot = np.zeros((len(sequence)-1, LENGTH))
-
-            for i in range(len(sequence)-1):
-                aa1, aa2 = sequence[i], sequence[i+1]
-                aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
-
-                if shape == 'square':
-                    aa1_ind = aa1_ind + inds
-                    conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
-
-                elif shape == 'lowtri':
-                    if aa1_ind > aa2_ind:
-                        aa1_ind += inds
-                        conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
-                    else:
-                        aa2_ind += inds
-                        conpot[i,:] = index.iloc[aa2_ind, aa1_ind]
-
-            arr[a,:] = np.asarray(conpot.mean(axis=0))
-            
-        if standardize == 'none':
-            # removing columns with NaNs
-            inds_nan = np.argwhere(np.isnan(arr))
-            if len(inds_nan) != 0:
-                cols_nan = np.unique(inds_nan[:,1])
-                cols_nan = np.hstack(cols_nan)
-                arr = np.delete(arr, cols_nan, axis=1)
-                desc = np.delete(desc, cols_nan)
-            return pd.DataFrame(arr, columns=desc)
-        
-        else:
-            # finding and removing columns with NaNs and all zeros
-            cols_all = []
-            inds_nan = np.argwhere(np.isnan(arr))
-            if len(inds_nan) != 0:
-                cols_nan = np.unique(inds_nan[:,1])
-                cols_nan = np.hstack(cols_nan)
-
-            cols_zeros = np.where(~arr.any(axis=0))[0]
-                
-            if len(inds_nan) != 0 and len(cols_zeros) != 0:
-                cols_all = np.array((cols_nan, cols_zeros))
-                cols_all = np.hstack(cols_all)
-
-            elif len(inds_nan) != 0 and len(cols_zeros) == 0:
-                cols_all = cols_nan
-
-            elif len(inds_nan) == 0 and len(cols_zeros) != 0:
-                cols_all = cols_zeros
-
-            if len(cols_all) > 0:
-                arr = np.delete(arr, cols_all, axis=1)
-                desc = np.delete(desc, cols_all)
-            
-            # standardization
-            if standardize == 'zscore':
-                scaler = StandardScaler().fit(arr)
-                arr = scaler.transform(arr)
-                
-                return pd.DataFrame(arr, columns=desc)
-            
-            elif standardize == 'minmax':
-                scaler = MinMaxScaler().fit(arr)
-                arr = scaler.transform(arr)
-                
-                return pd.DataFrame(arr, columns=desc)
-            
-        
-    # get aaindices2
-    lt = compute_aaind2(raw_lt, 'lowtri')
-    sq = compute_aaind2(raw_sq, 'square')
-    
-    return pd.concat([lt, sq], axis=1)
-
-
-def aaindex3(X, standardize='none', start=1, end=None):
-    """Compute amino acid indices from AAIndex3.
-
-    AAindex3 ver.9.2 (release Feb, 2017) is a set of lower triangular (44)
-    and square (3) matrices and includes a collection of published protein 
-    pairwise contact potentials. Currently, it contains 47 such matrices, of 
-    which four contain NaNs. Therefore, if any of the sequences contains an 
-    amino acid pair whose index is NaN, the entire column will be removed.
-
-    The pairwise contact potentials will be collected for each amino acid pair
-    in the sequence, then averaged across the sequence.
-
-    Parameters
-    ----------
-
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
-
-    standardize : string, default='none'
-
-        'none' : unstandardized index matrix will be returned
-        'zscore' : index matrix is standardized across columns (indices) to have
-                   a mean of 0 and standard deviation of 1 (unit variance).
-        'minmax' : index matrix is scaled (normalized) across columns (indices)
-                   to have a range of [0, 1].
-
-    start : int, default=1
-        Determines the starting point of the amino acid sequence.
-
-    end : int, default=None
-        Determines the end point of the amino acid sequence.
-
-    Returns
-    -------
-
-    arr_index3 : Pandas DataFrame of shape (n_samples, 43-47) 
-        Column size could vary when standardize != 'none'.
-
-    Notes
-    -----
-
-    Columns (indices) containing NaNs will be removed. Thus, the resulting index
-    will have a column size between 43-47. 
-
-    The returned dataframe 'arr_index3' can easily be converted into a numpy 
-    array with the command 'np.asarray(arr_index3)', if desired.
-
-    """
-    
-    # load AAIndex3 data
-    raw_lt = pd.read_csv(PATH+'aaindex3_lowtri.csv')
-    raw_sq = pd.read_csv(PATH+'aaindex3_square.csv')
-
-    def compute_aaind3(index, shape):
-        "Compute AAIndex3 for all shapes"
-        
-        # get unique index descriptions
-        desc = [index['Description'][i] for i in\
-                      np.arange(0, index.shape[0], 20)]
-        
-        # drop columns to facilitate easier indexing
-        index = index.drop(['Description', 'Amino Acids'], 
-                            axis=1).reset_index(drop=True)
-        
-        # get lengths and indices (e.g. 0, 20, 40,...)
-        LENGTH = len(desc)
-        inds = np.arange(0, index.shape[0], 20)
-        
-        # compute dict for indexing ({'A': 0, 'R': 1, ...})
-        aa_dict = {index.columns[i]: i for i in range(index.shape[1])}
-        
-        # initialitze empty array
-        arr = np.zeros((len(X), LENGTH))
-        
-        for a, seq in enumerate(range(len(X))):
-            sequence = X['Sequence'][seq]
-            sequence = sequence[start-1:end]
-            conpot = np.zeros((len(sequence)-1, LENGTH))
-
-            for i in range(len(sequence)-1):
-                aa1, aa2 = sequence[i], sequence[i+1]
-                aa1_ind, aa2_ind = aa_dict[aa1], aa_dict[aa2]
-
-                if shape == 'square':
-                    aa1_ind = aa1_ind + inds
-                    conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
-
-                elif shape == 'lowtri':
-                    if aa1_ind > aa2_ind:
-                        aa1_ind += inds
-                        conpot[i,:] = index.iloc[aa1_ind, aa2_ind]
-                    else:
-                        aa2_ind += inds
-                        conpot[i,:] = index.iloc[aa2_ind, aa1_ind]
-
-            arr[a,:] = np.asarray(conpot.mean(axis=0))
-            
-        if standardize == 'none':
-            # removing columns with NaNs
-            inds_nan = np.argwhere(np.isnan(arr))
-            if len(inds_nan) != 0:
-                cols_nan = np.unique(inds_nan[:,1])
-                cols_nan = np.hstack(cols_nan)
-                arr = np.delete(arr, cols_nan, axis=1)
-                desc = np.delete(desc, cols_nan)
-            return pd.DataFrame(arr, columns=desc)
-        
-        else:
-            # finding and removing columns with NaNs and all zeros
-            cols_all = []
-            inds_nan = np.argwhere(np.isnan(arr))
-            if len(inds_nan) != 0:
-                cols_nan = np.unique(inds_nan[:,1])
-                cols_nan = np.hstack(cols_nan)
-
-            cols_zeros = np.where(~arr.any(axis=0))[0]
-                
-            if len(inds_nan) != 0 and len(cols_zeros) != 0:
-                cols_all = np.array((cols_nan, cols_zeros))
-                cols_all = np.hstack(cols_all)
-
-            elif len(inds_nan) != 0 and len(cols_zeros) == 0:
-                cols_all = cols_nan
-
-            elif len(inds_nan) == 0 and len(cols_zeros) != 0:
-                cols_all = cols_zeros
-
-            if len(cols_all) > 0:
-                arr = np.delete(arr, cols_all, axis=1)
-                desc = np.delete(desc, cols_all)
-            
-            # standardization
-            if standardize == 'zscore':
-                scaler = StandardScaler().fit(arr)
-                arr = scaler.transform(arr)
-                
-                return pd.DataFrame(arr, columns=desc)
-            
-            elif standardize == 'minmax':
-                scaler = MinMaxScaler().fit(arr)
-                arr = scaler.transform(arr)
-                
-                return pd.DataFrame(arr, columns=desc)
-            
-        
-    # get aaindices3
-    lt = compute_aaind3(raw_lt, 'lowtri')
-    sq = compute_aaind3(raw_sq, 'square')
-    
-    return pd.concat([lt, sq], axis=1)
-
-
-def ngram_composition(X, ngram=2, start=1, end=None):
+def ngram_composition(X, ngram=2, method='relative', start=1, end=None):
     """Compute n-gram peptide composition.
     
     This function computes the di-, tri-, or quadpeptide composition of
@@ -580,9 +345,7 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     Parameters
     ----------
     
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
+    X : string, fasta, or a list thereof 
        
     ngram : int, default=2
         Integer denoting the desired n-gram composition.
@@ -590,6 +353,11 @@ def ngram_composition(X, ngram=2, start=1, end=None):
         2 : dipeptide composition
         3 : tripepitde composition
         4 : quadpeptide composition
+        
+    method: string, default='relative'
+    
+        'absolute': compute absolute ngram composition
+        'relative': compute relative ngram composition
 
     start : int, default=1
         Determines the starting point of the amino acid sequence.
@@ -600,7 +368,7 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     Returns
     -------
     
-    arr_ngram : Pandas DataFrame of shape (n_samples, n_unique_20^ngram)
+    df_ngram : Pandas DataFrame of shape (n_samples, n_unique_20^ngram)
         Depending on ngram, the returned dataframe will be of size:
         - (n_samples, 400) for dipeptide composition
         - (n_samples, 8000) for tripeptide composition
@@ -618,11 +386,28 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     valid = [2, 3, 4]
     if ngram not in valid:
         raise ValueError("ngram_comp: ngram must be one of %r." % valid)
+        
+    # input handling
+    ext = ['.fasta', '.faa', '.fa']
+    if type(X) == str:
+        _, extension = os.path.splitext(X)
+        
+        # fasta format
+        if extension in ext:
+            # single fasta sequence
+            try:
+                X = [str(SeqIO.read(X, 'fasta').seq)]
+                
+            # multiple fasta sequences
+            except:
+                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
+                
+        else:
+            X = [X] 
     
     # get ngram combinations
     aa_combo = []
-    amino_acids = ['A','C','D','E','F','G','H','I','K','L',
-                   'M','N','P','Q','R','S','T','V','W','Y']
+    amino_acids = IUPAC.ExtendedIUPACProtein().letters
 
     def combo(seq, prefix, n, k):
         "Generate every possible ngram combination"
@@ -634,7 +419,7 @@ def ngram_composition(X, ngram=2, start=1, end=None):
             newPrefix = prefix + seq[i] 
             combo(seq, newPrefix, n, k-1) 
 
-    combo(amino_acids, "", 20, ngram)
+    combo(amino_acids, "", len(amino_acids), ngram)
     
     # create dataframe with all zeros
     arr_ngram = np.zeros((len(X), len(aa_combo)))
@@ -651,8 +436,14 @@ def ngram_composition(X, ngram=2, start=1, end=None):
         return Counter(n_gram_list)
     
     # compute n-gram composition
-    for i in range(len(X)):
-        sequence = X['Sequence'][i]
+    for i, sequence in enumerate(X):
+        if type(sequence) != str:
+            sequence = str(sequence.seq)
+        if str.isalpha(sequence) == True:
+            pass
+        else:
+            raise ValueError('Data type must be string!')
+
         sequence = sequence[start-1:end]
         pep_comp = n_gram(sequence)
         for j in range(len(pep_comp)):
@@ -662,7 +453,13 @@ def ngram_composition(X, ngram=2, start=1, end=None):
     # delete zero columns
     df_ngram = df_ngram.loc[:, (df_ngram!=0).any(axis=0)]
             
-    return df_ngram
+    if method=='absolute':
+        return df_ngram
+    
+    elif method=='relative':
+        for i in range(df_ngram.shape[0]):
+            df_ngram.iloc[i,:] = df_ngram.iloc[i,:]/sum(df_ngram.iloc[i,:])
+        return df_ngram
 
 
 def position_enrichment(X, position, aminoacid):
@@ -675,9 +472,7 @@ def position_enrichment(X, position, aminoacid):
     Parameters
     ----------
     
-    X : Pandas DataFrame 
-        The column containing protein or peptide sequences must be labeled
-        'Sequence'.
+    X : string, fasta, or a list thereof
        
     position : int or list
         Integer or list of integers denoting the position(s) in the sequence.
@@ -691,12 +486,36 @@ def position_enrichment(X, position, aminoacid):
     pos : ndarray of shape (n_samples, ) or (n_samples, n_positions)
        
     """
-
+    
+    # input handling
+    # input handling
+    ext = ['.fasta', '.faa', '.fa']
+    if type(X) == str:
+        _, extension = os.path.splitext(X)
+        
+        # fasta format
+        if extension in ext:
+            # single fasta sequence
+            try:
+                X = [str(SeqIO.read(X, 'fasta').seq)]
+                
+            # multiple fasta sequences
+            except:
+                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
+                
+        else:
+            X = [X] 
+    
     if isinstance(position, int) and isinstance(aminoacid, str):
-        pos = np.zeros((X.shape[0],))
-        for a, seq in enumerate(range(len(X))):
-            sequence = X['Sequence'][seq]
-            for i, aa in enumerate(sequence):
+        pos = np.zeros((len(X),))
+        for a, seq in enumerate(X):
+            if type(seq) != str:
+                seq = str(seq.seq)
+            if str.isalpha(seq) == True:
+                pass
+            else:
+                raise ValueError('Data type must be string!')
+            for i, aa in enumerate(seq):
                 if i == position-1 and aa == aminoacid:
                     pos[a] = 1
         return pos
@@ -706,12 +525,18 @@ def position_enrichment(X, position, aminoacid):
         if len(position) != len(aminoacid):
             raise ValueError("Number of positions does not match number of amino acids")
 
-        pos = np.zeros((X.shape[0], len(position)))
+        pos = np.zeros((len(X), len(position)))
 
-        for a, seq in enumerate(range(len(X))):
-            sequence = X['Sequence'][seq]
+        for a, seq in enumerate(X):
+            if type(seq) != str:
+                seq = str(seq.seq)
+            if str.isalpha(seq) == True:
+                pass
+            else:
+                raise ValueError('Data type must be string!')
+                
             for i in range(len(position)):
-                if sequence[position[i]-1] == aminoacid[i]:
+                if seq[position[i]-1] == aminoacid[i]:
                     pos[a, i] = 1
         return pos
     
