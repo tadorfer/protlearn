@@ -1,6 +1,6 @@
-[![Travis (.org)](https://img.shields.io/travis/tadorfer/ProtLearn)](https://travis-ci.org/tadorfer/ProtLearn)
-[![PyPI](https://img.shields.io/pypi/v/ProtLearn)](https://pypi.org/project/protlearn/)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ProtLearn)](https://img.shields.io/pypi/pyversions/ProtLearn)
+[![Travis (.org)](https://img.shields.io/travis/tadorfer/protlearn)](https://travis-ci.org/tadorfer/protlearn)
+[![PyPI](https://img.shields.io/pypi/v/protlearn)](https://pypi.org/project/protlearn/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/protlearn)](https://img.shields.io/pypi/pyversions/protlearn)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/protlearn)](https://pypistats.org/packages/protlearn)
 
