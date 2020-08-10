@@ -4,5 +4,4 @@ scikit-learn
 seaborn
 matplotlib
 biopython
-pytest
-coverage
+pytest-cov
