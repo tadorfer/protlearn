@@ -10,6 +10,4 @@ install:
   - pip install ".[test]" .
 # command to run tests
 script:
-  - pytest --cov-report term --cov=investpy tests/
-after_success:
-  - codecov
+  - pytest
