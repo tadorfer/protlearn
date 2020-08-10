@@ -1,5 +1,5 @@
 [![Travis (.org)](https://img.shields.io/travis/tadorfer/protlearn)](https://travis-ci.org/tadorfer/protlearn)
-![Codecov](https://img.shields.io/codecov/c/github/tadorfer/protlearn)
+[![codecov](https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg)](https://codecov.io/gh/tadorfer/protlearn)
 [![PyPI](https://img.shields.io/pypi/v/protlearn)](https://pypi.org/project/protlearn/)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/protlearn)](https://img.shields.io/pypi/pyversions/protlearn)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
