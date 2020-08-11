@@ -20,6 +20,7 @@ regression tasks.
 - scikit-learn
 - seaborn
 - matplotlib
+- biopython
 
 ### User Installation
 
