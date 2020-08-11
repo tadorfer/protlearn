@@ -2,7 +2,7 @@
 
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
-from ..utils.validation import check_input
+from utils.validation import check_input
 
 def length(X, method='int'):
     """Compute the length of proteins or peptides.
