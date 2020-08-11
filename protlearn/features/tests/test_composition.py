@@ -1,10 +1,4 @@
-import os
-import sys
-path = os.environ.get('TRAVIS_BUILD_DIR')
-sys.path.insert(0, path+'/protlearn')
-
-from ..features import composition
-
+from features import composition
 
 def test_composition():
     "Test sequence compositions"

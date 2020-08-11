@@ -1,11 +1,5 @@
-import os
-import sys
-path = os.environ.get('TRAVIS_BUILD_DIR')
-sys.path.insert(0, path+'/protlearn')
 import numpy as np
-
-from ..features import length
-
+from features import length
 
 def test_lengths():
     "Test sequence lengths"

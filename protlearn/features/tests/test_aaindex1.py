@@ -1,11 +1,5 @@
-import os
-import sys
-path = os.environ.get('TRAVIS_BUILD_DIR')
-sys.path.insert(0, path+'/protlearn')
 import numpy as np
-
-from ..features import aaindex1
-
+from features import aaindex1
 
 def test_aaindex1():
     "Test AAIndex1"
