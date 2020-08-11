@@ -11,7 +11,7 @@ import sys
 import os
 sys.path.insert(0, 'protlearn')
 
-PATH = pkg_resources.resource_filename('protlearn', 'data/')
+PATH = pkg_resources.resource_filename(__name__, 'data/')
 
 def aaindex1(X, standardize='none', start=1, end=None):
     """Compute amino acid indices from AAIndex1.
