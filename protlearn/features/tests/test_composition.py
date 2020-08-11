@@ -3,14 +3,14 @@ import sys
 path = os.environ.get('TRAVIS_BUILD_DIR')
 sys.path.insert(0, path+'/protlearn')
 
-from feature_engineering import composition
+from ..features import composition
 
 
 def test_composition():
     "Test sequence compositions"
     
     # load data
-    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/data/test_seq.txt', 'r').read().splitlines()
     
     # test relative composition
     comp_rel = composition(data, 'relative')

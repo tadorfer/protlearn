@@ -4,14 +4,14 @@ path = os.environ.get('TRAVIS_BUILD_DIR')
 sys.path.insert(0, path+'/protlearn')
 import numpy as np
 
-from preprocessing import integer_encode
+from ..preprocessing import integer_encode
 
 
 def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/data/test_seq.txt', 'r').read().splitlines()
     enc = integer_encode(data)
     
     # test array shape and type

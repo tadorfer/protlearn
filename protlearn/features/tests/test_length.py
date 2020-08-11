@@ -4,14 +4,14 @@ path = os.environ.get('TRAVIS_BUILD_DIR')
 sys.path.insert(0, path+'/protlearn')
 import numpy as np
 
-from feature_engineering import length
+from ..features import length
 
 
 def test_lengths():
     "Test sequence lengths"
     
     # load data
-    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/data/test_seq.txt', 'r').read().splitlines()
     
     # test integer lengths
     len_int = length(data, 'int')

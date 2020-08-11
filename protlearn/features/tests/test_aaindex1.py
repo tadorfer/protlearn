@@ -4,14 +4,14 @@ path = os.environ.get('TRAVIS_BUILD_DIR')
 sys.path.insert(0, path+'/protlearn')
 import numpy as np
 
-from feature_engineering import aaindex1
+from ..features import aaindex1
 
 
 def test_aaindex1():
     "Test AAIndex1"
     
     # load data
-    data = open(path+'/tests/docs/test_seq.txt', 'r').read().splitlines()
+    data = open(path+'/tests/data/test_seq.txt', 'r').read().splitlines()
     
     # get aaindex1
     aaind1 = aaindex1(data)
