@@ -11,7 +11,7 @@ def test_lengths():
     "Test sequence lengths"
     
     # load data
-    data = open(path+'/tests/data/test_seq.txt', 'r').read().splitlines()
+    data = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
     
     # test integer lengths
     len_int = length(data, 'int')
