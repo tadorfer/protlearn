@@ -1,4 +1,4 @@
-from features import composition
+from features import aac
 
 def test_composition():
     "Test sequence compositions"

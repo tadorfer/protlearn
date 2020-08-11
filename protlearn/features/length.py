@@ -1,9 +1,5 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
-import os
-import sys
-path = os.environ.get('TRAVIS_BUILD_DIR')
-sys.path.insert(0, path+'/protlearn')
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from utils.validation import check_input
