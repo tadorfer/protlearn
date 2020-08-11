@@ -3,7 +3,7 @@
 import numpy as np
 from collections import Counter
 from Bio.Alphabet import IUPAC
-from .utils.validation import check_input
+from validation import check_input
 
 def aac(X, method='relative', start=1, end=None):
     """Compute the amino acid composition of proteins or peptides.
