@@ -7,6 +7,10 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from utils.validation import check_input
 import pkg_resources
 
+import sys
+import os
+sys.path.insert(0, 'protlearn')
+
 PATH = pkg_resources.resource_filename('protlearn', 'data/')
 
 def aaindex1(X, standardize='none', start=1, end=None):
