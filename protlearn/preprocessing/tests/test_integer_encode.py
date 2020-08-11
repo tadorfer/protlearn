@@ -1,6 +1,6 @@
 import numpy as np
 
-from ..preprocessing import integer_encode
+from preprocessing import integer_encode
 
 
 def test_integer_encode():

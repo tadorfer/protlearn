@@ -1,5 +1,7 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
+import sys
+sys.path.insert(0, 'protlearn/')
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from utils.validation import check_input
