@@ -10,6 +10,6 @@ install:
   - pip install ".[test]" .
 # command to run tests
 script:
-  pytest --cov-report=xml --cov=protlearn tests/
+  pytest --cov-report=xml --cov=protlearn
 after_success:
   bash <(curl -s https://codecov.io/bash)
