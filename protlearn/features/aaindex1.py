@@ -7,7 +7,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from utils.validation import check_input
 import pkg_resources
 
-PATH = pkg_resources.resource_filename('protlearn', 'data/')
+PATH = pkg_resources.resource_filename('ProtLearn', 'data/')
 
 def aaindex1(X, standardize='none', start=1, end=None):
     """Compute amino acid indices from AAIndex1.
