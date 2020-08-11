@@ -18,8 +18,9 @@ def test_aaindex1():
     QIAN880126 = np.array([.01166, -.17111, .05857, -.04333]) # index 277
     KARS160122 = np.array([2.014, 5.48522, 2.789, 1.751]) # index -1
     np.testing.assert_almost_equal(aaind1[:,0], ANDN920101, decimal=3)
-    np.testing.assert_almost_equal(aaind1[:,277], QIAN880126, decimal=3)
-    np.testing.assert_almost_equal(aaind1[:,-1], KARS160122)
+    ind = np.where(desc=='QIAN880126')[0][0]
+    np.testing.assert_almost_equal(aaind1[:,ind], QIAN880126, decimal=3)
+    np.testing.assert_almost_equal(aaind1[:,-1], KARS160122, decimal=3)
     
     # test standardization (zscore)
     aaind1_z, desc = aaindex1(data, 'zscore')
