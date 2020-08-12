@@ -5,12 +5,13 @@ def test_integer_encode():
     "Test integer encoding"
     
     # load data
-    data = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
-    enc = integer_encode(data)
+    data_list = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
+    data_str = 'AGTYLK'
+    data_fasta = 'sarcolipin.fasta'
+    enc, aa = integer_encode(data_list)
+    enc_str, aa = integer_encode(data_str)
+    enc_fasta, aa = integer_encode(data_fasta)
     
-    # test array shape and type
-    assert enc.shape == (4,)
-    assert type(enc) == np.ndarray
     
     # test array contents
     assert np.array_equal(enc[0], np.array([1, 6, 17, 20, 10, 9]))

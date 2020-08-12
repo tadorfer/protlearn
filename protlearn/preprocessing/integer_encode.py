@@ -40,6 +40,8 @@ def integer_encode(X, padding=False):
           ndarray of shape (n_samples, max_len) if padding=True
         Contains the label-encoded peptide sequences.
 
+    amino_acids : amino acid order of enc array
+
     Notes
     -----
 
@@ -82,6 +84,6 @@ def integer_encode(X, padding=False):
         enc_arr = np.asarray(enc_arr)
 
     if enc_arr.shape[0] == 1:
-        return enc_arr[0]
+        return enc_arr[0], amino_acids
     else:
-        return enc_arr
+        return enc_arr, amino_acids
