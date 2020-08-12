@@ -10,7 +10,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 setup(
   name = 'protlearn',       
   packages = ['protlearn'], 
-  package_data={'': ['data/*.csv']},  
+  package_data={'protlearn': ['features/data/*.csv']},  
   version = '1.8',      
   license='MIT',        
   description = 'Preprocessing, feature engineering, and visualization of protein and peptide sequences', 
