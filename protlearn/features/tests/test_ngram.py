@@ -13,9 +13,9 @@ def test_ngram():
     data_str = 'AGTYLK'
     data_fasta = PATH+'sarcolipin.fasta'
     data_error = 'AGT2HT9'
-    arr, ng = ngram(data_list)
-    arr_str, ng = ngram(data_str)
-    arr_fasta, ng = ngram(data_fasta)
+    arr, ng = ngram(data_list, method='absolute')
+    arr_str, ng = ngram(data_str, method='absolute')
+    arr_fasta, ng = ngram(data_fasta, method='absolute')
 
     with pytest.raises(ValueError):
         enc_error, aa = ngram(data_error)
