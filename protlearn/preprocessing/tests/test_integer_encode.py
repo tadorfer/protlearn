@@ -1,5 +1,8 @@
 import numpy as np
 from preprocessing import integer_encode
+import pkg_resources
+
+PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
 def test_integer_encode():
     "Test integer encoding"
@@ -7,7 +10,7 @@ def test_integer_encode():
     # load data
     data_list = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
     data_str = 'AGTYLK'
-    data_fasta = 'sarcolipin.fasta'
+    data_fasta = PATH+'sarcolipin.fasta'
     enc, aa = integer_encode(data_list)
     enc_str, aa = integer_encode(data_str)
     enc_fasta, aa = integer_encode(data_fasta)
