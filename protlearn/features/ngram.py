@@ -1,31 +1,26 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
-import os
 import numpy as np
-import pandas as pd
 from collections import Counter
-from Bio.Alphabet import IUPAC
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-import pkg_resources
+from utils.validation import check_input
 
-def ngram_composition(X, ngram=2, method='relative', start=1, end=None):
+def ngram(X, n=2, method='relative', start=1, end=None):
     """Compute n-gram peptide composition.
     
-    This function computes the di-, tri-, or quadpeptide composition of
-    amino acid sequences. Therefore, the function argument 'ngram' can only
-    take on the values 2, 3, and 4 - otherwise, it will raise a ValueError.
+    This function computes the di- or tripeptide composition of amino acid 
+    sequences. Therefore, the function argument 'n' can only take on 
+    the values 2 and 3 - otherwise, it will raise a ValueError.
     
     Parameters
     ----------
     
     X : string, fasta, or a list thereof 
        
-    ngram : int, default=2
+    n : int, default=2
         Integer denoting the desired n-gram composition.
         
         2 : dipeptide composition
         3 : tripepitde composition
-        4 : quadpeptide composition
         
     method: string, default='relative'
     
@@ -41,95 +36,56 @@ def ngram_composition(X, ngram=2, method='relative', start=1, end=None):
     Returns
     -------
     
-    df_ngram : Pandas DataFrame of shape (n_samples, n_unique_20^ngram)
+    arr : ndarray of shape (n_samples, n_unique_20^ngram)
         Depending on ngram, the returned dataframe will be of size:
         - (n_samples, 400) for dipeptide composition
         - (n_samples, 8000) for tripeptide composition
-        - (n_samples, 160000) for quadpeptide composition
-
-    Notes
-    -----
-
-    Columns containing all zeros will be removed, therefore the column size of
-    the returned array can vary.
+        if all possible ngram combinations are represented.
        
     """
     
-    # make sure ngram is between 2-4
-    valid = [2, 3, 4]
-    if ngram not in valid:
-        raise ValueError("ngram_comp: ngram must be one of %r." % valid)
-        
     # input handling
-    ext = ['.fasta', '.faa', '.fa']
-    if type(X) == str:
-        _, extension = os.path.splitext(X)
-        
-        # fasta format
-        if extension in ext:
-            # single fasta sequence
-            try:
-                X = [str(SeqIO.read(X, 'fasta').seq)]
-                
-            # multiple fasta sequences
-            except:
-                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
-                
-        else:
-            X = [X] 
+    X = check_input(X)
     
-    # get ngram combinations
-    aa_combo = []
-    amino_acids = IUPAC.ExtendedIUPACProtein().letters
-
-    def combo(seq, prefix, n, k):
-        "Generate every possible ngram combination"
-        if k == 0: 
-            aa_combo.append(prefix)
-            return aa_combo  
-
-        for i in range(n): 
-            newPrefix = prefix + seq[i] 
-            combo(seq, newPrefix, n, k-1) 
-
-    combo(amino_acids, "", len(amino_acids), ngram)
-    
-    # create dataframe with all zeros
-    arr_ngram = np.zeros((len(X), len(aa_combo)))
-    df_ngram = pd.DataFrame(arr_ngram, columns=aa_combo)
-    
-    # define n-gram function
-    def n_gram(seq):
-        "Computing n-gram features for sequence pairs"
-        n_gram_list = []
-        for i in range(len(seq)):
-            aa_pair = seq[i:i+ngram]
-            if len(aa_pair) == ngram:
-                n_gram_list.append(aa_pair)
-        return Counter(n_gram_list)
+    # make sure ngram is between 2-3
+    valid = [2, 3]
+    if n not in valid:
+        raise ValueError("n must be one of %r." % valid)
     
     # compute n-gram composition
-    for i, sequence in enumerate(X):
-        if type(sequence) != str:
-            sequence = str(sequence.seq)
-        if str.isalpha(sequence) == True:
+    ngdict = dict()
+    for i, seq in enumerate(X):
+        if str.isalpha(seq) == True:
             pass
         else:
-            raise ValueError('Data type must be string!')
+            raise ValueError('Data must be alphabetical!')
 
-        sequence = sequence[start-1:end]
-        pep_comp = n_gram(sequence)
-        for j in range(len(pep_comp)):
-            keys = list(pep_comp)
-            df_ngram[keys[j]][i] = pep_comp[keys[j]]
+        seq = seq[start-1:end]
+        keys = [seq[i:i+n] for i in range(len(seq)-n+1)]
+        unq = sorted(set(keys))
+        ngram = sorted(Counter(keys).items())
+        vals = [i[1] for i in ngram]
+        for num, j in enumerate(unq):
+            if j in ngdict:
+                ngdict[j].append(vals[num])
+            else:
+                # put zeros before if present for first time
+                ngdict[j] = i*[0]+[vals[num]]
 
-    # delete zero columns
-    df_ngram = df_ngram.loc[:, (df_ngram!=0).any(axis=0)]
-            
+        # append values not present in ngram with zero
+        if i != 0:
+            maxlen = max([len(c) for c in ngdict.values()])
+            for z in ngdict.values():
+                if len(z) < maxlen:
+                    z.append(0)
+
+    arr = np.array(list(ngdict.values()), dtype=float).T
+    ngrams = list(ngdict.keys())
+                    
     if method=='absolute':
-        return df_ngram
-    
+        return arr, ngrams
+
     elif method=='relative':
-        for i in range(df_ngram.shape[0]):
-            df_ngram.iloc[i,:] = df_ngram.iloc[i,:]/sum(df_ngram.iloc[i,:])
-        return df_ngram
+        for i in range(arr.shape[0]):
+            arr[i,:] = arr[i,:]/sum(arr[i,:])
+        return arr, ngrams
