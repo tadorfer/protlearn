@@ -71,12 +71,11 @@ def aaindex1(X, standardize='none', start=1, end=None):
 
     # fill array with mean of indices per protein/peptide
     for i, seq in enumerate(X):
-        if type(seq) != str:
-            seq = str(seq.seq)
+        # check that input is alphabetical
         if str.isalpha(seq) == True:
             pass
         else:
-            raise TypeError('Data type must be string!')
+            raise ValueError('Data must be alphabetical!')
             
         seq = seq[start-1:end] # positional information
         tmp_arr = np.zeros((LEN, len(seq)) )

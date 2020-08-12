@@ -58,13 +58,11 @@ def integer_encode(X, padding=False):
     int_values = np.arange(1, len(amino_acids)+1)
     enc_list = []
     for seq in X:
-        # format must be string
-        if type(seq) != str:
-            seq = str(seq.seq)
+        # check that input is alphabetical
         if str.isalpha(seq) == True:
             pass
         else:
-            raise ValueError('Data type must be string!')
+            raise ValueError('Data must be alphabetical!')
             
         seq = seq.upper()
         seq_split = [aa for aa in seq]

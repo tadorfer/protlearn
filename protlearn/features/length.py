@@ -36,15 +36,11 @@ def length(X, method='int'):
     # compute lengths
     l = []
     for seq in X:
-        # if fasta, get sequence as string
-        if type(seq) != str:
-            seq = str(seq.seq)
-            
         # check that input is alphabetical
         if str.isalpha(seq) == True:
             pass
         else:
-            raise TypeError('Data type must be string.')
+            raise ValueError('Data must be alphabetical.')
         l.append(len(seq))
 
     if method == 'int':

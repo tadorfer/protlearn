@@ -53,15 +53,11 @@ def aac(X, method='relative', start=1, end=None):
 
     # compute AAC
     for i, seq in enumerate(X):
-        # if fasta, get sequence as string
-        if type(seq) != str:
-            seq = str(seq.seq)
-            
-        # check that input is alphabeticalb
+        # check that input is alphabetical
         if str.isalpha(seq) == True:
             pass
         else:
-            raise TypeError('Data type must be string!')
+            raise ValueError('Data must be alphabetical!')
             
         seq = seq[start-1:end] # positional information
         counts = Counter(seq)
