@@ -29,5 +29,5 @@ def test_ngram():
     assert np.array_equal(arr_str, np.ones((1,5)))
 
     # test fasta data 
-    assert np.array_equal(arr_fast, np.ones((1,30)))
+    assert np.array_equal(arr_fasta, np.ones((1,30)))
 
