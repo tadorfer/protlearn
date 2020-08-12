@@ -11,9 +11,11 @@ def test_integer_encode():
     data_list = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
     data_str = 'AGTYLK'
     data_fasta = PATH+'sarcolipin.fasta'
+    data_error = 'AGT2HT9'
     enc, aa = integer_encode(data_list)
     enc_str, aa = integer_encode(data_str)
     enc_fasta, aa = integer_encode(data_fasta)
+    enc_error, aa = integer_encode(data_error)
     
     
     # test array contents
