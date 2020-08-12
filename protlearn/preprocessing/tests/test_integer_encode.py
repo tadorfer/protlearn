@@ -23,8 +23,8 @@ def test_integer_encode():
     assert np.array_equal(enc[3], np.array([1, 14, 4, 4, 19, 3]))
 
     # test padding
-    enc = integer_encode(data_list, padding=True)
+    enc, aa = integer_encode(data_list, padding=True)
     assert enc.shape == (4, 9)
-    assert [enc[0][i] == 0 for i in [6, 7, 8]]
-    assert [enc[2][i] == 0 for i in [7, 8]]
-    assert [enc[3][i] == 0 for i in [6, 7, 8]]
+    assert [enc[0,i] == 0 for i in [6, 7, 8]]
+    assert [enc[2,i] == 0 for i in [7, 8]]
+    assert [enc[3,i] == 0 for i in [6, 7, 8]]
