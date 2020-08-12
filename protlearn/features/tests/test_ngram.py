@@ -1,3 +1,4 @@
+import pytest
 from features import ngram
 import pkg_resources
 
