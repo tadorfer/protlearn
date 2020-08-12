@@ -1,1 +1,1 @@
-from .integer_encode import integer_encode
+from .encode import encode

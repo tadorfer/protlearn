@@ -7,7 +7,7 @@ from Bio.Alphabet import IUPAC
 from Bio import SeqIO
 from utils.validation import check_input
 
-def integer_encode(X, padding=False):
+def encode(X, padding=False):
     """Label-encode amino acid sequences.
 
     The amino acids that serve as the building blocks for proteins and 

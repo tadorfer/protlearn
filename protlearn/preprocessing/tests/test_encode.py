@@ -1,11 +1,11 @@
 import pytest
 import numpy as np
-from preprocessing import integer_encode
+from preprocessing import encode
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
-def test_integer_encode():
+def test_encode():
     "Test integer encoding"
     
     # load data
@@ -13,12 +13,12 @@ def test_integer_encode():
     data_str = 'AGTYLK'
     data_fasta = PATH+'sarcolipin.fasta'
     data_error = 'AGT2HT9'
-    enc, aa = integer_encode(data_list)
-    enc_str, aa = integer_encode(data_str)
-    enc_fasta, aa = integer_encode(data_fasta)
+    enc, aa = encode(data_list)
+    enc_str, aa = encode(data_str)
+    enc_fasta, aa = encode(data_fasta)
 
     with pytest.raises(ValueError):
-        enc_error, aa = integer_encode(data_error)
+        enc_error, aa = encode(data_error)
     
     
     # test array contents
@@ -28,7 +28,7 @@ def test_integer_encode():
     assert np.array_equal(enc[3], np.array([1, 14, 4, 4, 19, 3]))
 
     # test padding
-    enc, aa = integer_encode(data_list, padding=True)
+    enc, aa = encode(data_list, padding=True)
     assert enc.shape == (4, 9)
     assert [enc[0,i] == 0 for i in [6, 7, 8]]
     assert [enc[2,i] == 0 for i in [7, 8]]
