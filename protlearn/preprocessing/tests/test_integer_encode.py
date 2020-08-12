@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 from preprocessing import integer_encode
 import pkg_resources
@@ -15,7 +16,9 @@ def test_integer_encode():
     enc, aa = integer_encode(data_list)
     enc_str, aa = integer_encode(data_str)
     enc_fasta, aa = integer_encode(data_fasta)
-    enc_error, aa = integer_encode(data_error)
+
+    with pytest.raises(ValueError):
+        enc_error, aa = integer_encode(data_error)
     
     
     # test array contents
