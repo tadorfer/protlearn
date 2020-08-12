@@ -47,29 +47,11 @@ def integer_encode(X, padding=False):
 
     """
     
+    # input handling 
+    X = check_input(X)
+
     # list of amino acids for integer encoding (IUPAC extended)
     amino_acids = IUPAC.ExtendedIUPACProtein().letters
-    
-    ## input handling (single or multiple)
-    # If input is a list of sequences (strings), nothing has to be specified.
-    # If it is a string, it could either be a single sequence, or the path to
-    # a fasta file. This block of code checks for that.
-    ext = ['.fasta', '.faa', '.fa']
-    if type(X) == str:
-        _, extension = os.path.splitext(X)
-        
-        # fasta format
-        if extension in ext:
-            # single fasta sequence
-            try:
-                X = [str(SeqIO.read(X, 'fasta').seq)]
-                
-            # multiple fasta sequences
-            except:
-                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
-                
-        else:
-            X = [X] 
     
     int_values = np.arange(1, len(amino_acids)+1)
     enc_list = []
