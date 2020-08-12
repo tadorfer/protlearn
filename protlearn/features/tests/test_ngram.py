@@ -20,6 +20,10 @@ def test_ngram():
     with pytest.raises(ValueError):
         enc_error, aa = ngram(data_error)
 
+    # test ValueError
+    with pytest.raises(ValueError):
+        enc_error, aa = ngram(data_error, n=4)
+
     # test list data
     assert np.array_equal(arr[0], np.array([1.,1.,1.,0.,0.,0.,0.,0.,0.]))
     assert np.array_equal(arr[1], np.array([0.,0.,0.,1.,1.,1.,0.,0.,0.]))

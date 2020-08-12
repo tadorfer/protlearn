@@ -1,3 +1,4 @@
+import pytest
 import numpy as np
 from features import aaindex1
 
@@ -6,6 +7,7 @@ def test_aaindex1():
     
     # load data
     data = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD'] 
+    data_error = 'AGT2HT9'
     
     # get aaindex1
     aaind1, desc = aaindex1(data)
@@ -38,3 +40,7 @@ def test_aaindex1():
     for i in range(aaind1_mm.shape[0]):
         assert round(aaind1_mm[:,i].min()) == 0
         assert round(aaind1_mm[:,i].max()) == 1
+
+    # test ValueError
+    with pytest.raises(ValueError):
+        aaind1_error, desc = aaindex1(data_error)
