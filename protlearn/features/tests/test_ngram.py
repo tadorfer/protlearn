@@ -17,7 +17,7 @@ def test_ngram():
     arr_fasta, ng = ngram(data_fasta)
 
     with pytest.raises(ValueError):
-        enc_error, aa = encode(data_error)
+        enc_error, aa = ngram(data_error)
 
     # test list data
     assert np.array_equal(arr[0], np.array([1.,1.,1.,0.,0.,0.,0.,0.,0.]))
