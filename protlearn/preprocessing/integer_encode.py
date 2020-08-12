@@ -6,6 +6,9 @@ import pandas as pd
 from Bio.Alphabet import IUPAC
 from Bio import SeqIO
 from utils.validation import check_input
+import pkg_resources
+
+PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
 
 def integer_encode(X, padding=False):
