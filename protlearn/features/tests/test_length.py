@@ -14,7 +14,7 @@ def test_lengths():
     X_err = 'AGT2HT9'
     
     # test integer lengths
-    len_single = length(X_str, 'int')
+    len_single = length(X_str, 'intg')
     len_int = length(X_list, 'int')
     assert np.array_equal(len_int, np.array([7,9,8]))
     
