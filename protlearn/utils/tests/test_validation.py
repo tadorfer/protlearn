@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from utils import validation
+from utils import check_input
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
