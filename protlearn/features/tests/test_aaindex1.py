@@ -1,6 +1,9 @@
 import pytest
 import numpy as np
 from features import aaindex1
+import pkg_resources
+
+PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
 def test_aaindex1():
     "Test AAIndex1"

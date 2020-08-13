@@ -25,34 +25,34 @@ def test_ngram():
         ngram_err, aa = ngram(X_err, n=4)
 
     # test array contents (n=2)
-    assert np.array_equal(arr2[0], np.array([
+    np.testing.assert_almost_equal(arr2[0], np.array([
         0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,
         0.16666667, 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.]))
-    assert np.array_equal(arr2[1], np.array([
+    np.testing.assert_almost_equal(arr2[1], np.array([
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.125     , 0.125     , 0.125     , 0.125     ,
         0.125     , 0.125     , 0.25      , 0.        , 0.        ,
         0.        , 0.]))
-    assert np.array_equal(arr2[2], np.array([
+    np.testing.assert_almost_equal(arr2[2], np.array([
         0.28571429, 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.14285714, 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.        , 0.14285714, 0.14285714,
         0.14285714, 0.14285714]))
 
     # test array contents (n=3)
-    assert np.array_equal(arr3[0], np.array([
+    np.testing.assert_almost_equal(arr3[0], np.array([
         0.2       , 0.2       , 0.2       , 0.2       , 0.2       ,
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.]))
-    assert np.array_equal(arr3[1], np.array([
+    np.testing.assert_almost_equal(arr3[1], np.array([
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.14285714, 0.14285714, 0.14285714, 0.14285714, 0.14285714,
         0.14285714, 0.14285714, 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.]))
-    assert np.array_equal(arr3[2], np.array([
+    np.testing.assert_almost_equal(arr3[2], np.array([
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.        , 0.        , 0.        ,
         0.        , 0.        , 0.16666667, 0.16666667, 0.16666667,

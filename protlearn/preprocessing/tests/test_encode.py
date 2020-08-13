@@ -13,7 +13,6 @@ def test_encode():
     X_err = 'AGT2HT9'
     
     # test encode
-    enc_str, aa = encode(X_str)
     enc_list, aa = encode(X_list)
 
     with pytest.raises(ValueError):

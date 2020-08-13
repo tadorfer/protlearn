@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 from features import aac
 import pkg_resources
 
