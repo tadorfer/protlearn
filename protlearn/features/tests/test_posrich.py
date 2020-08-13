@@ -23,4 +23,4 @@ def test_posrich():
     
     # test ValueError
     with pytest.raises(ValueError):
-        posrich_err = posrich(X_err)
+        posrich_err = posrich(X_err, 1, 'R')
