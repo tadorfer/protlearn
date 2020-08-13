@@ -16,15 +16,15 @@ def test_aac():
     aac_rel, aa = aac(X_list)
 
     # test array contents
-    assert np.array_equal(aac_rel[0], np.array([
+    np.testing.assert_almost_equal(aac_rel[0], np.array([
         0.28571429, 0.        , 0.        , 0.        , 0.        ,
         0.14285714, 0.28571429, 0.        , 0.        , 0.14285714,
         0.14285714]))
-    assert np.array_equal(aac_rel[1], np.array([
+    np.testing.assert_almost_equal(aac_rel[1], np.array([
         0.        , 0.11111111, 0.11111111, 0.11111111, 0.22222222,
         0.        , 0.22222222, 0.        , 0.22222222, 0.        ,
         0.]))
-    assert np.array_equal(aac_rel[2], np.array([
+    np.testing.assert_almost_equal(aac_rel[2], np.array([
         0.375     , 0.125     , 0.25      , 0.        , 0.        ,
         0.        , 0.        , 0.125     , 0.        , 0.125     ,
         0.]))

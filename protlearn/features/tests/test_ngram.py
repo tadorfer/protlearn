@@ -62,7 +62,7 @@ def test_ngram():
     arr_rel, ng = ngram(X_list, n=2, method='absolute')
     assert np.array_equal(arr_rel[0], np.array([
         1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]))
-    assert np.array_equal(arr_rel[0], np.array([
+    assert np.array_equal(arr_rel[1], np.array([
         0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 2., 0., 0., 0., 0.]))
-    assert np.array_equal(arr_rel[0], np.array([
+    assert np.array_equal(arr_rel[2], np.array([
         2., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1.]))

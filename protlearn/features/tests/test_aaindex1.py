@@ -20,7 +20,7 @@ def test_aaindex1():
     
     # test some indices
     ANDN920101 = np.array([4.34, 4.31777778, 4.54375]) # index 0
-    QIAN880126 = np.array([-.01857143, -.44555556, -.23]) # index 277
+    QIAN880126 = np.array([-.157, -.019, -.029]) # index 277
     KARS160122 = np.array([1.91385714, 4.55744444, 2.39225]) # index -1
     np.testing.assert_almost_equal(aaind1[:,0], ANDN920101, decimal=3)
     ind = np.where(desc=='QIAN880126')[0][0]
