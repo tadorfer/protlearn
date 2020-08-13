@@ -8,11 +8,13 @@ PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 def test_encode():
     "Test integer encoding"
     
-   # load data
+    # load data
+    X_str = 'AYTLG'
     X_list = open(PATH+'multiple.txt').read().splitlines()
     X_err = 'AGT2HT9'
     
     # test encode
+    enc_str, aa = encode(X_str)
     enc_list, aa = encode(X_list)
 
     with pytest.raises(ValueError):
