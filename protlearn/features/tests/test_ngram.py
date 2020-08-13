@@ -32,5 +32,9 @@ def test_ngram():
     # test string data
     assert np.array_equal(arr_str, np.ones((1,5)))
 
-    # test fasta data 
+    # test relative
+    arr_str_rel, ng = ngram(data_str, method='relative')
+    assert np.array_equal(arr_str_rel, np.ones((1,5))*.2)
+
+    # test fasta data
     assert np.array_equal(arr_fasta, np.ones((1,30)))
