@@ -34,4 +34,3 @@ def test_ngram():
 
     # test fasta data 
     assert np.array_equal(arr_fasta, np.ones((1,30)))
-
