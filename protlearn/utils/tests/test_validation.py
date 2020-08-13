@@ -9,18 +9,18 @@ def test_validation():
     "Test validation function"
 
     # load data
-    data_list = ['AGTY', 'AHHN', 'AQEE']
-    data_str = 'AGTYLK'
-    data_fasta_single = PATH+'sarcolipin.fasta'
-    data_fasta_multiple = PATH+'multiple.fasta'
-    data_error = 3975
+    X_str = 'AGTYLK'
+    X_list = open(PATH+'multiple.txt').read().splitlines()
+    X_fasta_single = PATH+'sarcolipin.fasta'
+    X_fasta_multiple = PATH+'multiple.fasta'
+    X_err = 3975
     
     # test check_input
-    X_list = check_input(data_list)
-    X_str = check_input(data_str)
-    X_fasta_single = check_input(data_fasta_single)
-    X_fasta_multiple = check_input(data_fasta_multiple)
+    val_str = check_input(X_str)
+    val_list = check_input(X_list)
+    val_fasta_single = check_input(X_fasta_single)
+    val_fasta_multiple = check_input(X_fasta_multiple)
 
-    # test ValueError
+    # test TypeError
     with pytest.raises(TypeError):
-        X_err = check_input(data_error)
+        val_err = check_input(X_err)

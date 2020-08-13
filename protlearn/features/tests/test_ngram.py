@@ -9,32 +9,60 @@ def test_ngram():
     "Test ngram composition"
 
     # load data
-    data_list = ['AGTY', 'AHHN', 'AQEE']
-    data_str = 'AGTYLK'
-    data_fasta = PATH+'sarcolipin.fasta'
-    data_error = 'AGT2HT9'
-    arr, ng = ngram(data_list, method='absolute')
-    arr_str, ng = ngram(data_str, method='absolute')
-    arr_fasta, ng = ngram(data_fasta, method='absolute')
+    X_list = open(PATH+'multiple.txt').read().splitlines()
+    X_err = 'AGT2HT9'
 
+    # test ngram (n=2, n=3)
+    arr2, ng2 = ngram(X_list, n=2)
+    arr3, ng3 = ngram(X_list, n=3)
+
+    # test ValueError (string input)
     with pytest.raises(ValueError):
-        enc_error, aa = ngram(data_error)
+        ngram_err, aa = ngram(X_err)
 
-    # test ValueError
+    # test ValueError (n > 3)
     with pytest.raises(ValueError):
-        enc_error, aa = ngram(data_error, n=4)
+        ngram_err, aa = ngram(X_err, n=4)
 
-    # test list data
-    assert np.array_equal(arr[0], np.array([1.,1.,1.,0.,0.,0.,0.,0.,0.]))
-    assert np.array_equal(arr[1], np.array([0.,0.,0.,1.,1.,1.,0.,0.,0.]))
-    assert np.array_equal(arr[2], np.array([0.,0.,0.,0.,0.,0.,1.,1.,1.]))
+    # test array contents (n=2)
+    assert np.array_equal(arr2[0], np.array([
+        0.16666667, 0.16666667, 0.16666667, 0.16666667, 0.16666667,
+        0.16666667, 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.]))
+    assert np.array_equal(arr2[1], np.array([
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.125     , 0.125     , 0.125     , 0.125     ,
+        0.125     , 0.125     , 0.25      , 0.        , 0.        ,
+        0.        , 0.]))
+    assert np.array_equal(arr2[2], np.array([
+        0.28571429, 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.14285714, 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.        , 0.14285714, 0.14285714,
+        0.14285714, 0.14285714]))
 
-    # test string data
-    assert np.array_equal(arr_str, np.ones((1,5)))
+    # test array contents (n=3)
+    assert np.array_equal(arr3[0], np.array([
+        0.2       , 0.2       , 0.2       , 0.2       , 0.2       ,
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.]))
+    assert np.array_equal(arr3[1], np.array([
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.14285714, 0.14285714, 0.14285714, 0.14285714, 0.14285714,
+        0.14285714, 0.14285714, 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.]))
+    assert np.array_equal(arr3[2], np.array([
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.        , 0.        , 0.        ,
+        0.        , 0.        , 0.16666667, 0.16666667, 0.16666667,
+        0.16666667, 0.16666667, 0.16666667]))
 
-    # test relative
-    arr_str_rel, ng = ngram(data_str, method='relative')
-    assert np.array_equal(arr_str_rel, np.ones((1,5))*.2)
-
-    # test fasta data
-    assert np.array_equal(arr_fasta, np.ones((1,30)))
+    # test absolute
+    arr_rel, ng = ngram(X_list, n=2, method='absolute')
+    assert np.array_equal(arr_rel[0], np.array([
+        1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]))
+    assert np.array_equal(arr_rel[0], np.array([
+        0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 1., 1., 2., 0., 0., 0., 0.]))
+    assert np.array_equal(arr_rel[0], np.array([
+        2., 0., 0., 0., 0., 0., 1., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1.]))

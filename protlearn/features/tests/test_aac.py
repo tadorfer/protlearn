@@ -1,28 +1,53 @@
 import pytest
 from features import aac
+import pkg_resources
+
+PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
 def test_aac():
     "Test sequence compositions"
     
     # load data
-    data = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD']
-    data_error = 'AGT2HT9'
+    X_list = open(PATH+'multiple.txt').read().splitlines()
+    X_err = 'AGT2HT9'
     
     # test relative composition
-    comp_rel, aa = aac(data, 'relative')
+    aac_rel, aa = aac(X_list)
+
+    # test array contents
+    assert np.array_equal(aac_rel[0], np.array([
+        0.28571429, 0.        , 0.        , 0.        , 0.        ,
+        0.14285714, 0.28571429, 0.        , 0.        , 0.14285714,
+        0.14285714]))
+    assert np.array_equal(aac_rel[1], np.array([
+        0.        , 0.11111111, 0.11111111, 0.11111111, 0.22222222,
+        0.        , 0.22222222, 0.        , 0.22222222, 0.        ,
+        0.]))
+    assert np.array_equal(aac_rel[2], np.array([
+        0.375     , 0.125     , 0.25      , 0.        , 0.        ,
+        0.        , 0.        , 0.125     , 0.        , 0.125     ,
+        0.]))
     
     # test if frequencies add to 1
-    for i in range(len(data)):
-        assert round(comp_rel[0,:].sum()) == 1
+    for i in range(len(X_list)):
+        assert round(aac_rel[0,:].sum()) == 1
     
     # test absolute composition
-    comp_abs, aa = aac(data, 'absolute')
+    aac_abs, aa = aac(X_list, 'absolute')
+
+    # test array contents
+    assert np.array_equal(aac_abs[0], np.array([
+        2., 0., 0., 0., 0., 1., 2., 0., 0., 1., 1.]))
+    assert np.array_equal(aac_abs[1], np.array([
+        0., 1., 1., 1., 2., 0., 2., 0., 2., 0., 0.]))
+    assert np.array_equal(aac_abs[2], np.array([
+        3., 1., 2., 0., 0., 0., 0., 1., 0., 1., 0.]))
     
     # test if frequences == sequence length
-    all_lengths = [6, 9, 7, 6]
-    for i in range(len(data)):
-        assert comp_abs[i,:].sum() == all_lengths[i]
+    all_lengths = [7,9,8]
+    for i in range(len(X_list)):
+        assert aac_abs[i,:].sum() == all_lengths[i]
 
     # test ValueError
     with pytest.raises(ValueError):
-        comp_error, aa = aac(data_error)
+        acc_err, aa = aac(X_err)

@@ -6,26 +6,26 @@ def test_aaindex1():
     "Test AAIndex1"
     
     # load data
-    data = ['AGTYLK', 'VCIMMMPFP', 'LRSAHHN', 'AQEEWD'] 
-    data_error = 'AGT2HT9'
+    X_list = open(PATH+'multiple.txt').read().splitlines()
+    X_err = 'AGT2HT9'
     
     # get aaindex1
-    aaind1, desc = aaindex1(data)
+    aaind1, desc = aaindex1(X_list)
     
     # test shape
-    assert aaind1.shape == (4, 553)
+    assert aaind1.shape == (3, 553)
     
     # test some indices
-    ANDN920101 = np.array([4.3, 4.40555, 4.48714, 4.46]) # index 0
-    QIAN880126 = np.array([.01166, -.17111, .05857, -.04333]) # index 277
-    KARS160122 = np.array([2.014, 5.48522, 2.789, 1.751]) # index -1
+    ANDN920101 = np.array([4.34, 4.31777778, 4.54375]) # index 0
+    QIAN880126 = np.array([-.01857143, -.44555556, -.23]) # index 277
+    KARS160122 = np.array([1.91385714, 4.55744444, 2.39225]) # index -1
     np.testing.assert_almost_equal(aaind1[:,0], ANDN920101, decimal=3)
     ind = np.where(desc=='QIAN880126')[0][0]
     np.testing.assert_almost_equal(aaind1[:,ind], QIAN880126, decimal=3)
     np.testing.assert_almost_equal(aaind1[:,-1], KARS160122, decimal=3)
     
     # test standardization (zscore)
-    aaind1_z, desc = aaindex1(data, 'zscore')
+    aaind1_z, desc = aaindex1(X_list, 'zscore')
     # test mean = 0
     for i in range(aaind1_z.shape[0]):
         assert abs(round(aaind1_z[:,1].mean())) == 0
@@ -35,7 +35,7 @@ def test_aaindex1():
                round(aaind1_z[:,0].std(), 1)
         
     # test standardization (minmax)
-    aaind1_mm, desc = aaindex1(data, 'minmax')
+    aaind1_mm, desc = aaindex1(X_list, 'minmax')
     # test minimum and maximum
     for i in range(aaind1_mm.shape[0]):
         assert round(aaind1_mm[:,i].min()) == 0
@@ -43,4 +43,4 @@ def test_aaindex1():
 
     # test ValueError
     with pytest.raises(ValueError):
-        aaind1_error, desc = aaindex1(data_error)
+        aaind1_error, desc = aaindex1(X_err)
