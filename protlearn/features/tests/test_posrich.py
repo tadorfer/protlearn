@@ -11,7 +11,6 @@ def test_posrich():
     # load data
     X_list = open(PATH+'multiple.txt').read().splitlines()
     X_err = 'AGT2HT9'
-    X_err2 = ['AGT2HT9', 'ARLKY']
 
     # test posrich single position
     posrich_single = posrich(X_list, 2, 'A')
@@ -26,13 +25,13 @@ def test_posrich():
     with pytest.raises(ValueError):
         posrich_err = posrich(X_err, 1, 'R')
 
-    # test ValueError (erroneous input multiple)
-    with pytest.raises(ValueError):
-        posrich_err = posrich(X_err2, 1, 'R')
-
     # test ValueError (position / amino acid mismatch)
     with pytest.raises(ValueError):
-        posrich_err = posrich(X_err, [1, 2], 'R')
+        posrich_err = posrich(X_err, [1, 2], ['R', 'A', 'K'])
+
+    # test ValueError (position / amino acid mismatch alphabetical)
+    with pytest.raises(ValueError):
+        posrich_err = posrich(X_err, [1, 2], ['R', 'A'])
 
     # test ValueError (erroneous function arguments)
     with pytest.raises(ValueError):
