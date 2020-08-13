@@ -13,7 +13,7 @@ def test_validation():
     data_str = 'AGTYLK'
     data_fasta_single = PATH+'sarcolipin.fasta'
     data_fasta_multiple = PATH+'multiple.fasta'
-    data_error = 'AGT2HT9'
+    data_error = 3975
     
     # test check_input
     X_list = check_input(data_list)
