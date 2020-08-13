@@ -18,8 +18,8 @@ def test_posrich():
 
     # test posrich multiple positions
     posrich_multiple = posrich(X_list, [2, 4], ['A', 'K'])
-    assert np.array_equal(posrich_multiple[0], np.array([1.,0.,1.]))
-    assert np.array_equal(posrich_multiple[0], np.array([1.,0.,0.]))
+    assert np.array_equal(posrich_multiple[:,0], np.array([1.,0.,1.]))
+    assert np.array_equal(posrich_multiple[:,1], np.array([1.,0.,0.]))
     
     # test ValueError
     with pytest.raises(ValueError):
