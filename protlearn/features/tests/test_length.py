@@ -9,10 +9,12 @@ def test_lengths():
     "Test sequence lengths"
     
     # load data
+    X_str = 'AYTLG'
     X_list = open(PATH+'multiple.txt').read().splitlines()
     X_err = 'AGT2HT9'
     
     # test integer lengths
+    len_single = length(X_str, 'int')
     len_int = length(X_list, 'int')
     assert np.array_equal(len_int, np.array([7,9,8]))
     
