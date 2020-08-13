@@ -22,5 +22,5 @@ def test_validation():
     X_fasta_multiple = check_input(data_fasta_multiple)
 
     # test ValueError
-    with pytest.raises(ValueError):
+    with pytest.raises(TypeError):
         X_err = check_input(data_error)
