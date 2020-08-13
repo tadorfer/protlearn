@@ -2,13 +2,11 @@
 
 import os
 import numpy as np
-import pandas as pd
-from collections import Counter
-from Bio.Alphabet import IUPAC
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-import pkg_resources
+from utils.validation import check_input
 
-def position_enrichment(X, position, aminoacid):
+
+
+def posrich(X, position, aminoacid):
     """Compute the presence of an amino acid at a specific position.
 
     This function returns a binary feature vector or matrix in which ones 
@@ -34,29 +32,11 @@ def position_enrichment(X, position, aminoacid):
     """
     
     # input handling
-    # input handling
-    ext = ['.fasta', '.faa', '.fa']
-    if type(X) == str:
-        _, extension = os.path.splitext(X)
-        
-        # fasta format
-        if extension in ext:
-            # single fasta sequence
-            try:
-                X = [str(SeqIO.read(X, 'fasta').seq)]
-                
-            # multiple fasta sequences
-            except:
-                X = [str(rec.seq) for rec in SeqIO.parse(X, 'fasta')]
-                
-        else:
-            X = [X] 
+    X = check_input(X)
     
     if isinstance(position, int) and isinstance(aminoacid, str):
         pos = np.zeros((len(X),))
         for a, seq in enumerate(X):
-            if type(seq) != str:
-                seq = str(seq.seq)
             if str.isalpha(seq) == True:
                 pass
             else:
@@ -72,14 +52,11 @@ def position_enrichment(X, position, aminoacid):
             raise ValueError("Number of positions does not match number of amino acids")
 
         pos = np.zeros((len(X), len(position)))
-
         for a, seq in enumerate(X):
-            if type(seq) != str:
-                seq = str(seq.seq)
             if str.isalpha(seq) == True:
                 pass
             else:
-                raise ValueError('Data type must be string!')
+                raise ValueError('Data type must be alphabetical!')
                 
             for i in range(len(position)):
                 if seq[position[i]-1] == aminoacid[i]:
