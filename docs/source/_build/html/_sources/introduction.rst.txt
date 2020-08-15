@@ -13,7 +13,7 @@ variety of downstream tasks such as the prediction of protein families or
 secondary and tertiary structures.
 
 Package Contents 
-================
+----------------
 
 ProtLearn's main contents are divided into three main sections:
 
@@ -41,7 +41,7 @@ following formats:
 * .fasta (multiple)
 
 Installing ProtLearn
-====================
+--------------------
 
 ProtLearn is currently supported and tested on Python 3.6, 3.7, and 3.8 and can 
 be installed and upgraded using the following terminal commands:
