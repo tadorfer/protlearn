@@ -26,7 +26,7 @@ def length(X, method='int'):
 
     l : ndarray of shape (n_samples, ) if method = 'int'
         ndarray of shape (n_samples, n_unique_lengths) if method = 'ohe'
-        int if only one sequence provided
+        int if len(X) == 1
 
     """
     
