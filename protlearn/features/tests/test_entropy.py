@@ -23,7 +23,7 @@ def test_entropy():
     ent_zscore = entropy(X_list, 'zscore')
     np.testing.assert_array_almost_equal(ent_zscore, \
         np.array([[-.4195], [1.3793], [-.9598]]), decimal=3)
-    ent_minmax = entropy(X_list, 'zscore')
+    ent_minmax = entropy(X_list, 'minmax')
     np.testing.assert_array_almost_equal(ent_minmax, \
         np.array([[.2309], [1.0], [0.]]), decimal=3)
     
