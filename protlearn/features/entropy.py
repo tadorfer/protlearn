@@ -5,7 +5,7 @@ from collections import Counter
 from utils.validation import check_input
 
 def entropy(X, standardize='none', start=1, end=None):
-    """Compute the Shannon entropy of proteins or peptides.
+    """Compute Shannon's entropy of proteins or peptides.
 
     Parameters
     ----------
