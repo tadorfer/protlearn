@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
+from Bio.Alphabet import IUPAC
 from utils.validation import check_input
 import pkg_resources
 
