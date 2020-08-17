@@ -45,6 +45,10 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
 
     # list of amino acids (IUPAC standard)
     amino_acids = IUPAC.IUPACProtein.letters
+    desc = [aa for aa in amino_acids]
+
+    for n in range(1, lambda_+1):
+        desc.append('lambda' + str(n))
     
     # normalization
     for i in range(data.shape[1]):
@@ -80,4 +84,9 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
         pse_aac = pse_aac + [(w*j) / (1+w * sum(theta)) for j in theta]
         arr[i,:] = pse_aac
 
-    return arr, amino_acids
+    # delete zero columns
+    cols_zeros = np.where(~arr.any(axis=0))[0]
+    arr = np.delete(arr, cols_zeros, axis=1)
+    desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
+
+    return arr, desc
