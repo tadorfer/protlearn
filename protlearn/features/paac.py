@@ -61,6 +61,11 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
     # computing pseudo amino acid composition
     arr = np.zeros((len(X),len(amino_acids)+lambda_))
     for i, seq in enumerate(X):
+        # check that input is alphabetical
+        if str.isalpha(seq) == True:
+            pass
+        else:
+            raise ValueError('Data must be alphabetical!')
         theta = []
         for n in range(1, lambda_+1):
             theta.append(
