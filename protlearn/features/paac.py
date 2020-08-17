@@ -30,7 +30,7 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
     Returns
     -------
 
-    ent :  ndarray of shape (n_samples, 20+lambda_)
+    arr :  ndarray of shape (n_samples, 20+lambda_)
     
     amino_acids : amino acid order of paac array
 
