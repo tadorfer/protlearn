@@ -67,6 +67,8 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
             pass
         else:
             raise ValueError('Data must be alphabetical!')
+
+        seq = seq[start-1:end] # positional information
         theta = []
         for n in range(1, lambda_+1):
             theta.append(
