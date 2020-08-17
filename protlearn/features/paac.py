@@ -1,3 +1,5 @@
+# Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
+
 import numpy as np
 import pandas as pd
 from collections import Counter
