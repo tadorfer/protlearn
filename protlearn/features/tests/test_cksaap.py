@@ -13,7 +13,7 @@ def test_paac():
     X_err = 'AGT2HT9'
     
     # get paac
-    cksaap_list, desc = cksaap(X_list)
+    cksaap_list, desc = cksaap(X_list, k=3)
     
     # test paac
     assert np.array_equal(cksaap_list, np.array([
