@@ -25,7 +25,7 @@ def test_ctd():
         0., 0., 0., 1., 1., 1., 1., 1., 1.]]))
 
     # test appending loop
-    ctd_app = ctd(['AARKLY', 'AARKPGY'])
+    ctd_app = ctd(['AARKLY', 'AARKPGY'])[0]
     assert np.array_equal(ctd_app, np.array([
        [1., 1., 1., 1., 0., 0.],
        [1., 1., 0., 1., 1., 1.]]))
