@@ -6,7 +6,7 @@ from itertools import product
 from Bio.Alphabet import IUPAC
 from utils.validation import check_input
 
-def cksaap(X, k=3, start=1, end=None):
+def cksaap(X, k=1, start=1, end=None):
     """Compute composition of k-spaced amino acid pairs.
 
     Parameters
