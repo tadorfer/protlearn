@@ -23,4 +23,4 @@ def test_paac():
 
     # test ValueError
     with pytest.raises(ValueError):
-        cksaap_error, desc = paac(X_err)
+        cksaap_error, desc = cksaap(X_err)
