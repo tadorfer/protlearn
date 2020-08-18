@@ -5,7 +5,7 @@ import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
-def test_paac():
+def test_ctd():
     "Test conjoint triad descriptors"
     
     # load data
@@ -26,7 +26,7 @@ def test_paac():
 
     # test appending loop
     ctd_app = ctd(['AARKLY', 'AARKPGY'])
-    assert np.array_equal(ctd(ctd_app)[0], np.array([
+    assert np.array_equal(ctd_app, np.array([
        [1., 1., 1., 1., 0., 0.],
        [1., 1., 0., 1., 1., 1.]]))
 
