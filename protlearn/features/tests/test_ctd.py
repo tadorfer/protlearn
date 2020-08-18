@@ -24,8 +24,11 @@ def test_paac():
        [0., 0., 0., 0., 0., 0., 0., 0., 0., 
         0., 0., 0., 1., 1., 1., 1., 1., 1.]]))
 
-    # test for longer triads
-    assert np.array_equal(ctd('AAAARKLY')[0], np.array([[2., 1., 1., 1., 1.]]))
+    # test appending loop
+    ctd_app = ctd(['AARKLY', 'AARKPGY'])
+    assert np.array_equal(ctd(ctd_app)[0], np.array([
+       [1., 1., 1., 1., 0., 0.],
+       [1., 1., 0., 1., 1., 1.]]))
 
     # test ValueError
     with pytest.raises(ValueError):
