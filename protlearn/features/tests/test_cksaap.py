@@ -12,10 +12,10 @@ def test_paac():
     X_list = open(PATH+'multiple.txt').read().splitlines()
     X_err = 'AGT2HT9'
     
-    # get paac
+    # get cksaap 
     cksaap_list, desc = cksaap(X_list, k=3)
     
-    # test paac
+    # test cksaap
     assert np.array_equal(cksaap_list, np.array([
        [0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0],
        [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],

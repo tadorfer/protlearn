@@ -30,4 +30,4 @@ def test_paac():
 
     # test ValueError
     with pytest.raises(ValueError):
-        paac_error, desc = paac(X_err)
+        paac_error, aa = paac(X_err)
