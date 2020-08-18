@@ -24,6 +24,9 @@ def test_paac():
        [0., 0., 0., 0., 0., 0., 0., 0., 0., 
         0., 0., 0., 1., 1., 1., 1., 1., 1.]]))
 
+    # test for longer triads
+    assert np.array_equal(ctd('AAAARKLY'), np.array([[2., 1., 1., 1., 1.]]))
+
     # test ValueError
     with pytest.raises(ValueError):
         ctd_error, desc = ctd(X_err)
