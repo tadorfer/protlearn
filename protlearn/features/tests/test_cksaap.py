@@ -5,7 +5,7 @@ import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
 
-def test_paac():
+def test_cksaap():
     "Test k-spaced amino acid pair composition"
     
     # load data
