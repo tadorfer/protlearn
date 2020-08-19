@@ -7,3 +7,4 @@ from .entropy import entropy
 from .paac import paac
 from .cksaap import cksaap
 from .ctd import ctd
+from .binary import binary
