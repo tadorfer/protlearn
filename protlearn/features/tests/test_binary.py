@@ -65,7 +65,7 @@ def test_binary():
 
     # test ValueError (alphabetical data)
     with pytest.raises(ValueError):
-        binary_err = binary(X_list, padding=True)
+        binary_err = binary(X_err, padding=True)
 
     # test ValueError (equal length)
     with pytest.raises(ValueError):
