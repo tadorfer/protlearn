@@ -4,13 +4,16 @@ import numpy as np
 from Bio.Alphabet import IUPAC
 from utils.validation import check_input
 
-def binary(X, start=1, end=None):
+def binary(X, padding=False, start=1, end=None):
     """Compute binary profile pattern.
 
     Parameters
     ----------
 
     X : string, fasta, or a list thereof 
+    
+    padding : bool, default=False
+        Pad sequences of unequal lengths with zeros at posterior end.
 
     start : int, default=1
         Determines the starting point of the amino acid sequence.
@@ -36,8 +39,14 @@ def binary(X, start=1, end=None):
     # list of amino acids (IUPAC extended)
     amino_acids = IUPAC.ExtendedIUPACProtein.letters
 
+    # define maximum length 
+    l = [len(seq) for seq in X]
+    max_len = max(l)
+    if padding == False and len(l) != l.count(max_len):
+        raise ValueError('Sequences must be of equal length!')
+        
     # compute binary profile pattern
-    arr = np.zeros((len(X), len(amino_acids)*len(X[0])))
+    arr = np.zeros((len(X), len(amino_acids)*max_len))
     for i, seq in enumerate(X):
         # check that input is alphabetical
         if str.isalpha(seq) == True:
