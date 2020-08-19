@@ -13,7 +13,7 @@ def test_binary():
     X_err = 'AGT2HT9'
     
     # get binary
-    binary_list = binary(X_list)
+    binary_list = binary(X_list, padding=True)
     
     # test binary
     assert np.array_equal(binary_list, np.array([
