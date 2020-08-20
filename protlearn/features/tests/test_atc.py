@@ -29,7 +29,7 @@ def test_atc():
     
     # test if frequencies add to 1
     for i in range(len(X_list)):
-        assert round(atc_rel[0,:].sum()) == 1
+        assert round(atc_rel[0].sum()) == 1
     
     # test absolute composition
     atc_abs, bond_abs = atc(X_list, 'absolute')
