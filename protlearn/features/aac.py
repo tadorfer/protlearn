@@ -34,12 +34,6 @@ def aac(X, method='relative', start=1, end=None):
     
     amino_acids : amino acid order of aac array
 
-    Notes
-    -----
-
-    Start and end positions can be specified to determine the composition of
-    a particular amino acid stretch within the protein.
-
     """
 
     # input handling
