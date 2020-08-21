@@ -10,3 +10,4 @@ from .ctd import ctd
 from .binary import binary
 from .atc import atc
 from .moran import moran
+from .geary import geary
