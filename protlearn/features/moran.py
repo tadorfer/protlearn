@@ -36,15 +36,7 @@ def moran(X, d=1, properties=default, start=1, end=None):
     Returns
     -------
 
-    arr_atoms :  ndarray of shape (n_samples, 5)
-    
-    arr_bonds : ndarray of shape (n_samples, 3)
-    
-    Notes
-    -----
-    
-    The 'method' argument only applies to the atomic composition, not
-    the bond composition.
+    arr :  ndarray of shape (n_samples, n_properties)
 
     """
 
