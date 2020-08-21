@@ -11,3 +11,4 @@ from .binary import binary
 from .atc import atc
 from .moran import moran
 from .geary import geary
+from .moreau_broto import moreau_broto
