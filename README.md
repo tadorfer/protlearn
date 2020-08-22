@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_logo.png" height="200" width="200">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_logo.png" height="75" width="200">
 </p>
 
 <p align="center">
@@ -45,7 +45,7 @@ $ pip install protlearn
 
 ## Authors
 
-This package is maintained by [Thomas Dorfer](https://github.com/tadorfer)
+This package is maintained by [Thomas Dorfer](https://github.com/tadorfer).
 
 ## License
 
