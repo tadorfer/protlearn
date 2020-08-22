@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from .. import ctd 
+from ..ctd import ctd 
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')

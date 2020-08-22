@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from .. import posrich
+from ..posrich import posrich
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')

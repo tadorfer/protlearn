@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from .. import moreau_broto
+from ..moreau_broto import moreau_broto
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')

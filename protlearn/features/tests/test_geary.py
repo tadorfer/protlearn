@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from .. import geary
+from ..geary import geary
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
