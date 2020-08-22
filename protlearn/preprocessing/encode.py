@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from Bio.Alphabet import IUPAC
 from Bio import SeqIO
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 def encode(X, padding=False):
     """Label-encode amino acid sequences.
