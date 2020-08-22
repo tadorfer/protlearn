@@ -1,21 +1,24 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_logo.png" height="75" width="200">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_logo.png" height="85" width="230">
 </p>
 
 <p align="center">
   A Python package for extracting protein sequence features
-
-  [Documentation](https://protlearn.readthedocs.io/en/latest/) · 
-  [Request a feature](https://github.com/tadorfer/protlearn/issues/new) · 
-  [Report a bug](https://github.com/tadorfer/protlearn/issues/new)
-
-  [![Travis (.org)](https://img.shields.io/travis/tadorfer/protlearn)](https://travis-ci.org/tadorfer/protlearn)
-  [![codecov](https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg)](https://codecov.io/gh/tadorfer/protlearn)
-  [![Documentation Status](https://readthedocs.org/projects/protlearn/badge/?version=latest)](https://protlearn.readthedocs.io/en/latest/?badge=latest)
-  [![PyPI](https://img.shields.io/pypi/v/protlearn)](https://pypi.org/project/protlearn/)
-  [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/protlearn)](https://img.shields.io/pypi/pyversions/protlearn)
-  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+  <br>
+  <a href="https://protlearn.readthedocs.io/en/latest/">Documentation</a>
+  ·
+  <a href="https://github.com/tadorfer/protlearn/issues/new">Request a feature</a>
+  · 
+  <a href="https://github.com/tadorfer/protlearn/issues/new">Report a bug</a>
+  <br><br>
+  <a href="https://travis-ci.org/tadorfer/protlearn"><img alt="Travis CI" src="https://img.shields.io/travis/tadorfer/protlearn"></a>
+  <a href="https://codecov.io/gh/tadorfer/protlearn"><img alt="Codecov" src="https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg"></a>
+  <a href="https://protlearn.readthedocs.io/en/latest/?badge=latest"><img alt="Docs" src="https://readthedocs.org/projects/protlearn/badge/?version=latest"></a> 
+  <a href="https://pypi.org/project/protlearn/"><img alt="PyPI" src="https://img.shields.io/pypi/v/protlearn"></a>
+  <a href="https://img.shields.io/pypi/pyversions/protlearn"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/protlearn"></a>  
+  <a href="https://lbesson.mit-license.org/"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>   
 </p>
+<br><hr>
 
 protlearn is a Python package for the feature extraction of amino acid sequences.
 It is comprised of three stages - preprocessing, feature computation, and 
