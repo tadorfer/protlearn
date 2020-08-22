@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/logo.png" height="200" width="200">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_logo.png" height="200" width="200">
 </p>
 
 <p align="center">
