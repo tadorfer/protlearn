@@ -4,15 +4,11 @@
 
 <p align="center">
   A Python package for extracting protein sequence features
-</p>
 
-<p align="center">
-  [Documentation]((https://protlearn.readthedocs.io/en/latest/) · 
+  [Documentation](https://protlearn.readthedocs.io/en/latest/) · 
   [Request a feature](https://github.com/tadorfer/protlearn/issues/new) · 
   [Report a bug](https://github.com/tadorfer/protlearn/issues/new)
-</p>
 
-<p align="center">
   [![Travis (.org)](https://img.shields.io/travis/tadorfer/protlearn)](https://travis-ci.org/tadorfer/protlearn)
   [![codecov](https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg)](https://codecov.io/gh/tadorfer/protlearn)
   [![Documentation Status](https://readthedocs.org/projects/protlearn/badge/?version=latest)](https://protlearn.readthedocs.io/en/latest/?badge=latest)
@@ -20,8 +16,6 @@
   [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/protlearn)](https://img.shields.io/pypi/pyversions/protlearn)
   [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 </p>
-
-# protlearn
 
 protlearn is a Python package for the feature extraction of amino acid sequences.
 It is comprised of three stages - preprocessing, feature computation, and 
