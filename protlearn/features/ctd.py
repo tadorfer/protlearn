@@ -2,7 +2,7 @@
 
 import numpy as np
 from collections import Counter
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 def ctd(X, start=1, end=None):
     """Compute conjoint triad descriptors.

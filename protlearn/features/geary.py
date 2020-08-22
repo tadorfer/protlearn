@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 from Bio.Alphabet import IUPAC
-from utils.validation import check_input
+from ..utils.validation import check_input
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')

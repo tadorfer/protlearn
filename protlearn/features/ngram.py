@@ -2,7 +2,7 @@
 
 import numpy as np
 from collections import Counter
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 def ngram(X, n=2, method='relative', start=1, end=None):
     """Compute n-gram peptide composition.

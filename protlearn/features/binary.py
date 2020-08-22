@@ -2,7 +2,7 @@
 
 import numpy as np
 from Bio.Alphabet import IUPAC
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 def binary(X, padding=False, start=1, end=None):
     """Compute binary profile pattern.

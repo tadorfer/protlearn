@@ -2,7 +2,7 @@
 
 import os
 import numpy as np
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 
 

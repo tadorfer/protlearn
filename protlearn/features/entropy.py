@@ -4,7 +4,7 @@ import numpy as np
 from collections import Counter
 from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from utils.validation import check_input
+from ..utils.validation import check_input
 
 def entropy(X, standardize='none', start=1, end=None):
     """Compute Shannon's entropy of proteins or peptides.
