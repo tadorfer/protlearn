@@ -1,4 +1,4 @@
-from .preprocessing.encode import encode
+from .preprocessing import encode
 
 from .features.ngram import ngram
 from .features.posrich import posrich
