@@ -1,6 +1,7 @@
 from . import preprocessing
 from . import features
 from . import dimreduction
+from . import utils
 
 __version__ = '1.9.1'
 
