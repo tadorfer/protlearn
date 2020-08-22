@@ -18,9 +18,9 @@
   <a href="https://img.shields.io/pypi/pyversions/protlearn" target=”_blank”><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/protlearn"></a>  
   <a href="https://lbesson.mit-license.org/" target=”_blank”><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>   
 </p>
-<br><hr>
+<hr><br>
 
-protlearn is a Python package for the feature extraction of amino acid sequences.
+*protlearn* is a Python package for the feature extraction of amino acid sequences.
 It is comprised of three stages - preprocessing, feature computation, and 
 subsequent dimensionality reduction. Currently, the package is being maintained 
 for Python versions 3.6, 3.7, and 3.8. 
