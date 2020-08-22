@@ -4,7 +4,7 @@ from .features.ngram import ngram
 from .features.posrich import posrich
 from .features.entropy import entropy
 from .features.paac import paac
-from .features.csksaap import cksaap
+from .features.cksaap import cksaap
 from .features.ctd import ctd
 from .features.binary import binary
 from .features.atc import atc
