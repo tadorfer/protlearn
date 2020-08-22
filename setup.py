@@ -29,7 +29,7 @@ setup(
           'biopython'
       ],
   classifiers=[
-    'Development Status :: 5 - Production/Stable',      
+    'Development Status :: 4 - Beta',      
     'Intended Audience :: Science/Research',      # Define that your audience are developers
     'Topic :: Software Development :: Build Tools',
     'License :: OSI Approved :: MIT License',   # Again, pick a license
