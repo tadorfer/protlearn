@@ -1,16 +1,16 @@
-from preprocessing import encode
+from preprocessing.encode import encode
 
-from features import ngram
-from features import posrich
-from features import entropy
-from features import paac
-from features import cksaap
-from features import ctd
-from features import binary
-from features import atc
-from features import moran
-from features import geary
-from features import moreau_broto
+from features.ngram import ngram
+from features.posrich import posrich
+from features.entropy import entropy
+from features.paac import paac
+from features.csksaap import cksaap
+from features.ctd import ctd
+from features.binary import binary
+from features.atc import atc
+from features.moran import moran
+from features.geary import geary
+from features.moreau_broto import moreau_broto
 
 from utils.validation import check_input
 
