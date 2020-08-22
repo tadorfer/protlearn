@@ -5,18 +5,18 @@
 <p align="center">
   A Python package for extracting protein sequence features
   <br>
-  <a href="https://protlearn.readthedocs.io/en/latest/">Documentation</a>
+  <a href="https://protlearn.readthedocs.io/en/latest/" target=”_blank”>Documentation</a>
   ·
-  <a href="https://github.com/tadorfer/protlearn/issues/new">Request a feature</a>
+  <a href="https://github.com/tadorfer/protlearn/issues/new" target=”_blank”>Request a feature</a>
   · 
-  <a href="https://github.com/tadorfer/protlearn/issues/new">Report a bug</a>
+  <a href="https://github.com/tadorfer/protlearn/issues/new" target=”_blank”>Report a bug</a>
   <br><br>
-  <a href="https://travis-ci.org/tadorfer/protlearn"><img alt="Travis CI" src="https://img.shields.io/travis/tadorfer/protlearn"></a>
-  <a href="https://codecov.io/gh/tadorfer/protlearn"><img alt="Codecov" src="https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg"></a>
-  <a href="https://protlearn.readthedocs.io/en/latest/?badge=latest"><img alt="Docs" src="https://readthedocs.org/projects/protlearn/badge/?version=latest"></a> 
-  <a href="https://pypi.org/project/protlearn/"><img alt="PyPI" src="https://img.shields.io/pypi/v/protlearn"></a>
-  <a href="https://img.shields.io/pypi/pyversions/protlearn"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/protlearn"></a>  
-  <a href="https://lbesson.mit-license.org/"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>   
+  <a href="https://travis-ci.org/tadorfer/protlearn" target=”_blank”><img alt="Travis CI" src="https://img.shields.io/travis/tadorfer/protlearn"></a>
+  <a href="https://codecov.io/gh/tadorfer/protlearn" target=”_blank”><img alt="Codecov" src="https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg"></a>
+  <a href="https://protlearn.readthedocs.io/en/latest/?badge=latest" target=”_blank”><img alt="Docs" src="https://readthedocs.org/projects/protlearn/badge/?version=latest"></a> 
+  <a href="https://pypi.org/project/protlearn/" target=”_blank”><img alt="PyPI" src="https://img.shields.io/pypi/v/protlearn"></a>
+  <a href="https://img.shields.io/pypi/pyversions/protlearn" target=”_blank”><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/protlearn"></a>  
+  <a href="https://lbesson.mit-license.org/" target=”_blank”><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>   
 </p>
 <br><hr>
 
