@@ -1,18 +1,18 @@
-from .preprocessing.encode import encode
+from protlearn.preprocessing.encode import encode
 
-from .features.ngram import ngram
-from .features.posrich import posrich
-from .features.entropy import entropy
-from .features.paac import paac
-from .features.cksaap import cksaap
-from .features.ctd import ctd
-from .features.binary import binary
-from .features.atc import atc
-from .features.moran import moran
-from .features.geary import geary
-from .features.moreau_broto import moreau_broto
+from protlearn.features.ngram import ngram
+from protlearn.features.posrich import posrich
+from protlearn.features.entropy import entropy
+from protlearn.features.paac import paac
+from protlearn.features.cksaap import cksaap
+from protlearn.features.ctd import ctd
+from protlearn.features.binary import binary
+from protlearn.features.atc import atc
+from protlearn.features.moran import moran
+from protlearn.features.geary import geary
+from protlearn.features.moreau_broto import moreau_broto
 
-from .utils.validation import check_input
+from protlearn.utils.validation import check_input
 
 __version__ = '1.9.2'
 
