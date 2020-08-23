@@ -9,9 +9,9 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
   name = 'protlearn',       
-  packages = ['protlearn'], 
+  packages = find_packages(), 
   package_data={'protlearn': ['features/data/*.csv']},  
-  version = '1.9.3',      
+  version = '1.9.4',      
   license='MIT',        
   description = 'Feature engineering for protein sequences', 
   long_description_content_type='text/markdown',
@@ -19,8 +19,8 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtLearn',   
-  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.9.3.tar.gz',  
-  keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'visualization'], 
+  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.9.4.tar.gz',  
+  keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'dimensionality reduction'], 
   setup_requires = ['wheel'],
   install_requires=[            
           'numpy',
