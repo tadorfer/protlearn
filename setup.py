@@ -11,7 +11,7 @@ setup(
   name = 'protlearn',       
   packages = find_packages(), 
   package_data={'protlearn': ['features/data/*.csv']},  
-  version = '1.9.4',      
+  version = '1.9.5',      
   license='MIT',        
   description = 'Feature engineering for protein sequences', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/ProtLearn',   
-  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.9.4.tar.gz',  
+  download_url = 'https://github.com/tadorfer/ProtLearn/archive/v1.9.5.tar.gz',  
   keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'dimensionality reduction'], 
   setup_requires = ['wheel'],
   install_requires=[            
