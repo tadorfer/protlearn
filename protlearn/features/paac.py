@@ -9,7 +9,7 @@ import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
 
-def paac(X, lambda_=1, w=.05, start=1, end=None):
+def paac(X, lambda_=30, w=.05, start=1, end=None):
     """Compute pseudo amino acid composition.
 
     Parameters
@@ -23,7 +23,7 @@ def paac(X, lambda_=1, w=.05, start=1, end=None):
     w : float, default=.05
         Weight factor.
 
-    start : int, default=1
+    start : int, default=30
         Determines the starting point of the amino acid sequence.
 
     end : int, default=None
