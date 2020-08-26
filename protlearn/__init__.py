@@ -11,7 +11,7 @@ useful for downstream classification or regression tasks.
 See https://protlearn.readthedocs.io/en/latest/ for complete documentation.
 """
 
-__version__ = '2.0'
+__version__ = '2.1'
 
 __all__ = ['preprocessing',
            'features',
