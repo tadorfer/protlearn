@@ -17,7 +17,7 @@ def paac(X, lambda_=30, w=.05, start=1, end=None):
 
     X : string, fasta, or a list thereof 
     
-    lambda_ : int, default=1
+    lambda_ : int, default=30
         Counted rank (tier) of the correlation along an amino acid sequence.
         
     w : float, default=.05
@@ -34,7 +34,7 @@ def paac(X, lambda_=30, w=.05, start=1, end=None):
 
     arr :  ndarray of shape (n_samples, 20+lambda_)
     
-    amino_acids : amino acid order of paac array
+    amino_acids : amino acid + lambda order of paac array
 
     """
     
