@@ -83,9 +83,13 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#package-contents">Package Contents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#installing-protlearn">Installing ProtLearn</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#integer-encoding">Integer-encoding</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="feature_extraction.html">Feature Extraction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dimensionality_reduction.html">Dimensionality Reduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -155,6 +159,50 @@
             
   <div class="section" id="preprocessing">
 <span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="integer-encoding">
+<h2>Integer-encoding<a class="headerlink" href="#integer-encoding" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">encode</span></code> converts amino acids into their corresponding integers
+based on the specified notation. This is particularly useful for preparing a
+sequence-based model such as a long short-term memory (LSTM) or a gated recurrent
+unit (GRU). <em>protlearn</em> provides three different notations for this process:</p>
+<ul class="simple">
+<li><p>20 standard amino acids (IUPAC standard)</p></li>
+<li><p>26 extended amino acids (IUPAC extended)</p></li>
+<li><p>20 standard amino acids + X for unknown amino acids</p></li>
+</ul>
+<p>Amino acids will be encoded using the integers from 1 onwards, with zeros
+reserved for padding. If <code class="docutils literal notranslate"><span class="pre">padding=True</span></code>, sequences of unequal lengths will be
+posteriorly padded with zeros to the length of the longest sequence in the
+dataset.</p>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">encode</span>
+
+<span class="n">seq</span> <span class="o">=</span> <span class="s1">&#39;ARKLYPGPGEERNK&#39;</span>
+<span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of the above code will be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span>
+<span class="go">array([ 1, 15,  9, 10, 20, 13,  6, 13,  6,  4,  4, 15, 12,  9])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aa</span>
+<span class="go">&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;</span>
+</pre></div>
+</div>
+<p>Below is an example using multiple sequences and padding:</p>
+<p>The output is as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span>
+<span class="go">array([[ 1, 15,  9, 10, 20,  0,  0,  0,  0,  0],</span>
+<span class="go">       [ 4,  4, 15, 12, 13,  1,  1,  0,  0,  0],</span>
+<span class="go">       [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aa</span>
+<span class="go">&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
 </div>
 
 

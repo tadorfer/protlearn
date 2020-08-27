@@ -1,8 +1,7 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
   
@@ -12,12 +11,18 @@
   
 
   
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
   
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -29,10 +34,6 @@
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Dimensionality Reduction" href="dimensionality_reduction.html" />
@@ -50,7 +51,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> protlearn
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> protlearn
           
 
           
@@ -73,6 +74,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -83,8 +85,6 @@
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#package-contents">Package Contents</a></li>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html#installing-protlearn">Installing ProtLearn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Feature Extraction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dimensionality_reduction.html">Dimensionality Reduction</a></li>
@@ -94,6 +94,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -132,7 +133,7 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
       <li>Feature Extraction</li>
     
@@ -155,6 +156,20 @@
             
   <div class="section" id="feature-extraction">
 <span id="id1"></span><h1>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h1>
+<p>Pseudo amino acid composition
+# Chou, K.C., 2001, Prediction of Protein Cellular Attributes Using PseudoAmino Acid Composition, Proteins: Structure, Function, and Genetics
+# Hydrophobicity values: Tanford C., Contribution of Hydrophobic Interactions to the Stability of the Globular Conformation of Proteins, J. Am. Chem. Soc. 84:4240-4274(1962)
+# Hydrophilicity values: Hopp &amp; Woods, Prediction of protein antigenic determinants from amino acid sequences, PNAS 1981
+# Side chain mass: Jain et al., 2012, TpPred: A Tool for Hierarchical Prediction of Transport Proteins Using Cluster of Neural Networks and Sequence Derived Features</p>
+<p>Conjoint triad descriptors
+# Predicting protein-protein interactions based only on sequences information
+# PyBioMed: a python library for various molecular representations of chemicals, proteins and DNAs and their interactions</p>
+<p>Atomic and bond composition
+# An in silico platform for predicting, screening and designing of antihypertensive peptides</p>
+<p>Binary profile pattern
+# Identification of conformational B-cell Epitopes in an antigen from its primary sequence</p>
+<p>Moran Autocorrelation
+# protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences (default features 8)</p>
 </div>
 
 
@@ -177,11 +192,19 @@
 
   <div role="contentinfo">
     <p>
+        
         &copy; Copyright 2020, Thomas Dorfer
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -192,7 +215,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {
