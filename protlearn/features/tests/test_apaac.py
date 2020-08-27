@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from ..paac import paac
+from ..apaac import apaac
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
