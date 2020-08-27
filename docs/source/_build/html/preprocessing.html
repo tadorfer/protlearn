@@ -176,29 +176,29 @@ posteriorly padded with zeros to the length of the longest sequence in the
 dataset.</p>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">encode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">encode</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="s1">&#39;ARKLYPGPGEERNK&#39;</span>
 <span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output of the above code will be:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span>
-<span class="go">array([ 1, 15,  9, 10, 20, 13,  6, 13,  6,  4,  4, 15, 12,  9])</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; enc
+array([ 1, 15,  9, 10, 20, 13,  6, 13,  6,  4,  4, 15, 12,  9])
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aa</span>
-<span class="go">&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;</span>
+&gt;&gt;&gt; aa
+&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;
 </pre></div>
 </div>
 <p>Below is an example using multiple sequences and padding:</p>
 <p>The output is as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">enc</span>
-<span class="go">array([[ 1, 15,  9, 10, 20,  0,  0,  0,  0,  0],</span>
-<span class="go">       [ 4,  4, 15, 12, 13,  1,  1,  0,  0,  0],</span>
-<span class="go">       [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])</span>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; enc
+array([[ 1, 15,  9, 10, 20,  0,  0,  0,  0,  0],
+       [ 4,  4, 15, 12, 13,  1,  1,  0,  0,  0],
+       [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])
 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">aa</span>
-<span class="go">&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;</span>
+&gt;&gt;&gt; aa
+&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;
 </pre></div>
 </div>
 </div>
