@@ -11,6 +11,7 @@ from .moran import moran
 from .moreau_broto import moreau_broto
 from .ngram import ngram 
 from .paac import paac 
+from .apaac import apaac
 from .posrich import posrich 
 
 __all__ = ['aac',
@@ -26,5 +27,6 @@ __all__ = ['aac',
            'moreau_broto',
            'ngram',
            'paac',
+           'apaac',
            'posrich',
            ]
