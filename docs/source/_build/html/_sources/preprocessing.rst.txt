@@ -32,7 +32,7 @@ Examples
 
 The output of the above code will be:
 
-.. code-block:: none
+.. code-block:: text
 
     >>> enc
     array([ 1, 15,  9, 10, 20, 13,  6, 13,  6,  4,  4, 15, 12,  9])
@@ -43,6 +43,7 @@ The output of the above code will be:
 Below is an example using multiple sequences and padding:
 
 .. code-block:: python
+
     from protlearn.preprocessing import encode
 
     seqs = ['ARKLY', 'EERNPAA', 'QEPGPGLLLK']
@@ -50,7 +51,7 @@ Below is an example using multiple sequences and padding:
 
 The output is as follows:
 
-.. code-block:: none
+.. code-block:: text
 
     >>> enc
     array([[ 1, 15,  9, 10, 20,  0,  0,  0,  0,  0],
