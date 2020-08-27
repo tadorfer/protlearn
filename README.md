@@ -7,9 +7,9 @@
   <br>
   <a href="https://protlearn.readthedocs.io/en/latest/">Documentation</a>
   ·
-  <a href="https://github.com/tadorfer/protlearn/issues/new">Request a feature</a>
+  <a href="https://github.com/tadorfer/protlearn/issues/new?assignees=&labels=&template=feature_request.md&title=%5BNEW+FEATURE%5D">Request a feature</a>
   · 
-  <a href="https://github.com/tadorfer/protlearn/issues/new">Report a bug</a>
+  <a href="https://github.com/tadorfer/protlearn/issues/new?assignees=&labels=&template=bug_report.md&title=%5BBUG%5D">Report a bug</a>
   <br><br>
   <a href="https://travis-ci.org/tadorfer/protlearn"><img alt="Travis CI" src="https://img.shields.io/travis/tadorfer/protlearn"></a>
   <a href="https://codecov.io/gh/tadorfer/protlearn"><img alt="Codecov" src="https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg"></a>
