@@ -34,7 +34,7 @@ def paac(X, lambda_=30, w=.05, start=1, end=None):
 
     arr :  ndarray of shape (n_samples, 20+lambda_)
     
-    amino_acids : amino acid + lambda order of paac array
+    desc : amino acid + lambda order of paac array
 
     """
     
