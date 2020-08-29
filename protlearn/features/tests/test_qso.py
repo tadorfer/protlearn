@@ -40,6 +40,10 @@ def test_qso():
         0.00000000e+00, 1.47249382e-04, 0.00000000e+00, 9.99852751e-01]]),
         decimal=3)
 
-    # test ValueError
+    # test ValueError (alphabetical)
     with pytest.raises(ValueError):
-        qso_error_sw, qso_error_g, desc = qso(X_err)
+        qso_error_sw, qso_error_g, desc = qso(X_err, d=1)
+
+    # test ValueError (exceeding maximum lag)
+    with pytest.raises(ValueError):
+        qso_error_sw, qso_error_g, desc = qso(X_err, d=15)
