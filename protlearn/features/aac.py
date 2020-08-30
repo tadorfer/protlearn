@@ -3,7 +3,7 @@
 import numpy as np
 from collections import Counter
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def aac(X, method='relative', start=1, end=None):
     """Compute the amino acid composition of proteins or peptides.
@@ -47,12 +47,7 @@ def aac(X, method='relative', start=1, end=None):
 
     # compute AAC
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-            
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         counts = Counter(seq)
         indices = [amino_acids.index(k) for k in counts.keys()]

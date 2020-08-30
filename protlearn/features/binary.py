@@ -2,7 +2,7 @@
 
 import numpy as np
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def binary(X, padding=False, start=1, end=None):
     """Compute binary profile pattern.
@@ -48,12 +48,7 @@ def binary(X, padding=False, start=1, end=None):
     # compute binary profile pattern
     arr = np.zeros((len(X), len(amino_acids)*max_len))
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         binary = [amino_acids.index(aa)+x*26 for x, aa in enumerate(seq)]
         arr[i,binary] = 1

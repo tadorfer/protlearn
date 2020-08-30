@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
@@ -62,12 +62,7 @@ def atc(X, method='relative', start=1, end=None):
     arr_atoms = np.zeros((len(X), 5))
     arr_bonds = np.zeros((len(X), 3))
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         arr_atoms[i,:] = sum([atc_dict[aa][:5] for aa in seq]) 
         arr_bonds[i,:] = sum([atc_dict[aa][5:] for aa in seq]) 

@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from collections import Counter
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
@@ -68,12 +68,7 @@ def paac(X, lambda_=30, w=.05, start=1, end=None):
     # computing pseudo amino acid composition
     arr = np.zeros((len(X),len(amino_acids)+lambda_))
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         theta = []
         for n in range(1, lambda_+1):

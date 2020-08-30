@@ -4,7 +4,7 @@ import re
 import numpy as np
 from itertools import product
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def cksaap(X, k=1, start=1, end=None):
     """Compute composition of k-spaced amino acid pairs.
@@ -48,12 +48,7 @@ def cksaap(X, k=1, start=1, end=None):
 
     # compute CKSAAP
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-            
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         for j, pattern in enumerate(patterns):
             cnt_pattern = len(re.findall(r'(?=('+pattern+'))', seq))

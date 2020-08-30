@@ -2,7 +2,7 @@
 
 import numpy as np
 from collections import Counter
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def ctd(X, start=1, end=None):
     """Compute conjoint triad descriptors.
@@ -42,10 +42,7 @@ def ctd(X, start=1, end=None):
     # compute CTD
     ctd = dict()
     for i, seq in enumerate(X):
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end]
         seq = ''.join([str(classes[aa]) for aa in seq])
         keys = [seq[x:x+3] for x in range(len(seq)-2)]

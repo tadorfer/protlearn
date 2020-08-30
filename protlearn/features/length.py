@@ -2,7 +2,7 @@
 
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def length(X, method='int'):
     """Compute the length of proteins or peptides.
@@ -36,11 +36,7 @@ def length(X, method='int'):
     # compute lengths
     l = []
     for seq in X:
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical.')
+        check_alpha(seq) # check if alphabetical  
         l.append(len(seq))
 
     if method == 'int':

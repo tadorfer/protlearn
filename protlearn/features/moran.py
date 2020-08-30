@@ -3,7 +3,7 @@
 import numpy as np
 import pandas as pd
 from Bio.Alphabet import IUPAC
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
@@ -64,12 +64,7 @@ def moran(X, d=1, properties=default, start=1, end=None):
     # calculate Moran's I
     arr = np.zeros((len(X), len(default)))
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         eq1 = 1/(len(seq)-d)  
         for j in range(len(default)):

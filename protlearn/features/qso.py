@@ -5,7 +5,7 @@ import pandas as pd
 from collections import Counter
 from Bio.Alphabet import IUPAC
 from .socn import socn
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def qso(X, d=30, w=.1, start=1, end=None): 
     """Compute Quasi-sequence-order.
@@ -53,12 +53,7 @@ def qso(X, d=30, w=.1, start=1, end=None):
     arr_sw = np.zeros((len(X), len(amino_acids)+d))
     arr_g = np.zeros((len(X), len(amino_acids)+d))
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information 
         socn_sw = socn(seq, d=d)[0]
         socn_g = socn(seq, d=d)[1]

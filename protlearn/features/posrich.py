@@ -2,7 +2,7 @@
 
 import os
 import numpy as np
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 
 
@@ -53,11 +53,7 @@ def posrich(X, position, aminoacid):
 
         pos = np.zeros((len(X), len(position)))
         for a, seq in enumerate(X):
-            if str.isalpha(seq) == True:
-                pass
-            else:
-                raise ValueError('Data type must be alphabetical!')
-                
+            check_alpha(seq) # check if alphabetical  
             for i in range(len(position)):
                 if seq[position[i]-1] == aminoacid[i]:
                     pos[a, i] = 1

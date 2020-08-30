@@ -2,7 +2,7 @@
 
 import numpy as np
 from collections import Counter
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def ngram(X, n=2, method='relative', start=1, end=None):
     """Compute n-gram peptide composition.
@@ -55,11 +55,7 @@ def ngram(X, n=2, method='relative', start=1, end=None):
     # compute n-gram composition
     ngdict = dict()
     for i, seq in enumerate(X):
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end]
         keys = [seq[i:i+n] for i in range(len(seq)-n+1)]
         unq = sorted(set(keys))

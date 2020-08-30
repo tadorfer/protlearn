@@ -4,7 +4,7 @@ import numpy as np
 from collections import Counter
 from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 
 def entropy(X, standardize='none', start=1, end=None):
     """Compute Shannon's entropy of proteins or peptides.
@@ -45,12 +45,7 @@ def entropy(X, standardize='none', start=1, end=None):
     
     # compute shannon entropy
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-        
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         cnt = Counter(seq)
         ent_aa = {k: (cnt[k]/len(seq))*np.log2(cnt[k]/len(seq)) for k in cnt.keys()}

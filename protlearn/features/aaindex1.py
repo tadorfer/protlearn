@@ -1,10 +1,11 @@
-# Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
+# Authors: Thomas Dorfer <thomas.a.dorfer@gmail.com>
+#          Shoji Ihara <ihara@molcure.io>            
 
 import numpy as np
 import pandas as pd
 from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from ..utils.validation import check_input
+from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
@@ -71,12 +72,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
 
     # fill array with mean of indices per protein/peptide
     for i, seq in enumerate(X):
-        # check that input is alphabetical
-        if str.isalpha(seq) == True:
-            pass
-        else:
-            raise ValueError('Data must be alphabetical!')
-            
+        check_alpha(seq) # check if alphabetical  
         seq = seq[start-1:end] # positional information
         tmp_arr = np.zeros((LEN, len(seq)) )
 
