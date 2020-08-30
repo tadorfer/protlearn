@@ -30,3 +30,10 @@ def check_input(X):
         raise TypeError('Data must be string or list.')
     
     return X
+
+def check_alpha(X):
+    "Check that input is alphabetical"
+    if str.isalpha(X) == True:
+        pass
+    else:
+        raise ValueError('Data must be alphabetical!')
