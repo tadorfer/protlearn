@@ -17,8 +17,8 @@ def test_motif():
     motif_2 = motif(X_list, pattern='xxxCD{D}')
     
     # test motif
-    np.testing.assert_almost_equal(motif_1, np.array([[0., 0., 1.]), decimal=3)
-    np.testing.assert_almost_equal(motif_2, np.array([[0., 1., 0.]), decimal=3)
+    np.testing.assert_almost_equal(motif_1, np.array([0., 0., 1.]), decimal=3)
+    np.testing.assert_almost_equal(motif_2, np.array([0., 1., 0.]), decimal=3)
 
     # test ValueError
     with pytest.raises(ValueError):
