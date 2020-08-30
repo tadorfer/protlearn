@@ -13,6 +13,9 @@ from .ngram import ngram
 from .paac import paac 
 from .apaac import apaac
 from .posrich import posrich 
+from .socn import socn
+from .qso import qso
+from .motif import motif
 
 __all__ = ['aac',
            'aaindex1',
@@ -29,4 +32,7 @@ __all__ = ['aac',
            'paac',
            'apaac',
            'posrich',
+           'socn',
+           'qso',
+           'motif'
            ]
