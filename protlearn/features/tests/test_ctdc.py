@@ -13,7 +13,7 @@ def test_ctdc():
     X_err = 'AGT2HT9'
     
     # get ctdc
-    ctdc_list, aa = ctdc(X_list)
+    ctdc_list, desc = ctdc(X_list)
     
     # test ctdc
     np.testing.assert_almost_equal(ctdc_list, 
@@ -45,4 +45,4 @@ def test_ctdc():
 
     # test ValueError
     with pytest.raises(ValueError):
-        ctdc_error, aa = ctdc(X_err)
+        ctdc_error, desc = ctdc(X_err)
