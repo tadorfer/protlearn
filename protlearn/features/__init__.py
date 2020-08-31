@@ -18,6 +18,7 @@ from .qso import qso
 from .motif import motif
 from .ctdc import ctdc
 from .ctdt import ctdt
+from .ctdd import ctdd
 
 __all__ = ['aac',
            'aaindex1',
@@ -38,5 +39,6 @@ __all__ = ['aac',
            'qso',
            'motif',
            'ctdc',
-           'ctdt'
+           'ctdt',
+           'ctdd'
            ]
