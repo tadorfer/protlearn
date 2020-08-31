@@ -15,7 +15,7 @@ def ctdc(X, start=1, end=None):
 
     X : string, fasta, or a list thereof 
 
-    start : int, default=30
+    start : int, default=1
         Determines the starting point of the amino acid sequence.
 
     end : int, default=None
@@ -43,6 +43,7 @@ def ctdc(X, start=1, end=None):
     group2 = {df['Category'][i]: df['Group2'][i] for i in range(df.shape[0])}
     group3 = {df['Category'][i]: df['Group3'][i] for i in range(df.shape[0])}
 
+    # compute CTD composition
     arr = np.zeros((len(X), 39))
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
