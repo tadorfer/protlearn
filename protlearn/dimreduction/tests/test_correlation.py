@@ -1,10 +1,6 @@
 import pytest
 import numpy as np
 from ..correlation import correlation
-from ...features.aac import aac
-from ...features.aaindex1 import aaindex1
-from ...features import aac
-from ...features import *
 
 import pkg_resources
 
@@ -14,12 +10,7 @@ def test_correlation():
     "Test correlation-based dimensionality reduction"
     
     # load data
-    X_list = open(PATH+'multiple.txt').read().splitlines()
-    
-    # compute features
-    aac = aac(X_list)[0]
-    aaindex1 = aaindex1(X_list)[0]
-    features = np.concatenate([aac, aaindex1], axis=1)
+    features = np.load(PATH+'features.npy')
 
     # test correlation
     corr = correlation(features)
