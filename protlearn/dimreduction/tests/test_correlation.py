@@ -19,7 +19,7 @@ def test_correlation():
     features = np.concatenate([aac, aaindex1], axis=1)
 
     # test correlation
-    corr = correlation(X_list, cutoff=)
+    corr = correlation(X_list)
 
     # test array contents
     np.testing.assert_almost_equal(corr, np.array([
