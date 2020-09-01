@@ -23,7 +23,7 @@ def correlation(X, cutoff=.9):
     # remove correlated features
     corr = np.absolute(np.corrcoef(X, rowvar=False))
     upper = corr*np.triu(np.ones(corr.shape), k=1).astype(np.bool)
-    to_drop = [column for column in range(upper.shape[1]) \ 
+    to_drop = [column for column in range(upper.shape[1]) \
                if any(upper[:,column] > cutoff)]
     arr = np.delete(X, to_drop, axis=1)
     
