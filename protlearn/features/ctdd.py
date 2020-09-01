@@ -67,15 +67,11 @@ def ctdd(X, start=1, end=None):
         d = []
         for cat in categories:
             # convert sequence to groups (integers)
-            conv = []
-            for aa in seq:
-                if aa in group1[cat]:
-                    conv.append('1')
-                elif aa in group2[cat]:
-                    conv.append('2')
-                elif aa in group3[cat]:
-                    conv.append('3')
-            conv = ''.join(conv) 
+            g1 = {aa: '1' for aa in group1[cat]}
+            g2 = {aa: '2' for aa in group2[cat]}
+            g3 = {aa: '3' for aa in group3[cat]}
+            g = {**g1, **g2, **g3}
+            conv = ''.join([g[aa] for aa in seq])
             d1 = distribution(conv, '1')
             d2 = distribution(conv, '2')
             d3 = distribution(conv, '3')

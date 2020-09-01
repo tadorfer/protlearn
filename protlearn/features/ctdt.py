@@ -51,18 +51,14 @@ def ctdt(X, start=1, end=None):
         cnts = []
         for cat in categories:
             # convert sequence to groups (integers)
-            tmp = []
-            for aa in seq:
-                if aa in group1[cat]:
-                    tmp.append('1')
-                elif aa in group2[cat]:
-                    tmp.append('2')
-                elif aa in group3[cat]:
-                    tmp.append('3')
-            tmp = ''.join(tmp)
-            t1221 = (tmp.count('12') + tmp.count('21'))/(len(seq)-1)
-            t1331 = (tmp.count('13') + tmp.count('31'))/(len(seq)-1)
-            t2332 = (tmp.count('23') + tmp.count('32'))/(len(seq)-1)
+            g1 = {aa: '1' for aa in group1[cat]}
+            g2 = {aa: '2' for aa in group2[cat]}
+            g3 = {aa: '3' for aa in group3[cat]}
+            g = {**g1, **g2, **g3}
+            conv = ''.join([g[aa] for aa in seq])
+            t1221 = (conv.count('12') + conv.count('21'))/(len(seq)-1)
+            t1331 = (conv.count('13') + conv.count('31'))/(len(seq)-1)
+            t2332 = (conv.count('23') + conv.count('32'))/(len(seq)-1)
             cnts.append([t1221, t1331, t2332])
         arr[i,:] = [j for sublist in cnts for j in sublist]
         
