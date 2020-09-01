@@ -19,10 +19,10 @@ def test_correlation():
     features = np.concatenate([aac, aaindex1], axis=1)
 
     # test correlation
-    corr = correlation(X_list)
+    corr = correlation(features)
 
     # test array contents
     np.testing.assert_almost_equal(corr, np.array([
         [0.28571429, 0.        , 0.        , 0.79428571],
         [0.        , 0.11111111, 0.11111111, 0.45      ],
-        [0.375     , 0.125     , 0.25      , 0.60125   ]])
+        [0.375     , 0.125     , 0.25      , 0.60125   ]]))
