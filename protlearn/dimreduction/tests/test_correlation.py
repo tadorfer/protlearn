@@ -3,6 +3,9 @@ import numpy as np
 from ..correlation import correlation
 from ...features.aac import aac
 from ...features.aaindex1 import aaindex1
+from ...features import aac
+from ...features import *
+
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'test_data/')
