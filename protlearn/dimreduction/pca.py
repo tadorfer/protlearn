@@ -29,7 +29,7 @@ def pca(X, thres=.9, whiten=False):
                       "meaningful." % (X.shape[0], X.shape[1]))
     
     # fit and transform PCA
-    pca = PCA(whiten).fit(X)
+    pca = PCA(whiten=whiten).fit(X)
     var = pca.explained_variance_ratio_[0]
     comp = 1
     while var <= thres:
