@@ -43,12 +43,19 @@ def ctd(X, start=1, end=None):
     ctd = dict()
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
-        seq = seq[start-1:end]
+        seq = seq[start-1:end] # positional information
         seq = ''.join([str(classes[aa]) for aa in seq])
         keys = [seq[x:x+3] for x in range(len(seq)-2)]
         unq = sorted(set(keys))
         ctd_vals = sorted(Counter(keys).items())
         vals = [i[1] for i in ctd_vals]
+        # get min and max
+        if len(vals) < 343:
+            minimum = 0
+        else:
+            minimum = min(vals)
+        maximum = max(vals)
+        vals = [(vals[i]-minimum)/maximum for i in range(len(vals))]
 
         for num, j in enumerate(unq):
             if j in ctd:
