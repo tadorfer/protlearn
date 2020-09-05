@@ -12,7 +12,7 @@ def test_duplicates():
     # test for duplicates
     y0 = duplicates(x0)
     y1 = duplicates(x1)
-    y2 = duplicates(x2)
+    y2 = duplicates(x2, verbose=2) # checking verbosity
 
     assert set(y0) == set(x0)
     assert set(y1) == set(x0)
