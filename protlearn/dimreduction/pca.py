@@ -12,7 +12,7 @@ def pca(X, thres=.9, whiten=False):
 
     X : ndarray of shape (n_samples, n_features_pre) 
 
-    cutoff: float, default=.9
+    thres: float, default=.9
         Specify the desired variance.
 
     Returns
