@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
@@ -46,7 +45,7 @@ def apaac(X, lambda_=30, w=.05, start=1, end=None):
     data = np.asarray(df.iloc[:,1:])
 
     # list of amino acids (IUPAC standard)
-    amino_acids = IUPAC.IUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     desc = [aa for aa in amino_acids]
 
     for n in range(1, lambda_+1):

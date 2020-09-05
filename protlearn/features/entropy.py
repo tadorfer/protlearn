@@ -2,7 +2,6 @@
 
 import numpy as np
 from collections import Counter
-from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from ..utils.validation import check_input, check_alpha
 

@@ -1,7 +1,6 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
 import numpy as np
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 
 def binary(X, padding=False, start=1, end=None):
@@ -37,7 +36,7 @@ def binary(X, padding=False, start=1, end=None):
     X = check_input(X)
 
     # list of amino acids (IUPAC extended)
-    amino_acids = IUPAC.ExtendedIUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
 
     # define maximum length 
     l = [len(seq) for seq in X]

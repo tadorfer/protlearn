@@ -2,7 +2,6 @@
 
 import numpy as np
 from collections import Counter
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 
 def aac(X, method='relative', start=1, end=None):
@@ -40,7 +39,7 @@ def aac(X, method='relative', start=1, end=None):
     X = check_input(X)
     
     # list of amino acids (IUPAC extended)
-    amino_acids = IUPAC.ExtendedIUPACProtein().letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
 
     # initialize empty array with shape (n_samples, 26)
     aac = np.zeros((len(X), len(amino_acids)))

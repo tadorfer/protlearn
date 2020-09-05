@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
@@ -55,7 +54,7 @@ def atc(X, method='relative', start=1, end=None):
     data = np.asarray(df.iloc[:,1:])
 
     # list of amino acids (IUPAC standard)
-    amino_acids = IUPAC.IUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     atc_dict = {amino_acids[i]: data[i,:] for i in range(20)}
 
     # compute atomic and bond composition

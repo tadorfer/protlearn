@@ -3,7 +3,6 @@
 import re
 import numpy as np
 from itertools import product
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 
 def cksaap(X, k=1, start=1, end=None):
@@ -42,7 +41,7 @@ def cksaap(X, k=1, start=1, end=None):
     arr = np.empty((len(X), 676), dtype=int)
     
     # list of amino acids (IUPAC extended)
-    amino_acids = IUPAC.ExtendedIUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
     doublets = sorted([c[0]+c[1] for c in product(amino_acids, repeat=2)])
     patterns = [doublets[i][0]+'.'*k+doublets[i][1] for i in range(len(doublets))]
 

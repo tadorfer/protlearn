@@ -3,7 +3,6 @@
 import numpy as np
 import pandas as pd
 from collections import Counter
-from Bio.Alphabet import IUPAC
 from .socn import socn
 from ..utils.validation import check_input, check_alpha
 
@@ -43,7 +42,7 @@ def qso(X, d=30, w=.1, start=1, end=None):
         raise ValueError('Lag parameter d must be smaller than sequence length!')
     
     # list of amino acids (IUPAC standard)
-    amino_acids = IUPAC.IUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     desc = [aa for aa in amino_acids]
     
     for n in range(1, d+1):

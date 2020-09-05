@@ -3,7 +3,6 @@
 
 import numpy as np
 import pandas as pd
-from Bio.Alphabet import IUPAC
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from ..utils.validation import check_input, check_alpha
 import pkg_resources
@@ -58,7 +57,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
     LEN = 566
     
     # list of amino acids (IUPAC extended)
-    amino_acids = IUPAC.IUPACProtein().letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     
     # load AAIndex1 data and get index names
     aaind1 = pd.read_csv(PATH+'aaindex1.csv')

@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
@@ -54,7 +53,7 @@ def geary(X, d=1, properties=default, start=1, end=None):
     data = np.asarray(df.loc[default])
 
     # list of amino acids (IUPAC standard)
-    amino_acids = IUPAC.IUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     aadict = {amino_acids[i]: i for i in range(20)}
 
     # standardization

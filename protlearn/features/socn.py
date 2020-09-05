@@ -2,7 +2,6 @@
 
 import numpy as np
 import pandas as pd
-from Bio.Alphabet import IUPAC
 from ..utils.validation import check_input, check_alpha
 import pkg_resources
 
@@ -47,7 +46,7 @@ def socn(X, d=30, start=1, end=None):
     g = np.asarray(df_g)
     
     # list of amino acids (IUPAC standard)
-    amino_acids = IUPAC.IUPACProtein.letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     aadict = {amino_acids[i]: i for i in range(20)}
 
     # calculate SOCN
