@@ -3,7 +3,6 @@
 import os
 import numpy as np
 import pandas as pd
-from Bio.Alphabet import IUPAC
 from Bio import SeqIO
 from ..utils.validation import check_input
 
@@ -53,7 +52,7 @@ def encode(X, padding=False):
     X = check_input(X)
 
     # list of amino acids for integer encoding (IUPAC extended)
-    amino_acids = IUPAC.ExtendedIUPACProtein().letters
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
     
     int_values = np.arange(1, len(amino_acids)+1)
     enc_list = []
