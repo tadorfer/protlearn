@@ -14,6 +14,6 @@ def test_duplicates():
     y1 = duplicates(x1)
     y2 = duplicates(x2)
 
-    assert y0 == set(x0)
-    assert y1 == set(x0)
-    assert y2 == set(['ARKLY', 'LYLPGG'])
+    assert set(y0) == set(x0)
+    assert set(y1) == set(x0)
+    assert set(y2) == set(['ARKLY', 'LYLPGG'])
