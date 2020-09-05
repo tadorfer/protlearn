@@ -5,7 +5,7 @@ def test_duplicates():
     "Test duplicate sequences"
 
     # define data
-    x0 = ['ARKLY', 'LYLYPGG', 'EECCKHR']
+    x0 = ['ARKLY', 'LYLPGG', 'EECCKHR']
     x1 = ['ARKLY', 'LYLPGG', 'ARKLY', 'EECCKHR', 'LYLPGG']
     x2 = ['ARKLY', 'LYLPGG', 'ARKLY', 'ARKLY']
 
