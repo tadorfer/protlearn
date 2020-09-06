@@ -11,6 +11,7 @@ def test_tsne():
     
     # load data
     X = np.load(PATH+'features_largeN.npy')
+    X = X[:,:50]
 
     # perform t-SNE
     X_reduced = tsne(X, n_components=3, perplexity=5, pca_components=50)
