@@ -26,7 +26,8 @@ setup(
           'numpy',
           'pandas',
           'scikit-learn',
-          'xgboost'
+          'xgboost',
+          'biopython'
       ],
   classifiers=[
     'Development Status :: 4 - Beta',      

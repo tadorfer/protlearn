@@ -35,6 +35,7 @@ For more information on how to use it, please refer to the [documentation](https
 - Pandas 
 - scikit-learn
 - xgboost
+- biopython
 
 ### User Installation
 
