@@ -34,7 +34,7 @@ For more information on how to use it, please refer to the [documentation](https
 - NumPy 
 - Pandas 
 - scikit-learn
-- biopython
+- xgboost
 
 ### User Installation
 
