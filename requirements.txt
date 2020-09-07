@@ -1,5 +1,5 @@
 numpy
 pandas
 scikit-learn
-biopython
+xgboost
 pytest-cov
