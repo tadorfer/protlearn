@@ -6,6 +6,7 @@ from .rf_importance import rf_importance
 from .xgb_importance import xgb_importance
 from .chi_squared import chi_squared
 from .f_test import f_test
+from .mutual_information import mutual_information
 
 __all__ = ['correlation',
            'pca',
@@ -14,4 +15,5 @@ __all__ = ['correlation',
            'rf_importance',
            'xgb_importance',
            'chi_squared',
-           'f_test']
+           'f_test',
+           'mutual_information']
