@@ -36,7 +36,7 @@ def sequential(X, y, estimator, direction='forward', n_features=10, cv=0):
     elif direction == 'backward':
         method = False
     
-    mdl = SequentialFeatureSelector(clf,
+    mdl = SequentialFeatureSelector(estimator,
                                     k_features=n_features,
                                     forward=method,
                                     floating=False,
