@@ -27,6 +27,7 @@ setup(
           'pandas',
           'scikit-learn',
           'xgboost',
+          'mlxtend',
           'biopython'
       ],
   classifiers=[

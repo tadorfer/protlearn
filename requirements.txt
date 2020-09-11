@@ -2,5 +2,6 @@ numpy
 pandas
 scikit-learn
 xgboost
+mlxtend
 biopython
 pytest-cov
