@@ -12,7 +12,7 @@ def test_sequential():
     
     # load data
     X = np.load(PATH+'features_largeN.npy')
-    X = X[:,:50]
+    X = X[:,:20]
     y = np.load(PATH+'features_largeN_labels.npy')
 
     # perform SFS
