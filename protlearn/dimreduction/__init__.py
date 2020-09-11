@@ -8,6 +8,7 @@ from .chi_squared import chi_squared
 from .f_test import f_test
 from .mutual_information import mutual_information
 from .lasso import lasso
+from .sequential import sequential
 
 __all__ = ['correlation',
            'pca',
@@ -18,4 +19,5 @@ __all__ = ['correlation',
            'chi_squared',
            'f_test',
            'mutual_information',
-           'lasso']
+           'lasso',
+           'sequential']
