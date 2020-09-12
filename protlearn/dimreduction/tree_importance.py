@@ -4,8 +4,9 @@ import numpy as np
 from xgboost import XGBClassifier
 from sklearn.ensemble import RandomForestClassifier
 
-def xgb_importance(X, y, top=None, max_depth=6, importance_type='gain'):
-    """Dimensionality reduction using XGBoost-based feature importances.
+def tree_importance(X, y, method='random_forest', top=None, n_estimators=100, 
+                    max_depth=None, importance_type='gain'):
+    """Dimensionality reduction using tree-based feature importances.
     
     Parameters
     ----------
@@ -14,13 +15,21 @@ def xgb_importance(X, y, top=None, max_depth=6, importance_type='gain'):
     
     y : ndarray of shape (n_samples,)
     
+    method : string, default='random_forest'
+        'random_forest' : Random Forest Classifier
+        'xgboost' : XGBoost Classifier
+    
     top : int or None, default=None
         Top number of features to select.
         
-    max_depth : int, default=6
+    n_estimators : int or None, default=2
+        Number of trees in the forest.
+        
+    max_depth : int or None, default=None
         Maximum depth of the tree.
         
-    importance_type : string, default='gain'
+    mportance_type : string, default='gain'
+        For XGBoost only.
     
         'gain' : average gain of splits which use the feature
         'weight' : number of times the a feature appears in the tree
@@ -35,9 +44,16 @@ def xgb_importance(X, y, top=None, max_depth=6, importance_type='gain'):
     
     """
     
-    xgb = XGBClassifier(max_depth=max_depth, importance_type=importance_type)
-    xgb.fit(X, y)
-    importances = xgb.feature_importances_
+    if method == 'random_forest':
+        mdl = RandomForestClassifier(n_estimators=n_estimators, 
+                                     max_depth=max_depth)
+    elif method == 'xgboost':
+        mdl = XGBClassifier(n_estimators=n_estimators, 
+                            max_depth=max_depth, 
+                            importance_type=importance_type)
+        
+    mdl.fit(X, y)
+    importances = mdl.feature_importances_
     indices = np.argsort(-importances)[:top]
     arr = X[:,indices]
     
