@@ -31,7 +31,7 @@ def tree_importance(X, y, clf=None, method='random_forest', top=None,
     max_depth : int or None, default=None
         Maximum depth of the tree.
         
-    mportance_type : string, default='gain'
+    importance_type : string, default='gain'
         For XGBoost only.
     
         'gain' : average gain of splits which use the feature
