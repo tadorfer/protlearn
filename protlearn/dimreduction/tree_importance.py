@@ -4,8 +4,8 @@ import numpy as np
 from xgboost import XGBClassifier
 from sklearn.ensemble import RandomForestClassifier
 
-def tree_importance(X, y, method='random_forest', top=None, n_estimators=100, 
-                    max_depth=None, importance_type='gain'):
+def tree_importance(X, y, clf=None, method='random_forest', top=None, 
+                    n_estimators=100, max_depth=None, importance_type='gain'):
     """Dimensionality reduction using tree-based feature importances.
     
     Parameters
@@ -14,6 +14,9 @@ def tree_importance(X, y, method='random_forest', top=None, n_estimators=100,
     X : ndarray of shape (n_samples, n_features_pre) 
     
     y : ndarray of shape (n_samples,)
+
+    clf : object or None, default=None
+        Customized classifier.
     
     method : string, default='random_forest'
         'random_forest' : Random Forest Classifier
@@ -44,16 +47,19 @@ def tree_importance(X, y, method='random_forest', top=None, n_estimators=100,
     
     """
     
-    if method == 'random_forest':
-        mdl = RandomForestClassifier(n_estimators=n_estimators, 
-                                     max_depth=max_depth)
-    elif method == 'xgboost':
-        mdl = XGBClassifier(n_estimators=n_estimators, 
-                            max_depth=max_depth, 
-                            importance_type=importance_type)
+    if clf != None:
+        clf = clf
+    else:
+        if method == 'random_forest':
+            clf = RandomForestClassifier(n_estimators=n_estimators, 
+                                        max_depth=max_depth)
+        elif method == 'xgboost':
+            clf = XGBClassifier(n_estimators=n_estimators, 
+                                max_depth=max_depth, 
+                                importance_type=importance_type)
         
-    mdl.fit(X, y)
-    importances = mdl.feature_importances_
+    clf.fit(X, y)
+    importances = clf.feature_importances_
     indices = np.argsort(-importances)[:top]
     arr = X[:,indices]
     
