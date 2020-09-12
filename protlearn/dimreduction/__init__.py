@@ -7,6 +7,7 @@ from .xgb_importance import xgb_importance
 from .chi_squared import chi_squared
 from .f_test import f_test
 from .mutual_information import mutual_information
+from .univariate_filter import univariate_filter
 from .lasso import lasso
 from .sequential import sequential
 
@@ -19,5 +20,6 @@ __all__ = ['correlation',
            'chi_squared',
            'f_test',
            'mutual_information',
+           'univariate_filter',
            'lasso',
            'sequential']
