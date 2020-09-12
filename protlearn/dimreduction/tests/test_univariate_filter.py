@@ -16,7 +16,7 @@ def test_univariate_filter():
     # compute filter-based feature importances
     X_f = univariate_filter(X, y, top=10)
     X_chi2 = univariate_filter(X, y, method='chi2', top=10)
-    X_mi = univariate_filter(X, y, method='mutual_info' top=10)
+    X_mi = univariate_filter(X, y, method='mutual_info', top=10)
 
     # test f_test
     np.testing.assert_almost_equal(X_f[0,:], np.array([
