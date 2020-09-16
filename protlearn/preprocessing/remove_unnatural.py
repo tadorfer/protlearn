@@ -32,6 +32,6 @@ def remove_unnatural(X):
             else:
                 indices.append(i)
 
-    Y = [i for j, i in enumerate(seqs) if j not in set(indices)]
+    Y = [i for j, i in enumerate(X) if j not in set(indices)]
     
     return Y
