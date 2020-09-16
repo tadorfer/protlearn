@@ -50,15 +50,15 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> protlearn
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
           
           </a>
 
-          
-            
-            
           
 
           
@@ -86,6 +86,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessing</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#integer-encoding">Integer-encoding</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-duplicates">Remove duplicates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#remove-unnatural-amino-acids">Remove unnatural amino acids</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -161,14 +169,13 @@
 <span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="integer-encoding">
 <h2>Integer-encoding<a class="headerlink" href="#integer-encoding" title="Permalink to this headline">¶</a></h2>
-<p>The function <code class="docutils literal notranslate"><span class="pre">encode</span></code> converts amino acids into their corresponding integers
+<p>The function <code class="docutils literal notranslate"><span class="pre">integer_encode</span></code> converts amino acids into their corresponding integers
 based on the specified notation. This is particularly useful for preparing a
 sequence-based model such as a long short-term memory (LSTM) or a gated recurrent
-unit (GRU). <em>protlearn</em> provides three different notations for this process:</p>
+unit (GRU). <em>protlearn</em> provides two different notations for this process:</p>
 <ul class="simple">
 <li><p>20 standard amino acids (IUPAC standard)</p></li>
 <li><p>26 extended amino acids (IUPAC extended)</p></li>
-<li><p>20 standard amino acids + X for unknown amino acids</p></li>
 </ul>
 <p>Amino acids will be encoded using the integers from 1 onwards, with zeros
 reserved for padding. If <code class="docutils literal notranslate"><span class="pre">padding=True</span></code>, sequences of unequal lengths will be
@@ -176,10 +183,10 @@ posteriorly padded with zeros to the length of the longest sequence in the
 dataset.</p>
 <div class="section" id="examples">
 <h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">encode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">integer_encode</span>
 
 <span class="n">seq</span> <span class="o">=</span> <span class="s1">&#39;ARKLYPGPGEERNK&#39;</span>
-<span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+<span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">integer_encode</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output of the above code will be:</p>
@@ -187,14 +194,14 @@ dataset.</p>
 array([ 1, 15,  9, 10, 20, 13,  6, 13,  6,  4,  4, 15, 12,  9])
 
 &gt;&gt;&gt; aa
-&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;
+&#39;ACDEFGHIKLMNPQRSTVWY&#39;
 </pre></div>
 </div>
 <p>Below is an example using multiple sequences and padding:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">encode</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">integer_encode</span>
 
 <span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERNPAA&#39;</span><span class="p">,</span> <span class="s1">&#39;QEPGPGLLLK&#39;</span><span class="p">]</span>
-<span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">encode</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">enc</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">integer_encode</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The output is as follows:</p>
@@ -204,7 +211,44 @@ array([[ 1, 15,  9, 10, 20,  0,  0,  0,  0,  0],
        [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])
 
 &gt;&gt;&gt; aa
-&#39;ACDEFGHIKLMNPQRSTVWYBXZJUO&#39;
+&#39;ACDEFGHIKLMNPQRSTVWY&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="remove-duplicates">
+<h2>Remove duplicates<a class="headerlink" href="#remove-duplicates" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">remove_duplicates</span></code> detects and removes duplicate sequences in the dataset.</p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">remove_duplicates</span>
+
+<span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERNPAA&#39;</span><span class="p">,</span> <span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;QEPGPGLLLK&#39;</span><span class="p">]</span>
+<span class="n">seqs</span> <span class="o">=</span> <span class="n">remove_duplicates</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of the above code will be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; seqs
+[&#39;EERNPAA&#39;, &#39;QEPGPGLLLK&#39;, &#39;ARKLY&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="remove-unnatural-amino-acids">
+<h2>Remove unnatural amino acids<a class="headerlink" href="#remove-unnatural-amino-acids" title="Permalink to this headline">¶</a></h2>
+<p>The function <code class="docutils literal notranslate"><span class="pre">remove_unnatural</span></code> detects and removes sequences containing amino
+acids other than the 20 natural ones.</p>
+<div class="section" id="id2">
+<h3>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">protlearn.preprocessing</span> <span class="kn">import</span> <span class="n">remove_unnatural</span>
+
+<span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERNPJAB&#39;</span><span class="p">,</span> <span class="s1">&#39;QEPGPGLLLK&#39;</span><span class="p">]</span>
+<span class="n">seqs</span> <span class="o">=</span> <span class="n">remove_unnatural</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The output of the above code will be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; seqs
+[&#39;ARKLY&#39;, &#39;QEPGPGLLLK&#39;]
 </pre></div>
 </div>
 </div>
