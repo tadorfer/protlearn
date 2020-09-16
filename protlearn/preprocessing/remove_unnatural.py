@@ -27,10 +27,10 @@ def remove_unnatural(X):
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical      
         for aa in seq:
-        if aa in set(amino_acids):
-            pass
-        else:
-            indices.append(i)
+            if aa in set(amino_acids):
+                pass
+            else:
+                indices.append(i)
 
     Y = [i for j, i in enumerate(seqs) if j not in set(indices)]
     
