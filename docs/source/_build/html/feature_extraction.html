@@ -86,7 +86,12 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Feature Extraction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#aac">aac</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aac">aac</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#returns">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#aaindex1">aaindex1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#apaac">apaac</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#atc">atc</a></li>
@@ -178,7 +183,50 @@
 <span id="id1"></span><h1>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="aac">
 <h2>aac<a class="headerlink" href="#aac" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.aac(X, method=&#39;relative&#39;, start=1, end=None)
+</pre></div>
+</div>
+<p>Amino acid composition.</p>
+<p>This function returns the frequency of amino acids for each sequence in the dataset.</p>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
+</dd>
+<dt>method: string, default=’relative’</dt><dd><p>‘absolute’ : absolute amino acid composition <br />
+‘relative’ : relative amino acid composition</p>
+</dd>
+<dt>start: int, default=1</dt><dd><p>Determines the starting point of the amino acid sequence. This number is based on one-based indexing.</p>
+</dd>
+<dt>end: int, default=None</dt><dd><p>Determines the end point of the amino acid sequence. Similarly to start, this number is based on one-based indexing.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>aac<span class="classifier">ndarray of shape (n_samples, n_unique_amino_acids)</span></dt><dd><p>Array containing the amino acid composition.</p>
+</dd>
+<dt>amino_acids<span class="classifier">amino acid order of aac array</span></dt><dd><p>Corresponds to the columns in aac.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">integer_encode</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span>
+<span class="go">array([[0.2       , 0.        , 0.        , 0.2       , 0.2       ,</span>
+<span class="go">        0.        , 0.2       , 0.2       ],</span>
+<span class="go">       [0.        , 0.28571429, 0.14285714, 0.14285714, 0.14285714,</span>
+<span class="go">        0.14285714, 0.14285714, 0.        ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aa</span>
+<span class="go">&#39;AEGKLPRY&#39;</span>
+</pre></div>
+</div>
+<p>Note that columns containing all zeros have been removed from the final array.</p>
+</div>
 </div>
 <div class="section" id="aaindex1">
 <h2>aaindex1<a class="headerlink" href="#aaindex1" title="Permalink to this headline">¶</a></h2>

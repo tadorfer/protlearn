@@ -11,7 +11,7 @@ integer_encode
 
 .. code-block:: text
 
-    protlearn.preprocessing.integer_encode(X, notation='standard', padding=False)
+    protlearn.preprocessing.integer_encode(X, padding=False)
 
 Encode amino acids as integers.
 
@@ -25,16 +25,6 @@ Parameters
 
 X: string, fasta, or a list thereof
     Dataset of amino acid sequences.
-
-notation: string, default='standard'
-    'standard' : 20 natural amino acids |br|
-    'extended' : 20 natural + six additional amino acids: |br| 
-    B = aspartic acid or asparagine |br|
-    X = unknown or 'other' amino acid |br|
-    Z = glutamic acid or glutamine |br|
-    J = leucine or isoleucine |br|
-    U = selenocysteine |br|
-    O = pyrrolysine
 
 padding: bool, default=False
     False : sequences are returned in their original lengths |br|
@@ -78,12 +68,6 @@ of the longest sequence in the dataset.
            [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])
     >>> aa
     'ACDEFGHIKLMNPQRSTVWY'
-
-Notes
-#####
-
-Amino acid sequence used for label-encoding were taken from the official
-IUPAC amino acid one-letter notation (Extended IUPAC Protein).
 
 remove_duplicates
 -----------------

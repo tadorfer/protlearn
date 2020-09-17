@@ -89,7 +89,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#returns">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#remove-duplicates">remove_duplicates</a><ul>
@@ -177,7 +176,7 @@
 <span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="integer-encode">
 <h2>integer_encode<a class="headerlink" href="#integer-encode" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.integer_encode(X, notation=&#39;standard&#39;, padding=False)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.integer_encode(X, padding=False)
 </pre></div>
 </div>
 <p>Encode amino acids as integers.</p>
@@ -189,15 +188,6 @@ as a long short-term memory (LSTM) or a gated recurrent unit (GRU).</p>
 <h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
-</dd>
-<dt>notation: string, default=’standard’</dt><dd><p>‘standard’ : 20 natural amino acids <br />
-‘extended’ : 20 natural + six additional amino acids: <br />
-B = aspartic acid or asparagine <br />
-X = unknown or ‘other’ amino acid <br />
-Z = glutamic acid or glutamine <br />
-J = leucine or isoleucine <br />
-U = selenocysteine <br />
-O = pyrrolysine</p>
 </dd>
 <dt>padding: bool, default=False</dt><dd><p>False : sequences are returned in their original lengths <br />
 True : sequences will be padded with zeros to the length of the longest sequence in the dataset</p>
@@ -238,11 +228,6 @@ of the longest sequence in the dataset.</p>
 <span class="go">&#39;ACDEFGHIKLMNPQRSTVWY&#39;</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
-<p>Amino acid sequence used for label-encoding were taken from the official
-IUPAC amino acid one-letter notation (Extended IUPAC Protein).</p>
 </div>
 </div>
 <div class="section" id="remove-duplicates">
