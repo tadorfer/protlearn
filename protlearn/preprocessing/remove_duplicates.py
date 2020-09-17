@@ -43,6 +43,7 @@ def remove_duplicates(X, verbose=1):
     Y = list(set(X))
     diff = Counter(X)-Counter(Y)
     
+    # handle verbosity
     if diff:
         if verbose == 1:
             if len(diff) == 1:

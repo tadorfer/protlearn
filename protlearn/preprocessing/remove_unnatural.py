@@ -40,12 +40,14 @@ def remove_unnatural(X):
     indices = []
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical      
+        # get indices of sequences with unnatural amino acids
         for aa in seq:
             if aa in set(amino_acids):
                 pass
             else:
                 indices.append(i)
 
+    # remove sequences by indices
     Y = [i for j, i in enumerate(X) if j not in set(indices)]
     
     return Y
