@@ -85,20 +85,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Preprocessing</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#integer-encoding">Integer-encoding</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#integer-encode">integer_encode</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#returns">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#remove-duplicates">Remove duplicates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#remove-duplicates">remove_duplicates</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id2">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#remove-unnatural-amino-acids">Remove unnatural amino acids</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#remove-unnatural">remove_unnatural</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id5">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id7">Examples</a></li>
@@ -107,7 +107,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="feature_extraction.html">Feature Extraction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dimensionality_reduction.html">Dimensionality Reduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dimensionality_reduction.html">Dimensionality Reduction &amp; Feature Selection</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 </ul>
 
@@ -175,8 +175,8 @@
             
   <div class="section" id="preprocessing">
 <span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="integer-encoding">
-<h2>Integer-encoding<a class="headerlink" href="#integer-encoding" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="integer-encode">
+<h2>integer_encode<a class="headerlink" href="#integer-encode" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.integer_encode(X, notation=&#39;standard&#39;, padding=False)
 </pre></div>
 </div>
@@ -246,7 +246,7 @@ IUPAC amino acid one-letter notation (Extended IUPAC Protein).</p>
 </div>
 </div>
 <div class="section" id="remove-duplicates">
-<h2>Remove duplicates<a class="headerlink" href="#remove-duplicates" title="Permalink to this headline">¶</a></h2>
+<h2>remove_duplicates<a class="headerlink" href="#remove-duplicates" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.remove_duplicates(X, verbose=1)
 </pre></div>
 </div>
@@ -281,12 +281,12 @@ IUPAC amino acid one-letter notation (Extended IUPAC Protein).</p>
 </div>
 </div>
 </div>
-<div class="section" id="remove-unnatural-amino-acids">
-<h2>Remove unnatural amino acids<a class="headerlink" href="#remove-unnatural-amino-acids" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="remove-unnatural">
+<h2>remove_unnatural<a class="headerlink" href="#remove-unnatural" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.remove_unnatural(X)
 </pre></div>
 </div>
-<p>Remove unnatural sequences.</p>
+<p>Remove sequences containing unnatural amino acids.</p>
 <p>This function removes sequences containing amino acids other than the 20 natural ones.</p>
 <div class="section" id="id5">
 <h3>Parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>

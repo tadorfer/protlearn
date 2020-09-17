@@ -6,8 +6,8 @@
 Preprocessing 
 =============
 
-Integer-encoding
-----------------
+integer_encode
+--------------
 
 .. code-block:: text
 
@@ -85,7 +85,7 @@ Notes
 Amino acid sequence used for label-encoding were taken from the official
 IUPAC amino acid one-letter notation (Extended IUPAC Protein).
 
-Remove duplicates
+remove_duplicates
 -----------------
 
 .. code-block:: text
@@ -124,14 +124,14 @@ Examples
     >>> seqs
     ['EERNPAA', 'QEPGPGLLLK', 'ARKLY']
 
-Remove unnatural amino acids
-----------------------------
+remove_unnatural
+----------------
 
 .. code-block:: text
 
     protlearn.preprocessing.remove_unnatural(X)
 
-Remove unnatural sequences.
+Remove sequences containing unnatural amino acids.
 
 This function removes sequences containing amino acids other than the 20 natural ones.
 
