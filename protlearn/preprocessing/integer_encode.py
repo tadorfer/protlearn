@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from ..utils.validation import check_input, check_alpha
 
-def integer_encode(X, notation='standard', padding=False):
+def integer_encode(X, padding=False):
     """Encode amino acids as integers.
 
     This function converts amino acids into their corresponding integers 
@@ -18,16 +18,6 @@ def integer_encode(X, notation='standard', padding=False):
 
     X : string, fasta, or a list thereof
         Dataset of amino acid sequences.
-
-    notation : string, default='standard'
-        'standard' : 20 natural amino acids
-        'extended' : 20 natural + six additional amino acids:
-            B = aspartic acid or asparagine
-            X = unknown or 'other' amino acid
-            Z = glutamic acid or glutamine
-            J = leucine or isoleucine
-            U = selenocysteine
-            O = pyrrolysine
 
     padding : bool, default=False
         False : sequences are returned in their original lengths
@@ -57,18 +47,12 @@ def integer_encode(X, notation='standard', padding=False):
     >>> aa
     'ACDEFGHIKLMNPQRSTVWY'
 
-    Notes
-    -----
-
-    Amino acid sequence used for label-encoding were taken from the official
-    IUPAC amino acid one-letter notation (Extended IUPAC Protein).
-
     """
     
     # input handling 
     X = check_input(X)
 
-    # list of amino acids for integer encoding (IUPAC extended)
+    # string of amino acids for integer encoding (depending on notation)
     if notation == 'standard':
         amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     elif notation == 'extended':
