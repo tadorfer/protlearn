@@ -3,18 +3,32 @@
 from ..utils.validation import check_input, check_alpha
 
 def remove_unnatural(X):
-    """Remove sequences containing unnatural amino acids.
+    """Remove unnatural sequences.
+
+    This function removes sequences containing amino acids other than the 20 
+    natural ones.
 
     Parameters
     ----------
 
     X : string, fasta, or a list thereof
+        Dataset of amino acid sequences.
 
     Returns
-    -----
+    -------
 
     Y : list of length n_samples minus the number of sequences containing 
         unnatural amino acids
+        Dataset containing only sequences comprised of natural amino acids.
+
+    Examples
+    --------
+
+    >>> from protlearn.preprocessing import remove_unnatural
+    >>> seqs = ['ARKLY', 'EERNPJAB', 'QEPGPGLLLK']
+    >>> seqs = remove_unnatural(seqs)
+    >>> seqs
+    ['ARKLY', 'QEPGPGLLLK']
 
     """
     

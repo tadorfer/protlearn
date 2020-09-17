@@ -6,23 +6,35 @@ from ..utils.validation import check_input
 def remove_duplicates(X, verbose=1):
     """Remove duplicate sequences.
 
-        Parameters
-        ----------
+    This function detects and removes duplicate sequences from the dataset.
 
-        X : string, fasta, or a list thereof 
-        
-        verbose: int, default=1
-            
-            0: no information on duplicates is printed
-            1: prints number of duplicates removed
-            2: prints duplicate sequences and number of times present
+    Parameters
+    ----------
 
-        Returns
-        -------
+    X : string, fasta, or a list thereof 
+        Dataset of amino acid sequences.
+    
+    verbose : int, default=1
+        0 : no information on duplicates is printed
+        1 : prints number of duplicates removed
+        2 : prints duplicate sequences and number of times present
 
-        Y : list of length n_samples minus the number of duplicates
+    Returns
+    -------
 
-        """
+    Y : list of length n_samples minus the number of duplicates
+        Dataset containing only unique sequences.
+
+    Examples
+    --------
+
+    >>> from protlearn.preprocessing import remove_duplicates
+    >>> seqs = ['ARKLY', 'EERNPAA', 'ARKLY', 'QEPGPGLLLK']
+    >>> seqs = remove_duplicates(seqs)
+    >>> seqs
+    ['EERNPAA', 'QEPGPGLLLK', 'ARKLY']
+
+    """
 
     # input handling
     X = check_input(X)
