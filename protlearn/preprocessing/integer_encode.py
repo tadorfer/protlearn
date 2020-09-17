@@ -3,7 +3,7 @@
 import os
 import numpy as np
 import pandas as pd
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 
 def integer_encode(X, padding=False):
     """Encode amino acids as integers.
@@ -52,18 +52,12 @@ def integer_encode(X, padding=False):
     # input handling 
     X = check_input(X)
 
-    # string of amino acids for integer encoding (depending on notation)
-    if notation == 'standard':
-        amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
-    elif notation == 'extended':
-        amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
-    else:
-        raise ValueError("Valid options are 'standard' and 'extended'.")
-    
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     aa_dict = {amino_acids[i]: i+1 for i in range(len(amino_acids))}
     enc_list = []
     for seq in X:
         check_alpha(seq) # check if alphabetical      
+        check_natural(seq) # check for unnatural amino acids 
         seq = seq.upper()
         seq_trans = [aa_dict[aa] for aa in seq]
         enc_list.append(np.asarray(seq_trans))
