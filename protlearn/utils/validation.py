@@ -4,7 +4,7 @@ import os
 from Bio import SeqIO
 
 def check_input(X):
-
+    """Check if input has the correct type."""
     # correct fasta extensions for proteins
     ext = ['.fasta', '.faa', '.fa']
     if type(X) == str:
@@ -32,8 +32,13 @@ def check_input(X):
     return X
 
 def check_alpha(X):
-    "Check that input is alphabetical"
-    if str.isalpha(X) == True:
-        pass
-    else:
+    """Check that input is alphabetical."""
+    if str.isalpha(X) == False:
         raise ValueError('Data must be alphabetical!')
+
+def check_natural(X):
+    """Check that sequence is comprised of only natural amino acids."""
+    amino_acids = set('ACDEFGHIKLMNPQRSTVWY')
+    if set(X).issubset(amino_acids):
+        raise ValueError("Data contains sequences with unnatural amino acids. "+ 
+                         "Consider running preprocessing.remove_unnatural.")
