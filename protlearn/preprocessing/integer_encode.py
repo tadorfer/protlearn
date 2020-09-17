@@ -57,7 +57,6 @@ def integer_encode(X, notation='standard', padding=False):
     >>> aa
     'ACDEFGHIKLMNPQRSTVWY'
 
-
     Notes
     -----
 

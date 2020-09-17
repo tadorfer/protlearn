@@ -3,7 +3,7 @@
 from ..utils.validation import check_input, check_alpha
 
 def remove_unnatural(X):
-    """Remove unnatural sequences.
+    """Remove sequences containing unnatural amino acids.
 
     This function removes sequences containing amino acids other than the 20 
     natural ones.
