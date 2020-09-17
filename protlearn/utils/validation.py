@@ -39,6 +39,6 @@ def check_alpha(X):
 def check_natural(X):
     """Check that sequence is comprised of only natural amino acids."""
     amino_acids = set('ACDEFGHIKLMNPQRSTVWY')
-    if set(X).issubset(amino_acids):
+    if set(X).issubset(amino_acids) == False:
         raise ValueError("Data contains sequences with unnatural amino acids. "+ 
                          "Consider running preprocessing.remove_unnatural.")
