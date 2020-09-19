@@ -34,7 +34,7 @@ def test_aac():
         assert round(aac_rel[0,:].sum()) == 1
     
     # test absolute composition
-    aac_abs, aa = aac(X_list, 'absolute')
+    aac_abs, aa = aac(X_list, method='absolute')
 
     # test array contents
     assert np.array_equal(aac_abs[0], np.array([
