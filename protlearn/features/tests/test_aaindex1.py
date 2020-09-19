@@ -28,7 +28,7 @@ def test_aaindex1():
     np.testing.assert_almost_equal(aaind1[:,-1], KARS160122, decimal=3)
     
     # test standardization (zscore)
-    aaind1_z, desc = aaindex1(X_list, method='zscore')
+    aaind1_z, desc = aaindex1(X_list, standardize='zscore')
     # test mean = 0
     for i in range(aaind1_z.shape[0]):
         assert abs(round(aaind1_z[:,1].mean())) == 0
@@ -38,7 +38,7 @@ def test_aaindex1():
                round(aaind1_z[:,0].std(), 1)
         
     # test standardization (minmax)
-    aaind1_mm, desc = aaindex1(X_list, method='minmax')
+    aaind1_mm, desc = aaindex1(X_list, standardize='minmax')
     # test minimum and maximum
     for i in range(aaind1_mm.shape[0]):
         assert round(aaind1_mm[:,i].min()) == 0
