@@ -4,13 +4,13 @@
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
 
-def aaindex1(X, standardize='none', start=1, end=None):
-    """Compute amino acid indices from AAIndex1.
+def aaindex1(X, *, standardize='none', start=1, end=None):
+    """AAIndex1-based physicochemical properties.
 
     AAindex1 ver.9.2 (release Feb, 2017) is a set of 20 numerical values
     representing various physicochemical and biological properties of amino
@@ -22,25 +22,41 @@ def aaindex1(X, standardize='none', start=1, end=None):
     ----------
 
     X : string, fasta, or a list thereof 
+        Dataset of amino acid sequences.
 
     standardize : string, default='none'
-
         'none' : unstandardized index matrix will be returned
-        'zscore' : index matrix is standardized across columns (indices) to have
-                   a mean of 0 and standard deviation of 1 (unit variance).
-        'minmax' : index matrix is scaled (normalized) across columns (indices)
-                   to have a range of [0, 1].
+        'zscore' : index matrix is standardized to have
+                   a mean of 0 and standard deviation of 1.
+        'minmax' : index matrix is normalized to have a range of [0, 1].
 
     start : int, default=1
-        Determines the starting point of the amino acid sequence.
+        Determines the starting point of the amino acid sequence. This number is
+        based on one-based indexing.
 
     end : int, default=None
-        Determines the end point of the amino acid sequence.
+        Determines the end point of the amino acid sequence. Similarly to start,
+        this number is based on one-based indexing.
 
     Returns
     -------
 
     arr : ndarray of shape (n_samples, 553-566) 
+        Array containing the AAIndex1 physicochemical properties.
+
+    desc : list of length 553-566
+        Corresponds to the columns (AAIndices) in arr.
+
+    Examples
+    --------
+
+    >>> from protlearn.features import aaindex1
+    >>> seqs = ['ARKLY', 'EERKPGL']
+    >>> aaind, inds = aaindex1(seqs, standardize='zscore')
+    >>> aaind.shape
+    (2, 553)
+    >>> len(inds)
+    553
 
     Notes
     -----
@@ -53,7 +69,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
     # input handling
     X = check_input(X)
     
-    # AAIndex1 length
+    # Number of indices
     LEN = 566
     
     # list of amino acids (IUPAC extended)
@@ -72,6 +88,7 @@ def aaindex1(X, standardize='none', start=1, end=None):
     # fill array with mean of indices per protein/peptide
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
+        check_natural(seq) # check for unnatural amino acids 
         seq = seq[start-1:end] # positional information
         tmp_arr = np.zeros((LEN, len(seq)) )
 
