@@ -2,10 +2,10 @@
 
 import numpy as np
 from collections import Counter
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 
-def ngram(X, n=2, method='relative', start=1, end=None):
-    """Compute n-gram peptide composition.
+def ngram(X, *, n=2, method='relative', start=1, end=None):
+    """N-gram composition.
     
     This function computes the di- or tripeptide composition of amino acid 
     sequences. Therefore, the function argument 'n' can only take on 
@@ -15,33 +15,58 @@ def ngram(X, n=2, method='relative', start=1, end=None):
     ----------
     
     X : string, fasta, or a list thereof 
+        Dataset of amino acid sequences.
        
     n : int, default=2
         Integer denoting the desired n-gram composition.
-        
         2 : dipeptide composition
         3 : tripepitde composition
         
-    method: string, default='relative'
-    
-        'absolute': compute absolute ngram composition
-        'relative': compute relative ngram composition
+    method : string, default='relative'
+        'absolute': absolute n-gram composition
+        'relative': relative n-gram composition
 
     start : int, default=1
-        Determines the starting point of the amino acid sequence.
+        Determines the starting point of the amino acid sequence. This number is
+        based on one-based indexing.
 
     end : int, default=None
-        Determines the end point of the amino acid sequence.
+        Determines the end point of the amino acid sequence. Similarly to start,
+        this number is based on one-based indexing.
         
     Returns
     -------
     
-    arr : ndarray of shape (n_samples, n_unique_20^ngram)
-        Depending on ngram, the returned dataframe will be of size:
+    arr : ndarray of shape (n_samples, n_unique^n)
+        Depending on n, the returned array will be of size:
         - (n_samples, 400) for dipeptide composition
         - (n_samples, 8000) for tripeptide composition
-        if all possible ngram combinations are represented.
-       
+        if all possible n-gram combinations are represented.
+
+    n-grams : list of length n_unique^n
+        List of n-grams corresponding to columns in arr.
+
+    Examples
+    --------
+
+    >>> from protlearn.features import ngram
+    >>> seqs = ['ARKLY', 'EERKPGL']
+    >>> di, ngrams = ngram(seqs, n=2)
+    >>> di
+    array([[0.25      , 0.25      , 0.25      , 0.25      , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.16666667, 0.16666667,
+            0.16666667, 0.16666667, 0.16666667, 0.16666667]])
+    >>> ngrams
+    ['AR', 'KL', 'LY', 'RK', 'EE', 'ER', 'GL', 'KP', 'PG']
+    >>> tri, ngrams = ngram(seqs, n=3)
+    array([[0.33333333, 0.33333333, 0.33333333, 0.        , 0.        ,
+            0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.2       , 0.2       ,
+            0.2       , 0.2       , 0.2       ]])
+    >>> ngrams
+    ['ARK', 'KLY', 'RKL', 'EER', 'ERK', 'KPG', 'PGL', 'RKP']
+
     """
     
     # input handling
@@ -55,7 +80,8 @@ def ngram(X, n=2, method='relative', start=1, end=None):
     # compute n-gram composition
     ngdict = dict()
     for i, seq in enumerate(X):
-        check_alpha(seq) # check if alphabetical  
+        check_alpha(seq) # check if alphabetical
+        check_natural(seq) # check for unnatural amino acids   
         seq = seq[start-1:end]
         keys = [seq[i:i+n] for i in range(len(seq)-n+1)]
         unq = sorted(set(keys))

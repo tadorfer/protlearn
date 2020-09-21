@@ -6,20 +6,21 @@ from ..utils.validation import check_input, check_alpha
 
 
 
-def posrich(X, position, aminoacid):
-    """Compute the presence of an amino acid at a specific position.
+def posrich(X, *, position, aminoacid):
+    """Position-specific amino acids.
 
-    This function returns a binary feature vector or matrix in which ones 
-    indicate the presence of the given amino acid(s) at the specified 
-    position(s), and zeros indicate their absence. 
+    This function returns a binary vector or matrix in which ones indicate the 
+    presence of the given amino acid(s) at the specified position(s), and zeros
+    indicate their absence. 
 
     Parameters
     ----------
     
     X : string, fasta, or a list thereof
+        Dataset of amino acid sequences.
        
     position : int or list
-        Integer or list of integers denoting the position(s) in the sequence.
+        Integer or list of integers denoting the position(s) in the sequence. 
 
     aminoacid : string or list
         String or list of strings indicating the amino acid(s) of interest.
@@ -27,7 +28,26 @@ def posrich(X, position, aminoacid):
     Returns
     -------
     
-    pos : ndarray of shape (n_samples, ) or (n_samples, n_positions)
+    arr : ndarray of shape (n_samples, ) or (n_samples, n_positions)
+        Binary vector indicating position-specific presence of amino acids.
+
+    Examples
+    --------
+
+    >>> from protlearn.features import posrich
+    >>> seqs = ['ARKLY', 'ERNLAPG', 'YRLQLLLY']   
+    >>> pos_single = posrich(seqs, position=4, aminoacid='L')
+    >>> pos_single
+    array([1., 1., 0.])
+    >>> pos_multiple = posrich(seqs, position=[2,3,4], aminoacid=['R','N','L'])
+    array([[1., 0., 1.],
+           [1., 1., 1.],
+           [1., 0., 0.]])
+
+    Notes
+    -----
+
+    The position argument is based on one-based indexing.
        
     """
     
@@ -35,7 +55,7 @@ def posrich(X, position, aminoacid):
     X = check_input(X)
     
     if isinstance(position, int) and isinstance(aminoacid, str):
-        pos = np.zeros((len(X),))
+        arr = np.zeros((len(X),))
         for a, seq in enumerate(X):
             if str.isalpha(seq) == True:
                 pass
@@ -43,21 +63,21 @@ def posrich(X, position, aminoacid):
                 raise ValueError('Data type must be string!')
             for i, aa in enumerate(seq):
                 if i == position-1 and aa == aminoacid:
-                    pos[a] = 1
-        return pos
+                    arr[a] = 1
+        return arr
     
     elif isinstance(position, list) and isinstance(aminoacid, list):
     
         if len(position) != len(aminoacid):
             raise ValueError("Number of positions does not match number of amino acids")
 
-        pos = np.zeros((len(X), len(position)))
+        arr = np.zeros((len(X), len(position)))
         for a, seq in enumerate(X):
             check_alpha(seq) # check if alphabetical  
             for i in range(len(position)):
                 if seq[position[i]-1] == aminoacid[i]:
-                    pos[a, i] = 1
-        return pos
+                    arr[a, i] = 1
+        return arr
     
     else:
         raise ValueError("The arguments position and aminoacid must either be integer/string or lists of integers/strings.")
