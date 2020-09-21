@@ -20,10 +20,10 @@ def test_entropy():
         np.array([2.2359, 2.5032, 2.1556]), decimal=3)
 
     # test standardization
-    ent_zscore = entropy(X_list, 'zscore')
+    ent_zscore = entropy(X_list, standardize='zscore')
     np.testing.assert_array_almost_equal(ent_zscore, \
         np.array([-.4195, 1.3793, -.9598]), decimal=3)
-    ent_minmax = entropy(X_list, 'minmax')
+    ent_minmax = entropy(X_list, standardize='minmax')
     np.testing.assert_array_almost_equal(ent_minmax, \
         np.array([.2309, 1.0, 0.]), decimal=3)
     
