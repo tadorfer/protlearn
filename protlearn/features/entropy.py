@@ -52,7 +52,7 @@ def entropy(X, *, standardize='none', start=1, end=None):
     X = check_input(X)
     
     # initialize empty array with shape (n_samples, 1)
-    arr = np.zeros((len(X),))
+    arr = np.zeros((len(X), 1))
     
     # compute shannon entropy
     for i, seq in enumerate(X):
@@ -64,15 +64,15 @@ def entropy(X, *, standardize='none', start=1, end=None):
         arr[i] = -sum(ent_aa.values())
         
     if len(arr) == 1:
-        return arr[0]
+        return arr[0][0]
     
     if standardize == 'none':
-        return arr
+        return np.reshape(arr, (len(arr),))
 
     elif standardize == 'zscore':
         scaler = StandardScaler().fit(arr)
-        return scaler.transform(arr)
+        return np.reshape(scaler.transform(arr), (len(arr),))
     
     elif standardize == 'minmax':
         scaler = MinMaxScaler().fit(arr)
-        return scaler.transform(arr)
+        return np.reshape(scaler.transform(arr), (len(arr),))
