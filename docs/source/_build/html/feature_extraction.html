@@ -25,6 +25,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -86,13 +87,38 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Feature Extraction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#aac">aac</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#length">length</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#returns">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#aaindex1">aaindex1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#aac">aac</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#aaindex1">aaindex1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ngram">ngram</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#entropy">entropy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Examples</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#apaac">apaac</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#atc">atc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#binary">binary</a></li>
@@ -101,12 +127,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#ctdc">ctdc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ctdd">ctdd</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ctdt">ctdt</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#entropy">entropy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#geary">geary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#moran">moran</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#moreau-broto">moreau_broto</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#motif">motif</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#ngram">ngram</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#paac">paac</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#posrich">posrich</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#qso">qso</a></li>
@@ -181,15 +205,61 @@
             
   <div class="section" id="feature-extraction">
 <span id="id1"></span><h1>Feature Extraction<a class="headerlink" href="#feature-extraction" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="length">
+<h2>length<a class="headerlink" href="#length" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.length(X, *, method=&#39;int&#39;)
+</pre></div>
+</div>
+<p>Sequence length in amino acids.</p>
+<p>The number of amino acids that a protein or peptide is comprised of will be
+counted and returned as either an integer (single sequence), array of
+integers, or a one-hot-encoded array.</p>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
+</dd>
+<dt>method: string, default=’int’</dt><dd><p>‘int’ : interval data <br />
+‘ohe’ : one-hot encoded data</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr: int or ndarray of shape (n_samples, ) or (n_samples, n_unique_lengths)</dt><dd><p>Array containing sequence lengths.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">length</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;LLYPGP&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l_int</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l_int</span>
+<span class="go">array([5, 7, 6])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l_ohe</span> <span class="o">=</span> <span class="n">length</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;ohe&#39;</span><span class="p">)</span>
+<span class="go">array([[1., 0., 0.],</span>
+<span class="go">       [0., 0., 1.],</span>
+<span class="go">       [0., 1., 0.]])</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="aac">
 <h2>aac<a class="headerlink" href="#aac" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.aac(X, method=&#39;relative&#39;, start=1, end=None)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.aac(X, *, method=&#39;relative&#39;, start=1, end=None)
 </pre></div>
 </div>
 <p>Amino acid composition.</p>
 <p>This function returns the frequency of amino acids for each sequence in the dataset.</p>
-<div class="section" id="parameters">
-<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<p><cite>aac</cite> is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[aac(i) = \frac{ n_i }{N}\]</div>
+<p>where <em>i</em> denotes the 20 amino acid residues, <em>n</em><sub>i</sub> is the frequency of each
+residue i, and <em>N</em> is the total number of residues in the sequence.</p>
+<div class="section" id="id2">
+<h3>Parameters<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
 </dd>
@@ -202,20 +272,20 @@
 </dd>
 </dl>
 </div>
-<div class="section" id="returns">
-<h3>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h3>Returns<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>aac<span class="classifier">ndarray of shape (n_samples, n_unique_amino_acids)</span></dt><dd><p>Array containing the amino acid composition.</p>
+<dt>arr:  ndarray of shape (n_samples, n_unique_amino_acids)</dt><dd><p>Array containing the amino acid composition.</p>
 </dd>
-<dt>amino_acids<span class="classifier">amino acid order of aac array</span></dt><dd><p>Corresponds to the columns in aac.</p>
+<dt>amino_acids: string</dt><dd><p>Corresponds to the columns (amino acids) in arr.</p>
 </dd>
 </dl>
 </div>
-<div class="section" id="examples">
-<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>Examples<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">integer_encode</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">aa</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span>
 <span class="go">array([[0.2       , 0.        , 0.        , 0.2       , 0.2       ,</span>
 <span class="go">        0.        , 0.2       , 0.2       ],</span>
@@ -230,7 +300,182 @@
 </div>
 <div class="section" id="aaindex1">
 <h2>aaindex1<a class="headerlink" href="#aaindex1" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.aaindex1(X, *, standardize=&#39;none&#39;, start=1, end=None)
+</pre></div>
+</div>
+<p>AAIndex1-based physicochemical properties.</p>
+<p>AAindex1 ver.9.2 (release Feb, 2017) is a set of 20 numerical values
+representing various physicochemical and biological properties of amino
+acids. Currently, it contains 566 indices, of which 553 contain no NaNs.
+The indices will be collected for each amino acid in the sequence,
+then averaged across the sequence.</p>
+<p><cite>aaindex1</cite> is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[aaindex1(i) = \frac{ \sum_{n=1}^{N}AAindex_i (aa_n) }{N}\]</div>
+<p>where <em>i</em> denotes the 566 AAIndex1 indices, <em>aa</em><sub>n</sub> denotes the amino acid at
+position <em>n</em>, and N is the total number of residues in the sequence.</p>
+<div class="section" id="id5">
+<h3>Parameters<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
+</dd>
+<dt>standardize: string, default=’none’</dt><dd><p>‘none’ : unstandardized index matrix will be returned <br />
+‘zscore’ : index matrix is standardized to have a mean of 0 and standard deviation of 1. <br />
+‘minmax’ : index matrix is normalized to have a range of [0, 1].</p>
+</dd>
+<dt>start: int, default=1</dt><dd><p>Determines the starting point of the amino acid sequence. This number is based on one-based indexing.</p>
+</dd>
+<dt>end: int, default=None</dt><dd><p>Determines the end point of the amino acid sequence. Similarly to start, this number is based on one-based indexing.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id6">
+<h3>Returns<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr: ndarray of shape (n_samples, 553-566)</dt><dd><p>Array containing the AAIndex1 physicochemical properties.</p>
+</dd>
+<dt>desc: list of length 553-566</dt><dd><p>Corresponds to the columns (AAIndices) in arr.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id7">
+<h3>Examples<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aaindex1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">inds</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">standardize</span><span class="o">=</span><span class="s1">&#39;zscore&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(2, 553)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">inds</span><span class="p">)</span>
+<span class="go">553</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<p>Columns (indices) containing NaNs will be removed. Thus, the resulting index
+matrix will have a column size between 553-566.</p>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Nakai, K., Kidera, A., and Kanehisa, M.; Cluster analysis of amino acid indices for prediction of protein structure and function. Protein Eng. 2, 93-100 (1988). [PMID:3244698]</p></li>
+<li><p>Tomii, K. and Kanehisa, M.; Analysis of amino acid indices and mutation matrices for sequence comparison and structure prediction of proteins. Protein Eng. 9, 27-36 (1996). [PMID:9053899]</p></li>
+<li><p>Kawashima, S., Ogata, H., and Kanehisa, M.; AAindex: amino acid index database. Nucleic Acids Res. 27, 368-369 (1999). [PMID:9847231]</p></li>
+<li><p>Kawashima, S. and Kanehisa, M.; AAindex: amino acid index database. Nucleic Acids Res. 28, 374 (2000). [PMID:10592278]</p></li>
+<li><p>Kawashima, S., Pokarowski, P., Pokarowska, M., Kolinski, A., Katayama, T., and Kanehisa, M.; AAindex: amino acid index database, progress report 2008. Nucleic Acids Res. 36, D202-D205 (2008). [PMID:17998252]</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="ngram">
+<h2>ngram<a class="headerlink" href="#ngram" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.ngram(X, *, method=&#39;relative&#39;, start=1, end=None)
+</pre></div>
+</div>
+<p>N-gram composition.</p>
+<p>This function computes the di- or tripeptide composition of amino acid
+sequences. Therefore, the function parameter <em>n</em> can only take on
+the arguments 2 and 3 - otherwise, it will raise a ValueError.</p>
+<div class="section" id="id8">
+<h3>Parameters<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
+</dd>
+<dt>n: int, default=2</dt><dd><p>Integer denoting the desired n-gram composition. <br />
+2 : dipeptide composition <br />
+3 : tripepitde composition</p>
+</dd>
+<dt>method: string, default=’relative’</dt><dd><p>‘absolute’: absolute n-gram composition <br />
+‘relative’: relative n-gram composition</p>
+</dd>
+<dt>start: int, default=1</dt><dd><p>Determines the starting point of the amino acid sequence. This number is
+based on one-based indexing.</p>
+</dd>
+<dt>end: int, default=None</dt><dd><p>Determines the end point of the amino acid sequence. Similarly to start,
+this number is based on one-based indexing.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3>Returns<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr: ndarray of shape (n_samples, n_unique^n)</dt><dd><p>Depending on n, the returned array will be of size: <br />
+- (n_samples, 400) for dipeptide composition <br />
+- (n_samples, 8000) for tripeptide composition <br />
+if all possible n-gram combinations are represented.</p>
+</dd>
+<dt>n-grams: list of length n_unique^n</dt><dd><p>List of n-grams corresponding to columns in arr.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id10">
+<h3>Examples<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">di</span><span class="p">,</span> <span class="n">ngrams</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">di</span>
+<span class="go">array([[0.25      , 0.25      , 0.25      , 0.25      , 0.        ,</span>
+<span class="go">        0.        , 0.        , 0.        , 0.        ],</span>
+<span class="go">       [0.        , 0.        , 0.        , 0.16666667, 0.16666667,</span>
+<span class="go">        0.16666667, 0.16666667, 0.16666667, 0.16666667]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngrams</span>
+<span class="go">[&#39;AR&#39;, &#39;KL&#39;, &#39;LY&#39;, &#39;RK&#39;, &#39;EE&#39;, &#39;ER&#39;, &#39;GL&#39;, &#39;KP&#39;, &#39;PG&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tri</span><span class="p">,</span> <span class="n">ngrams</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">array([[0.33333333, 0.33333333, 0.33333333, 0.        , 0.        ,</span>
+<span class="go">        0.        , 0.        , 0.        ],</span>
+<span class="go">       [0.        , 0.        , 0.        , 0.2       , 0.2       ,</span>
+<span class="go">        0.2       , 0.2       , 0.2       ]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ngrams</span>
+<span class="go">[&#39;ARK&#39;, &#39;KLY&#39;, &#39;RKL&#39;, &#39;EER&#39;, &#39;ERK&#39;, &#39;KPG&#39;, &#39;PGL&#39;, &#39;RKP&#39;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="entropy">
+<h2>entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.entropy(X, *, standardize=&#39;none&#39;, start=1, end=None)
+</pre></div>
+</div>
+<p>Shannon entropy.</p>
+<p>This function computes the Shannon entropy for each sequence in the
+dataset as follows:</p>
+<div class="math notranslate nohighlight">
+\[H(X) = -\sum_{i=1}^{20}P(x_i)log_2 P(x_i)\]</div>
+<p>where <em>i</em> denotes the 20 amino acids and <em>P(x</em><sub>i</sub>) denotes the
+probability of a given amino acid in the sequence.</p>
+<div class="section" id="id11">
+<h3>Parameters<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
+</dd>
+<dt>standardize: string, default=’none’</dt><dd><p>‘none’ : unstandardized index matrix will be returned <br />
+‘zscore’ : index matrix is standardized to have a mean of 0 and standard deviation of 1. <br />
+‘minmax’ : index matrix is normalized to have a range of [0, 1].</p>
+</dd>
+<dt>start: int, default=1</dt><dd><p>Determines the starting point of the amino acid sequence. This number is
+based on one-based indexing.</p>
+</dd>
+<dt>end: int, default=None</dt><dd><p>Determines the end point of the amino acid sequence. Similarly to start,
+this number is based on one-based indexing.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id12">
+<h3>Returns<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples,) if len(X) &gt; 1, otherwise float</dt><dd><p>Array containing Shannon entropy values for each sequence.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id13">
+<h3>Examples<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">entropy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ent</span> <span class="o">=</span> <span class="n">entropy</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ent</span>
+<span class="go">array([2.32192809, 2.52164064])</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="apaac">
 <h2>apaac<a class="headerlink" href="#apaac" title="Permalink to this headline">¶</a></h2>
@@ -264,10 +509,6 @@
 <h2>ctdt<a class="headerlink" href="#ctdt" title="Permalink to this headline">¶</a></h2>
 <p>Coming soon!</p>
 </div>
-<div class="section" id="entropy">
-<h2>entropy<a class="headerlink" href="#entropy" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
-</div>
 <div class="section" id="geary">
 <h2>geary<a class="headerlink" href="#geary" title="Permalink to this headline">¶</a></h2>
 <p>Coming soon!</p>
@@ -282,10 +523,6 @@
 </div>
 <div class="section" id="motif">
 <h2>motif<a class="headerlink" href="#motif" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
-</div>
-<div class="section" id="ngram">
-<h2>ngram<a class="headerlink" href="#ngram" title="Permalink to this headline">¶</a></h2>
 <p>Coming soon!</p>
 </div>
 <div class="section" id="paac">
