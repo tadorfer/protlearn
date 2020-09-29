@@ -3,15 +3,23 @@
 import re
 import numpy as np
 from itertools import product
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 
-def cksaap(X, k=1, start=1, end=None):
-    """Compute composition of k-spaced amino acid pairs.
+def cksaap(X, *, k=1, start=1, end=None):
+    """Composition of k-spaced amino acid pairs.
+
+    This function returns the k-spaced amino acid pair composition of each 
+    sequence in the dataset. Since there are 20 natural amino acids, there are 
+    400 possible amino acid pairs. The parameter 'k' represents the gap between
+    the amino acid pair. An example for k=1 would be AxY, where 'x' can be any 
+    amino acid. Similary, an example for k=2 would be AxxY. If k=0, the function
+    returns the dipeptide composition of each sequence.
 
     Parameters
     ----------
 
     X : string, fasta, or a list thereof 
+        Dataset of amino acid sequences.
     
     lambda_ : int, default=1
         Counted rank (tier) of the correlation along an amino acid sequence.
@@ -20,17 +28,55 @@ def cksaap(X, k=1, start=1, end=None):
         Space between two amino acid pairs.
 
     start : int, default=1
-        Determines the starting point of the amino acid sequence.
+        Determines the starting point of the amino acid sequence. This number is
+        based on one-based indexing.
 
     end : int, default=None
-        Determines the end point of the amino acid sequence.
+        Determines the end point of the amino acid sequence. Similarly to start,
+        this number is based on one-based indexing.
 
     Returns
     -------
 
-    arr :  ndarray of shape (n_samples, 676)
+    arr :  ndarray of shape (n_samples, 400)
+        Array containing k-spaced amino acid pair composition.
     
-    patterns : amino acid pairs with k gaps
+    patterns : list of length 400
+        Amino acid pairs with k gaps.
+
+    Examples
+    --------
+
+    >>> from protlearn.features import cksaap
+    >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
+    >>> ck, pairs = cksaap(seqs)
+    >>> ck
+    array([[0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
+           [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1],
+           [4, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]])
+    >>> pairs
+    ['A.A', 'A.K', 'A.L', 'A.Y', 'E.K', 'E.R', 'K.G', 'K.Y', 'P.L', 'R.L', 'R.P']
+    >>> ck2, pairs2 = cksaap(seqs, k=2)
+    >>> ck2
+    array([[0, 1, 0, 0, 0, 0, 0, 1],
+           [0, 0, 0, 1, 1, 1, 1, 0],
+           [3, 1, 1, 0, 0, 0, 0, 0]])
+    >>> pairs2
+     ['A..A', 'A..L', 'A..Y', 'E..K', 'E..P', 'K..L', 'R..G', 'R..Y']
+
+    Notes
+    -----
+
+    Columns containing only zeros will be deleted. Therefore, the returned 
+    array and list may have a lower dimensionality than 400, depending on the 
+    unique number of k-spaced amino acid pairs in the dataset. 
+
+    References
+    ----------
+
+    Chen, K., Kurgan, L.A. & Ruan, J. Prediction of flexible/rigid regions from
+    protein sequences using k-spaced amino acid pairs. BMC Struct Biol 7, 25 
+    (2007). https://doi.org/10.1186/1472-6807-7-25
 
     """
     
@@ -38,16 +84,17 @@ def cksaap(X, k=1, start=1, end=None):
     X = check_input(X)
     
     # initialize empty array 
-    arr = np.empty((len(X), 676), dtype=int)
+    arr = np.empty((len(X), 400), dtype=int)
     
-    # list of amino acids (IUPAC extended)
-    amino_acids = 'ACDEFGHIKLMNPQRSTVWYBXZJUO'
+    # list of amino acids (IUPAC standard)
+    amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
     doublets = sorted([c[0]+c[1] for c in product(amino_acids, repeat=2)])
     patterns = [doublets[i][0]+'.'*k+doublets[i][1] for i in range(len(doublets))]
 
     # compute CKSAAP
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
+        check_natural(seq) # check for unnatural amino acids 
         seq = seq[start-1:end] # positional information
         for j, pattern in enumerate(patterns):
             cnt_pattern = len(re.findall(r'(?=('+pattern+'))', seq))
