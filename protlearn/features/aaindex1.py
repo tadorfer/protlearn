@@ -47,17 +47,6 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
     desc : list of length 553-566
         Corresponds to the columns (AAIndices) in arr.
 
-    Examples
-    --------
-
-    >>> from protlearn.features import aaindex1
-    >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> aaind, inds = aaindex1(seqs, standardize='zscore')
-    >>> aaind.shape
-    (2, 553)
-    >>> len(inds)
-    553
-
     Notes
     -----
 
@@ -84,6 +73,17 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
     Kawashima, S., Pokarowski, P., Pokarowska, M., Kolinski, A., Katayama, T., 
     and Kanehisa, M.; AAindex: amino acid index database, progress report 2008. 
     Nucleic Acids Res. 36, D202-D205 (2008). [PMID:17998252]
+
+    Examples
+    --------
+
+    >>> from protlearn.features import aaindex1
+    >>> seqs = ['ARKLY', 'EERKPGL']
+    >>> aaind, inds = aaindex1(seqs, standardize='zscore')
+    >>> aaind.shape
+    (2, 553)
+    >>> len(inds)
+    553
 
     """
     

@@ -2,7 +2,7 @@
 
 import os
 import numpy as np
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 
 
 
@@ -31,6 +31,11 @@ def posrich(X, *, position, aminoacid):
     arr : ndarray of shape (n_samples, ) or (n_samples, n_positions)
         Binary vector indicating position-specific presence of amino acids.
 
+    Notes
+    -----
+
+    The position argument is based on one-based indexing.
+
     Examples
     --------
 
@@ -43,11 +48,6 @@ def posrich(X, *, position, aminoacid):
     array([[1., 0., 1.],
            [1., 1., 1.],
            [1., 0., 0.]])
-
-    Notes
-    -----
-
-    The position argument is based on one-based indexing.
        
     """
     
@@ -74,6 +74,7 @@ def posrich(X, *, position, aminoacid):
         arr = np.zeros((len(X), len(position)))
         for a, seq in enumerate(X):
             check_alpha(seq) # check if alphabetical  
+            check_natural(seq) # check for unnatural amino acids
             for i in range(len(position)):
                 if seq[position[i]-1] == aminoacid[i]:
                     arr[a, i] = 1
