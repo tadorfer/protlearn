@@ -44,6 +44,20 @@ def cksaap(X, *, k=1, start=1, end=None):
     patterns : list of length 400
         Amino acid pairs with k gaps.
 
+    Notes
+    -----
+
+    Columns containing only zeros will be deleted. Therefore, the returned 
+    array and list may have a lower dimensionality than 400, depending on the 
+    unique number of k-spaced amino acid pairs in the dataset. 
+
+    References
+    ----------
+
+    Chen, K., Kurgan, L.A. & Ruan, J. Prediction of flexible/rigid regions from
+    protein sequences using k-spaced amino acid pairs. BMC Struct Biol 7, 25 
+    (2007). https://doi.org/10.1186/1472-6807-7-25
+
     Examples
     --------
 
@@ -62,21 +76,7 @@ def cksaap(X, *, k=1, start=1, end=None):
            [0, 0, 0, 1, 1, 1, 1, 0],
            [3, 1, 1, 0, 0, 0, 0, 0]])
     >>> pairs2
-     ['A..A', 'A..L', 'A..Y', 'E..K', 'E..P', 'K..L', 'R..G', 'R..Y']
-
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    array and list may have a lower dimensionality than 400, depending on the 
-    unique number of k-spaced amino acid pairs in the dataset. 
-
-    References
-    ----------
-
-    Chen, K., Kurgan, L.A. & Ruan, J. Prediction of flexible/rigid regions from
-    protein sequences using k-spaced amino acid pairs. BMC Struct Biol 7, 25 
-    (2007). https://doi.org/10.1186/1472-6807-7-25
+    ['A..A', 'A..L', 'A..Y', 'E..K', 'E..P', 'K..L', 'R..G', 'R..Y']
 
     """
     
