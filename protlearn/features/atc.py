@@ -48,6 +48,13 @@ def atc(X, *, method='relative', start=1, end=None):
     The 'method' argument only applies to the atomic composition, not
     the bond composition.
 
+    References
+    ----------
+
+    Kumar, R., Chaudhary, K., Singh Chauhan, J. et al. An in silico platform for
+    predicting, screening and designing of antihypertensive peptides. Sci Rep 5,
+    12512 (2015). https://doi.org/10.1038/srep12512
+
     Examples
     --------
 

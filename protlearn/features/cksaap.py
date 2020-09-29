@@ -42,7 +42,7 @@ def cksaap(X, *, k=1, start=1, end=None):
         Array containing k-spaced amino acid pair composition.
     
     patterns : list of length 400
-        Amino acid pairs with k gaps.
+        Amino acid pairs with k gaps corresponding to columns in arr.
 
     Notes
     -----

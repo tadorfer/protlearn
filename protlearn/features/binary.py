@@ -39,6 +39,17 @@ def binary(X, *, padding=False, start=1, end=None):
     
     This function is intended for proteins or peptides with equal lengths only.
 
+    References
+    ----------
+
+    Ansari, H. R., & Raghava, G. P. (2010). Identification of conformational 
+    B-cell Epitopes in an antigen from its primary sequence. Immunome research,
+    6, 6. https://doi.org/10.1186/1745-7580-6-6
+
+    Chen Z, Chen Y-Z, Wang X-F, Wang C, Yan R-X, Zhang Z (2011) Prediction of 
+    Ubiquitination Sites by Using the Composition of k-Spaced Amino Acid Pairs.
+    PLoS ONE 6(7): e22930. https://doi.org/10.1371/journal.pone.0022930
+
     Examples
     --------
 

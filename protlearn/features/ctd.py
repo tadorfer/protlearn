@@ -2,30 +2,67 @@
 
 import numpy as np
 from collections import Counter
-from ..utils.validation import check_input, check_alpha
+from ..utils.validation import check_input, check_alpha, check_natural
 
-def ctd(X, start=1, end=None):
-    """Compute conjoint triad descriptors.
+def ctd(X, *, start=1, end=None):
+    """Conjoint triad descriptors.
 
-        Parameters
-        ----------
+    These descriptors were initially developed to model protein-protein
+    interactions. Amino acids can be grouped into 7 different classes based on
+    their dipoles and side chain volumes, which reflect their electrostatic and
+    hydrophobic interactions. After grouping, these class triads are counted and
+    normalized (for more information, see https://protlearn.readthedocs.io/).
 
-        X : string, fasta, or a list thereof 
+    Parameters
+    ----------
 
-        start : int, default=1
-            Determines the starting point of the amino acid sequence.
+    X : string, fasta, or a list thereof 
+        Dataset of amino acid sequences.
 
-        end : int, default=None
-            Determines the end point of the amino acid sequence.
+    start : int, default=1
+        Determines the starting point of the amino acid sequence. This number is
+        based on one-based indexing.
 
-        Returns
-        -------
+    end : int, default=None
+        Determines the end point of the amino acid sequence. Similarly to start,
+        this number is based on one-based indexing.
 
-        arr :  ndarray of shape (n_samples, 343)
+    Returns
+    -------
 
-        ctd_list : list of triad classes
+    arr :  ndarray of shape (n_samples, 343)
+        Array containing conjoint triad descriptors.
 
-        """
+    ctd_list : list of length 343
+        Unique class triads corresponding to columns in arr.
+
+    Notes
+    -----
+
+    Columns containing only zeros will be deleted. Therefore, the returned 
+    array and list may have a lower dimensionality than 343, depending on the 
+    unique number conjoint triad descriptors in the dataset.
+
+    References
+    ----------
+
+    Shen J, Zhang J, Luo X, Zhu W, Yu K, Chen K, Li Y, Jiang H (2007) Predicting
+    protein-protein interactions based only on sequences information. Proc Natl
+    Acad Sci USA 104: 4337 – 4341
+
+    Examples
+    --------
+
+    >>> from protlearn.features import ctd
+    >>> seqs = ['ARKKLYLYL', 'EEEERKPGL']
+    >>> ctd_arr, ctd_desc = ctd(seqs)
+    >>> ctd_arr
+    array([[1., 2., 1., 1., 1., 1., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 1., 0., 1., 1., 1., 1., 2.]])
+    >>> ctd_desc
+    ['155', '232', '323', '523', '552', '555', '212', '521', '655', '665', '666']
+
+    """
 
     # input handling
     X = check_input(X)
@@ -43,6 +80,7 @@ def ctd(X, start=1, end=None):
     ctd = dict()
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
+        check_natural(seq) # check for unnatural amino acids 
         seq = seq[start-1:end] # positional information
         seq = ''.join([str(classes[aa]) for aa in seq])
         keys = [seq[x:x+3] for x in range(len(seq)-2)]
