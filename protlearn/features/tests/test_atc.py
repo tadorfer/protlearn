@@ -13,7 +13,7 @@ def test_atc():
     X_err = 'AGT2HT9'
     
     # test relative composition
-    atc_rel, bond_rel = atc(X_list)
+    atc_rel, bonds = atc(X_list)
 
     # test array contents
     np.testing.assert_almost_equal(atc_rel[0], np.array([
@@ -23,16 +23,16 @@ def test_atc():
     np.testing.assert_almost_equal(atc_rel[2], np.array([
         0.234375 , 0.5      , 0.09375  , 0.1640625, 0.0078125]))
 
-    np.testing.assert_almost_equal(bond_rel[0], np.array([138., 127.,  11.]))
-    np.testing.assert_almost_equal(bond_rel[1], np.array([140., 129.,  11.]))
-    np.testing.assert_almost_equal(bond_rel[2], np.array([120., 108.,  12.])) 
+    np.testing.assert_almost_equal(bonds[0], np.array([138., 127.,  11.]))
+    np.testing.assert_almost_equal(bonds[1], np.array([140., 129.,  11.]))
+    np.testing.assert_almost_equal(bonds[2], np.array([120., 108.,  12.])) 
     
     # test if frequencies add to 1
     for i in range(len(X_list)):
         assert round(atc_rel[0].sum()) == 1
     
     # test absolute composition
-    atc_abs, bond_abs = atc(X_list, 'absolute')
+    atc_abs, bonds = atc(X_list, method='absolute')
 
     # test array contents
     assert np.array_equal(atc_abs[0], np.array([
