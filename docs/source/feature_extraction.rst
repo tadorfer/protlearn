@@ -205,6 +205,20 @@ This function computes the di- or tripeptide composition of amino acid
 sequences. Therefore, the function parameter *n* can only take on 
 the arguments 2 and 3 - otherwise, it will raise a ValueError.
 
+`ngram` is calculated as follows:
+
+.. math::
+
+   di(i, j) = \frac{ N_{ij} }{N-1} \quad i,j = 1, 2, ..., 20.
+
+.. math::
+
+   tri(i, j, k) = \frac{ N_{ijk} }{N-2} \quad i,j,k = 1, 2, ..., 20.
+
+where *N*\ :sub:`ij` \ and *N*\ :sub:`ijk` \ denote the di- and tripeptides 
+comprised by amino acids *ij* and *ijk*, respectively. *N* denotes the total 
+sequence length.
+
 Parameters
 ##########
 
@@ -435,7 +449,6 @@ Examples
     >>> m2
     array([0., 1., 0.])    
 
-
 atc 
 ---
 
@@ -449,6 +462,22 @@ This function returns the sum of atomic and bond compositions for each
 amino acid sequence. The atomic features are comprised of five atoms 
 (C, H, N, O, and S), and the bond features are comprised of total bonds, 
 single bonds, and double bonds.
+
+`atc` is calculated as follows:
+
+.. math::
+
+    atoms(i) = \frac{ n_i }{N}
+
+where *i* denotes the type of atoms, *n*\ :sub:`i` \ is the total number of 
+atoms of type *i*, and *N* is the total number of atoms in the sequence.
+
+.. math::
+
+    bonds(j) = n_j
+
+where *j* denotes the type of bond and *n*\ :sub:`j` \ is the total number of 
+bonds of type *j*.
 
 Parameters
 ##########
@@ -672,8 +701,27 @@ Conjoint triad descriptors.
 These descriptors were initially developed to model protein-protein
 interactions. Amino acids can be grouped into 7 different classes based on
 their dipoles and side chain volumes, which reflect their electrostatic and
-hydrophobic interactions. After grouping, these class triads are counted and
-normalized (for more information, see https://protlearn.readthedocs.io/).
+hydrophobic interactions. 
+
+.. image:: ctd_table.png
+   :alt: Table showing CTD grouping of amino acids
+   :align: center
+
+\ :sup:`1` \ Dipole Scale (Debye): −, Dipole < 1.0; +, 1.0 < Dipole < 2.0; ++, 
+2.0 < Dipole < 3.0; +++, Dipole > 3.0; +′+′+′, Dipole > 3.0 with opposite orientation. |br|
+
+\ :sup:`2` \ Volume Scale (A∘3): −, Volume < 50; +, Volume > 50. |br|
+
+\ :sup:`3` \ Cys is separated from class 3 because of its ability to form disulfide bonds. |br|
+
+After grouping, these class triads are computed and normalized as follows:
+
+.. math::
+
+    d(i) = \frac{ f_i-min\{f_1,f_2,...,f_{343}\} }{max\{f_1,f_2,...,f_{343}\}}
+
+where *i* corresponds to the CTD group and *f*\ :sub:`i` \ is the frequency of group *i* 
+in the sequence.
 
 Parameters
 ##########
@@ -739,10 +787,23 @@ der Waals volume, polarity, polarizability, charge, secondary structure, and
 solvent accessibility. For hydrophobicity, we use seven different groupings 
 based on different studies, which can all be found in AAIndex1. 
 
+.. image:: ctd.png
+   :alt: Table showing CTD grouping of amino acids
+   :align: center
+
 After grouping, the frequency of each class will be calculated for each 
-physicochemical property per sequence in the dataset. For instance, the 
-sequence 'ARKLY' translates to '23311' with respect to polarity groups. 
-Thus, for polarity, the outcome will be P1 = 2/5, P2 = 1/5, and P3 = 2/5. 
+physicochemical property per sequence in the dataset as follows:
+
+.. math::
+
+    c(i) = \frac{ n_i }{N} \quad i = 1,2,3
+
+where *n*\ :sub:`i` \ denotes the frequency of group *i* in the sequence, and *N* is the 
+total sequence length.
+
+For instance, the sequence 'ARKLY' translates to '23311' with respect to 
+polarity groups. Thus, for polarity, the outcome will be P1 = 2/5, P2 = 1/5, 
+and P3 = 2/5. 
 
 As there are 13 different properties and 3 groups for each, the total dimension 
 of this descriptor is 39.
@@ -857,8 +918,17 @@ der Waals volume, polarity, polarizability, charge, secondary structure, and
 solvent accessibility. For hydrophobicity, we use seven different groupings 
 based on different studies, which can all be found in AAIndex1. 
 
-This descriptor computes the frequency of transitions between groups. For 
-instance, if the encoded sequence is '32132223311311222222', then there are
+This descriptor computes the frequency of transitions between groups as follows:
+
+.. math::
+
+    t(ij) = \frac{ n_{ij} + n_{ji} }{N-1} \quad ij = 12,13, 23
+
+where *n*\ :sub:`ij` \ and *n*\ :sub:`ji` \ denote the frequency of transitions 
+from group *i* to *j* and *j* to *i*, respectively, in the sequence, and *N* is 
+the total sequence length.
+
+For instance, if the encoded sequence is '32132223311311222222', then there are 
 2 transitions from groups 1 to 2 and 2 to 1. Therefore, the descriptor for 
 this particular group transition will be 2/19. Similarly, there are 3 
 transitions from groups 2 to 3 and 3 to 2, so the descriptor for this 
@@ -1033,130 +1103,6 @@ Examples
     >>> len(desc)
     195
 
-geary 
------
-
-.. code-block:: text
-
-    protlearn.features.geary(X, *, d=1, properties=default, start=1, end=None)
-
-Geary's C based on AAIndex1.
-
-Geary's C autocorrelation descriptors are defined based on the distribution 
-of AAIndex1-based amino acid properties along the sequence. All indices are 
-standardized before computing the descriptors. For the exact formula, please
-refer to the documentation at https://protlearn.readthedocs.io/. 
-
-Parameters
-##########
-
-X: string, fasta, or a list thereof 
-    Dataset of amino acid sequences.
-
-properties: list
-    List of strings denoting AAIndex1 indices.
-    
-d: int, default=1
-    Represents the lag. Must be smaller than sequence length. Maximum: 30.
-
-start: int, default=1
-    Determines the starting point of the amino acid sequence. This number is
-    based on one-based indexing.
-
-end: int, default=None
-    Determines the end point of the amino acid sequence. Similarly to start,
-    this number is based on one-based indexing.
-
-Returns
-#######
-
-arr: ndarray of shape (n_samples, n_properties)
-    Array containing Geary's C autocorrelation descriptors.
-
-References
-##########
-
-- Geary, R. (1954). The Contiguity Ratio and Statistical Mapping. The Incorporated Statistician, 5(3), 115-146. doi:10.2307/2986645
-- Jeffers, J. (1973). A Basic Subroutine for Geary's Contiguity Ratio. Journal of the Royal Statistical Society. Series D (The Statistician), 22(4), 299-302. doi:10.2307/2986827
-- Sokal, RR., Thomson, BA. (2006). Population structure inferred by local spatial autocorrelation: an example from an Amerindian tribal population. Am J Phys Anthropol, 129: 121–131. 10.1002/ajpa.20250
-- Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859.
-
-Examples
-########
-
-.. code-block:: python
-
-    >>> from protlearn.features import geary
-    >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> gearyC = geary(seqs)
-    >>> gearyC
-    array([[0.52746275, 1.12898944, 0.94222955, 0.39077186, 0.96444569,
-            0.66346012, 0.87481962, 0.32546227],
-           [0.65656058, 0.95397893, 0.87962853, 0.70972353, 0.65407555,
-            0.96823847, 1.01949384, 0.21073089]])
-
-moran 
------
-
-.. code-block:: text
-
-    protlearn.features.moran(X, *, d=1, properties=default, start=1, end=None)
-
-Moran's I based on AAIndex1.
-
-Moran's I autocorrelation descriptors are defined based on the distribution 
-of AAIndex1-based amino acid properties along the sequence. All indices are 
-standardized before computing the descriptors. For the exact formula, please
-refer to the documentation at https://protlearn.readthedocs.io/.
-
-Parameters
-##########
-
-X: string, fasta, or a list thereof 
-    Dataset of amino acid sequences.
-
-properties: list
-    List of strings denoting AAIndex1 indices.
-    
-d: int, default=1
-    Represents the lag. Must be smaller than sequence length. Maximum: 30.
-
-start: int, default=1
-    Determines the starting point of the amino acid sequence. This number is
-    based on one-based indexing.
-
-end: int, default=None
-    Determines the end point of the amino acid sequence. Similarly to start,
-    this number is based on one-based indexing.
-
-Returns
-#######
-
-arr: ndarray of shape (n_samples, n_properties)   
-    Array containing Moran's I autocorrelation descriptors.
-
-References
-##########
-
-- Moran, P. (1950). Notes on Continuous Stochastic Phenomena. Biometrika, 37(1/2), 17-23. doi:10.2307/2332142
-- Horne, DS. (1988): Prediction of protein helix content from an autocorrelation analysis of sequence hydrophobicities. Biopolymers 27, 451–477 
-- Li et al. (2007). Beyond Moran's I: testing for spatial dependence based on the spatial autoregressive model. Geogr. Anal. 39, 357–375.
-- Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859
-
-Examples
-########
-
-.. code-block:: python
-
-    >>> from protlearn.features import moran
-    >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> moranI = moran(seqs)
-    >>> moranI
-    array([[ 0.40090094, -0.31240708, -0.44083728,  0.26720303, -0.45198768,
-            -0.14684112, -0.05212843,  0.33703981],
-            [-0.0588976 , -0.36033526,  0.13170834,  0.18317369,  0.3884609 ,
-             -0.00724234, -0.19231646,  0.61711506]])
-
 moreau_broto
 ------------
 
@@ -1168,8 +1114,33 @@ Normalized Moreau-Broto autocorrelation based on AAIndex1.
 
 Moreau-Broto autocorrelation descriptors are defined based on the 
 distribution of AAIndex1-based amino acid properties along the sequence. All
-indices are standardized before computing the descriptors. For the exact 
-formula, please refer to the documentation at https://protlearn.readthedocs.io/. 
+indices are standardized before computing the descriptors:
+
+.. math::
+
+    P_i = \frac{ P_i-\overline{P} }{\sigma} 
+
+where *P*\ :sub:`i` \ is the physicochemical property of the amino acid *i*, 
+:math:`\overline{P}` denotes the mean of the property of the 20 amino acids, 
+and :math:`\sigma` denotes the standard deviation.
+
+Then, the Moreau_Broto descriptors are computed as follows:
+
+.. math::
+
+    AC(d) = \sum_{n=1}^{N-d} P_i P_{i+d} \quad d=1,2,...,nlag
+
+where *d* denotes the lag of the autocorrelation, *P*\ :sub:`i` \ and *P*\ :sub:`i+d` \ 
+are the properties of the amino acids at positions i and i+d, respectively and 
+*nlag* is the maximum value of the lag.
+
+Finally, these descriptors are normalized:
+
+.. math::
+
+    ATS(d) = \frac{ AC(d) }{ N-d } \quad d=1,2,...,nlag
+
+where *N* denotes the total sequence length.
 
 Parameters
 ##########
@@ -1219,6 +1190,152 @@ Examples
            [ 0.34693551,  0.55361789,  0.12660283,  0.37790326,  0.43905717,
              0.00559139, -0.09331898,  0.36367721]])
 
+moran 
+-----
+
+.. code-block:: text
+
+    protlearn.features.moran(X, *, d=1, properties=default, start=1, end=None)
+
+Moran's I based on AAIndex1.
+
+Moran's I autocorrelation descriptors are defined based on the distribution 
+of AAIndex1-based amino acid properties along the sequence. All indices are 
+standardized before computing the descriptors. 
+
+Moran's I descriptors are computed as follows:
+
+.. math::
+
+    I(d) = \frac{ \frac{ 1 }{ N-d } \sum_{i=1}^{N-d} (P_i-\overline{P}')(P_{i+d}-\overline{P}')}{\frac{ 1 }{ N } \sum_{i=1}^{N} (P_i-\overline{P}')^2} \quad d=1,2,...,30
+
+where *N*, *d*, *P*\ :sub:`i` \, and *P*\ :sub:`i+d` \ are the same as in the 
+Moreau-Broto autocorrelation.  :math:`\overline{P}'` is the considered 
+property P along the sequence, which is defined as follows:
+
+.. math::
+
+    \overline{P}' = \frac{ \sum_{i=1}^{N} P_i }{N}
+
+Parameters
+##########
+
+X: string, fasta, or a list thereof 
+    Dataset of amino acid sequences.
+
+properties: list
+    List of strings denoting AAIndex1 indices.
+    
+d: int, default=1
+    Represents the lag. Must be smaller than sequence length. Maximum: 30.
+
+start: int, default=1
+    Determines the starting point of the amino acid sequence. This number is
+    based on one-based indexing.
+
+end: int, default=None
+    Determines the end point of the amino acid sequence. Similarly to start,
+    this number is based on one-based indexing.
+
+Returns
+#######
+
+arr: ndarray of shape (n_samples, n_properties)   
+    Array containing Moran's I autocorrelation descriptors.
+
+References
+##########
+
+- Moran, P. (1950). Notes on Continuous Stochastic Phenomena. Biometrika, 37(1/2), 17-23. doi:10.2307/2332142
+- Horne, DS. (1988): Prediction of protein helix content from an autocorrelation analysis of sequence hydrophobicities. Biopolymers 27, 451–477 
+- Li et al. (2007). Beyond Moran's I: testing for spatial dependence based on the spatial autoregressive model. Geogr. Anal. 39, 357–375.
+- Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859
+
+Examples
+########
+
+.. code-block:: python
+
+    >>> from protlearn.features import moran
+    >>> seqs = ['ARKLY', 'EERKPGL']
+    >>> moranI = moran(seqs)
+    >>> moranI
+    array([[ 0.40090094, -0.31240708, -0.44083728,  0.26720303, -0.45198768,
+            -0.14684112, -0.05212843,  0.33703981],
+            [-0.0588976 , -0.36033526,  0.13170834,  0.18317369,  0.3884609 ,
+             -0.00724234, -0.19231646,  0.61711506]])
+
+geary 
+-----
+
+.. code-block:: text
+
+    protlearn.features.geary(X, *, d=1, properties=default, start=1, end=None)
+
+Geary's C based on AAIndex1.
+
+Geary's C autocorrelation descriptors are defined based on the distribution 
+of AAIndex1-based amino acid properties along the sequence. All indices are 
+standardized before computing the descriptors. 
+
+Geary's C descriptors are computed as follows:
+
+.. math::
+
+    C(d) = \frac{ \frac{ 1 }{ 2(N-d) } \sum_{i=1}^{N-d} (P_{i}-P_{i+d})^2}{\frac{ 1 }{ N-1 } \sum_{i=1}^{N} (P_i-\overline{P}')^2} \quad d=1,2,...,30
+
+where *N*, *d*, *P*\ :sub:`i` \, and *P*\ :sub:`i+d` \ are the same as in the 
+Moreau-Broto autocorrelation, and :math:`\overline{P}'` is the same as in 
+Moran's I.
+
+Parameters
+##########
+
+X: string, fasta, or a list thereof 
+    Dataset of amino acid sequences.
+
+properties: list
+    List of strings denoting AAIndex1 indices.
+    
+d: int, default=1
+    Represents the lag. Must be smaller than sequence length. Maximum: 30.
+
+start: int, default=1
+    Determines the starting point of the amino acid sequence. This number is
+    based on one-based indexing.
+
+end: int, default=None
+    Determines the end point of the amino acid sequence. Similarly to start,
+    this number is based on one-based indexing.
+
+Returns
+#######
+
+arr: ndarray of shape (n_samples, n_properties)
+    Array containing Geary's C autocorrelation descriptors.
+
+References
+##########
+
+- Geary, R. (1954). The Contiguity Ratio and Statistical Mapping. The Incorporated Statistician, 5(3), 115-146. doi:10.2307/2986645
+- Jeffers, J. (1973). A Basic Subroutine for Geary's Contiguity Ratio. Journal of the Royal Statistical Society. Series D (The Statistician), 22(4), 299-302. doi:10.2307/2986827
+- Sokal, RR., Thomson, BA. (2006). Population structure inferred by local spatial autocorrelation: an example from an Amerindian tribal population. Am J Phys Anthropol, 129: 121–131. 10.1002/ajpa.20250
+- Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859.
+
+Examples
+########
+
+.. code-block:: python
+
+    >>> from protlearn.features import geary
+    >>> seqs = ['ARKLY', 'EERKPGL']
+    >>> gearyC = geary(seqs)
+    >>> gearyC
+    array([[0.52746275, 1.12898944, 0.94222955, 0.39077186, 0.96444569,
+            0.66346012, 0.87481962, 0.32546227],
+           [0.65656058, 0.95397893, 0.87962853, 0.70972353, 0.65407555,
+            0.96823847, 1.01949384, 0.21073089]])
+
 paac 
 ----
 
@@ -1233,9 +1350,68 @@ the protein mainly using a matrix of amino-acid frequencies, which helps
 with dealing with proteins without significant sequence homology to other 
 proteins. However, additional information are also included in the 
 matrix to represent some local features, such as correlation between 
-residues of a certain distance. For the exact method of calculating the 
-pseudo amino acid composition, please refer to the documentation at
-https://protlearn.readthedocs.io/. 
+residues of a certain distance.
+
+First, the original hydrophobicity, hydrophilicity, and side chain mass values 
+are converted using the following equation:
+
+.. math:: 
+
+    P(i) = \frac{ P^o(i) - \frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)}{ \sqrt{\frac{ \sum_{i=1}^{20} [P^o(i)-\frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)]^2 } { 20 } }}
+
+where *P(i)* denotes the converted property (hydrophobicity, hydrophilicity, or side chain 
+mass) of amino acid *i*, and *P*\ :sup:`o`\*(i)* denotes the original value of these 
+properties.
+
+Next, a correlation function is defined that averages the values of the three 
+physicochemical properties:
+
+.. math::
+
+    \Theta (J_k,J_l) = \frac{ 1 }{ 3 } \{[H_1(J_k)-H_1(J_l)]^2+[H_2(J_k)-H_2(J_l)]^2+[M(J_k)-M(J_l)]^2\}
+
+where *H*\ :sub:`1` \, *H*\ :sub:`2` \, and *M* refer to hydrophilicity, hydrophilicity, 
+and side chain mass, respectively, and *J*\ :sub:`k` \ and *J*\ :sub:`l` \ denote 
+the amino acids at positions *k* and *l*.
+
+.. image:: paac.png
+   :alt: Pseudo amino acid composition
+   :align: center
+
+Then, a set of sequence-order-correlated factors are defined as follows:
+
+.. math::
+
+    \theta_1 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} \Theta (J_k,J_{k+1})
+
+.. math::
+
+    \theta_2 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} \Theta (J_k,J_{k+2})
+
+.. math::
+    ...
+
+.. math::
+
+    \theta_\lambda = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} \Theta (J_k,J_{k+\lambda})
+
+where :math:`\lambda` is an integer parameter to be chosen and must be smaller 
+than the sequence length *N*. 
+
+With *f*\ :sub:`i` \ being the normalized occurrence frequency of amino acid *i* 
+in the sequence, a set of 20+:math:`\lambda` descriptors, called the pseudo amino 
+acid composition, can be defined as:
+
+.. math::
+
+    X_c = \frac{ f_c }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{\lambda} \theta_j }, \quad (1 < c < 20)
+
+.. math::
+
+    X_c = \frac{ w \theta_{c-20} }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{\lambda} \theta_j }, \quad (21 < c < 20+\lambda)
+
+where *w* is the weighting factor for the sequence-order effect and is set to 0.05 as 
+suggested by Chou et al. (2001).
 
 Parameters
 ##########
@@ -1312,9 +1488,61 @@ Amphiphilic pseudo amino acid composition.
 This feature has the same form as the vanilla amino acid composition, but 
 contains much more information that is related to the sequence order of a 
 protein and the distribution of the hydrophobic and hydrophilic amino acids
-along its chain. For the exact method of calculating the amphiphilic
-pseudo amino acid composition, please refer to the documentation at
-https://protlearn.readthedocs.io/. 
+along its chain. 
+
+Using *H*\ :sub:`1` \*(i)* and *H*\ :sub:`2` \*(i)* as defined above in the 
+pseudo amino acid composition function, the correlation functions for 
+hydrophobicity and hydrophilicity can be computed as follows:
+
+.. math::
+
+    H_{i,j}^1 = H_1(i) H1(j)
+
+.. math::
+
+    H_{i,j}^2 = H_2(i) H2(j)
+
+Next, sequence-order factors can be defined as:
+
+.. math::
+
+    \tau_1 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} H_{i,i+1}^1
+
+.. math::
+
+    \tau_2 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} H_{i,i+1}^2
+
+.. math::
+
+    \tau_3 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} H_{i,i+2}^1
+
+.. math::
+
+    \tau_4 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} H_{i,i+2}^2
+
+.. math::
+    ...
+
+.. math::
+
+    \tau_{2\lambda-1} = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} H_{i,i+\lambda}^1
+
+.. math::
+
+    \tau_{2\lambda} = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} H_{i,i+\lambda}^2
+
+Finally, a set of descriptors, called amphiphilic pseudo amino acid composition, 
+is defined as follows:
+
+.. math::
+
+    P_c = \frac{ f_c }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{2\lambda} \tau_j }, \quad (1 < c < 20)
+
+.. math::
+
+    P_c = \frac{ w \tau_u }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{2\lambda} \tau_j }, \quad (21 < c < 20+2\lambda)
+
+where *w* is the weighting factor, which is set to 0.05.
 
 Parameters
 ##########
@@ -1362,7 +1590,7 @@ References
 - Jain et al. TpPred: A Tool for Hierarchical Prediction of Transport Proteins Using Cluster of Neural Networks and Sequence Derived Features. International Journal for Computational Biology (IJCB), 2012;1:28-36.
 
 Examples
---------
+########
 
 .. code-block:: python
 
@@ -1407,9 +1635,21 @@ Sequence-order-coupling number.
 
 This feature is derived from the distance matrix between the 20 amino acids.
 Here, we use two different distance matrices based on studies by Grantham 
-and Schneider-Wrede, respectively. For the exact method of calculating the
-sequence-order-coupling number, please refer to the documentation at
-https://protlearn.readthedocs.io/.
+and Schneider-Wrede, respectively. 
+
+The *d*-th rank sequence-order-coupling number is defined as follows:
+
+.. math::
+
+    \tau_d = \sum_{i=1}^{N-d} (d_{i,i+d})^2 \quad d=1,2,3,...,nlag
+
+where *d*\ :sub:`i,i+d` \ is the value in a given distance matrix describing the 
+distance between two amino acids at position *i* and *i+d*, *nlag* refers to the 
+maximum value of the lag (30), and *N* is the total sequence length.
+
+.. image:: socn.png
+   :alt: Pseudo amino acid composition
+   :align: center
 
 Parameters
 ##########
@@ -1468,9 +1708,24 @@ Quasi-sequence-order.
 
 This feature is derived from the distance matrix between the 20 amino acids.
 Here, we use two different distance matrices based on studies by Grantham 
-and Schneider-Wrede, respectively. For the exact method of calculating the
-quasi-sequence order, please refer to the documentation at
-https://protlearn.readthedocs.io/.
+and Schneider-Wrede, respectively.
+
+For each amino acid *i*, a quasi-sequence-order descriptor can be computed as 
+follows:
+
+.. math::
+
+    X_i = \frac{ f_i }{ \sum_{i=1}^{20}f_i + w \sum_{d=1}^{nlag}\tau_d }, \quad i=1,2,...,20
+
+where *f*\ :sub:`i` \ is the normalized occurrence of amino acid type *i* and *w* 
+is a weighting factor, which is set to 0.1. *nlag* and *\tau_d* are defined as 
+in the sequence-order-coupling number function above.
+
+The other 30 QSO descriptors are defined as follows:
+
+.. math::
+
+    X_d = \frac{ w \tau_d - 20 }{ \sum_{i=1}^{20}f_i + w \sum_{d=1}^{nlag}\tau_d }, \quad d=21,22,...,20+nlag
 
 Parameters
 ##########
