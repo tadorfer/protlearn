@@ -186,7 +186,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id53">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#geary">geary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#moreau-broto">moreau_broto</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id54">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id55">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id56">References</a></li>
@@ -200,7 +200,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#id61">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#moreau-broto">moreau_broto</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#geary">geary</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id62">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id63">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id64">References</a></li>
@@ -220,9 +220,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#id72">Returns</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id73">Notes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id74">References</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id75">Examples</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id75">Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#socn">socn</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id76">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id77">Returns</a></li>
@@ -478,6 +478,14 @@ matrix will have a column size between 553-566.</p>
 <p>This function computes the di- or tripeptide composition of amino acid
 sequences. Therefore, the function parameter <em>n</em> can only take on
 the arguments 2 and 3 - otherwise, it will raise a ValueError.</p>
+<p><cite>ngram</cite> is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[di(i, j) = \frac{ N_{ij} }{N-1} \quad i,j = 1, 2, ..., 20.\]</div>
+<div class="math notranslate nohighlight">
+\[tri(i, j, k) = \frac{ N_{ijk} }{N-2} \quad i,j,k = 1, 2, ..., 20.\]</div>
+<p>where <em>N</em><sub>ij</sub> and <em>N</em><sub>ijk</sub> denote the di- and tripeptides
+comprised by amino acids <em>ij</em> and <em>ijk</em>, respectively. <em>N</em> denotes the total
+sequence length.</p>
 <div class="section" id="id8">
 <h3>Parameters<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -695,6 +703,15 @@ except ‘Y’.</p>
 amino acid sequence. The atomic features are comprised of five atoms
 (C, H, N, O, and S), and the bond features are comprised of total bonds,
 single bonds, and double bonds.</p>
+<p><cite>atc</cite> is calculated as follows:</p>
+<div class="math notranslate nohighlight">
+\[atoms(i) = \frac{ n_i }{N}\]</div>
+<p>where <em>i</em> denotes the type of atoms, <em>n</em><sub>i</sub> is the total number of
+atoms of type <em>i</em>, and <em>N</em> is the total number of atoms in the sequence.</p>
+<div class="math notranslate nohighlight">
+\[bonds(j) = n_j\]</div>
+<p>where <em>j</em> denotes the type of bond and <em>n</em><sub>j</sub> is the total number of
+bonds of type <em>j</em>.</p>
 <div class="section" id="id22">
 <h3>Parameters<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -836,7 +853,7 @@ returns the dipeptide composition of each sequence.</p>
 <dl class="simple">
 <dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
 </dd>
-<dt><a href="#id85"><span class="problematic" id="id86">lambda_</span></a>: int, default=1</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence.</p>
+<dt>“””lambda_”””: int, default=1</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence.</p>
 </dd>
 <dt>k: int, default=1</dt><dd><p>Space between two amino acid pairs.</p>
 </dd>
@@ -900,8 +917,17 @@ unique number of k-spaced amino acid pairs in the dataset.</p>
 <p>These descriptors were initially developed to model protein-protein
 interactions. Amino acids can be grouped into 7 different classes based on
 their dipoles and side chain volumes, which reflect their electrostatic and
-hydrophobic interactions. After grouping, these class triads are counted and
-normalized (for more information, see <a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>).</p>
+hydrophobic interactions.</p>
+<img alt="Table showing CTD grouping of amino acids" class="align-center" src="_images/ctd_table.png" />
+<p><sup>1</sup> Dipole Scale (Debye): −, Dipole &lt; 1.0; +, 1.0 &lt; Dipole &lt; 2.0; ++,
+2.0 &lt; Dipole &lt; 3.0; +++, Dipole &gt; 3.0; +′+′+′, Dipole &gt; 3.0 with opposite orientation. <br /></p>
+<p><sup>2</sup> Volume Scale (A∘3): −, Volume &lt; 50; +, Volume &gt; 50. <br /></p>
+<p><sup>3</sup> Cys is separated from class 3 because of its ability to form disulfide bonds. <br /></p>
+<p>After grouping, these class triads are computed and normalized as follows:</p>
+<div class="math notranslate nohighlight">
+\[d(i) = \frac{ f_i-min\{f_1,f_2,...,f_{343}\} }{max\{f_1,f_2,...,f_{343}\}}\]</div>
+<p>where <em>i</em> corresponds to the CTD group and <em>f</em><sub>i</sub> is the frequency of group <em>i</em>
+in the sequence.</p>
 <div class="section" id="id37">
 <h3>Parameters<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -961,10 +987,16 @@ properties. The properties used here include hydrophobicity, normalized van
 der Waals volume, polarity, polarizability, charge, secondary structure, and
 solvent accessibility. For hydrophobicity, we use seven different groupings
 based on different studies, which can all be found in AAIndex1.</p>
+<img alt="Table showing CTD grouping of amino acids" class="align-center" src="_images/ctd.png" />
 <p>After grouping, the frequency of each class will be calculated for each
-physicochemical property per sequence in the dataset. For instance, the
-sequence ‘ARKLY’ translates to ‘23311’ with respect to polarity groups.
-Thus, for polarity, the outcome will be P1 = 2/5, P2 = 1/5, and P3 = 2/5.</p>
+physicochemical property per sequence in the dataset as follows:</p>
+<div class="math notranslate nohighlight">
+\[c(i) = \frac{ n_i }{N} \quad i = 1,2,3\]</div>
+<p>where <em>n</em><sub>i</sub> denotes the frequency of group <em>i</em> in the sequence, and <em>N</em> is the
+total sequence length.</p>
+<p>For instance, the sequence ‘ARKLY’ translates to ‘23311’ with respect to
+polarity groups. Thus, for polarity, the outcome will be P1 = 2/5, P2 = 1/5,
+and P3 = 2/5.</p>
 <p>As there are 13 different properties and 3 groups for each, the total dimension
 of this descriptor is 39.</p>
 <div class="section" id="id42">
@@ -1073,8 +1105,13 @@ properties. The properties used here include hydrophobicity, normalized van
 der Waals volume, polarity, polarizability, charge, secondary structure, and
 solvent accessibility. For hydrophobicity, we use seven different groupings
 based on different studies, which can all be found in AAIndex1.</p>
-<p>This descriptor computes the frequency of transitions between groups. For
-instance, if the encoded sequence is ‘32132223311311222222’, then there are
+<p>This descriptor computes the frequency of transitions between groups as follows:</p>
+<div class="math notranslate nohighlight">
+\[t(ij) = \frac{ n_{ij} + n_{ji} }{N-1} \quad ij = 12,13, 23\]</div>
+<p>where <em>n</em><sub>ij</sub> and <em>n</em><sub>ji</sub> denote the frequency of transitions
+from group <em>i</em> to <em>j</em> and <em>j</em> to <em>i</em>, respectively, in the sequence, and <em>N</em> is
+the total sequence length.</p>
+<p>For instance, if the encoded sequence is ‘32132223311311222222’, then there are
 2 transitions from groups 1 to 2 and 2 to 1. Therefore, the descriptor for
 this particular group transition will be 2/19. Similarly, there are 3
 transitions from groups 2 to 3 and 3 to 2, so the descriptor for this
@@ -1241,16 +1278,29 @@ this number is based on one-based indexing.</p>
 </div>
 </div>
 </div>
-<div class="section" id="geary">
-<h2>geary<a class="headerlink" href="#geary" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.geary(X, *, d=1, properties=default, start=1, end=None)
+<div class="section" id="moreau-broto">
+<h2>moreau_broto<a class="headerlink" href="#moreau-broto" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.moreau_broto(X, *, d=1, properties=default, start=1, end=None)
 </pre></div>
 </div>
-<p>Geary’s C based on AAIndex1.</p>
-<p>Geary’s C autocorrelation descriptors are defined based on the distribution
-of AAIndex1-based amino acid properties along the sequence. All indices are
-standardized before computing the descriptors. For the exact formula, please
-refer to the documentation at <a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+<p>Normalized Moreau-Broto autocorrelation based on AAIndex1.</p>
+<p>Moreau-Broto autocorrelation descriptors are defined based on the
+distribution of AAIndex1-based amino acid properties along the sequence. All
+indices are standardized before computing the descriptors:</p>
+<div class="math notranslate nohighlight">
+\[P_i = \frac{ P_i-\overline{P} }{\sigma}\]</div>
+<p>where <em>P</em><sub>i</sub> is the physicochemical property of the amino acid <em>i</em>,
+<span class="math notranslate nohighlight">\(\overline{P}\)</span> denotes the mean of the property of the 20 amino acids,
+and <span class="math notranslate nohighlight">\(\sigma\)</span> denotes the standard deviation.</p>
+<p>Then, the Moreau_Broto descriptors are computed as follows:</p>
+<div class="math notranslate nohighlight">
+\[AC(d) = \sum_{n=1}^{N-d} P_i P_{i+d} \quad d=1,2,...,nlag\]</div>
+<p>where <em>d</em> denotes the lag of the autocorrelation, <em>P</em><sub>i</sub> and <em>P</em><sub>i+d</sub> are the properties of the amino acids at positions i and i+d, respectively and
+<em>nlag</em> is the maximum value of the lag.</p>
+<p>Finally, these descriptors are normalized:</p>
+<div class="math notranslate nohighlight">
+\[ATS(d) = \frac{ AC(d) }{ N-d } \quad d=1,2,...,nlag\]</div>
+<p>where <em>N</em> denotes the total sequence length.</p>
 <div class="section" id="id54">
 <h3>Parameters<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -1271,29 +1321,29 @@ this number is based on one-based indexing.</p>
 <div class="section" id="id55">
 <h3>Returns<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>arr: ndarray of shape (n_samples, n_properties)</dt><dd><p>Array containing Geary’s C autocorrelation descriptors.</p>
+<dt>arr: ndarray of shape (n_samples, n_properties)</dt><dd><p>Array containing Moreau-Broto autocorrelation descriptors.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id56">
 <h3>References<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Geary, R. (1954). The Contiguity Ratio and Statistical Mapping. The Incorporated Statistician, 5(3), 115-146. doi:10.2307/2986645</p></li>
-<li><p>Jeffers, J. (1973). A Basic Subroutine for Geary’s Contiguity Ratio. Journal of the Royal Statistical Society. Series D (The Statistician), 22(4), 299-302. doi:10.2307/2986827</p></li>
-<li><p>Sokal, RR., Thomson, BA. (2006). Population structure inferred by local spatial autocorrelation: an example from an Amerindian tribal population. Am J Phys Anthropol, 129: 121–131. 10.1002/ajpa.20250</p></li>
-<li><p>Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859.</p></li>
+<li><p>Moreau &amp; Broto (1980), Autocorrelation of a topological structure: A new molecular descriptor, Nouv. J. Chim. 4, 359–360.</p></li>
+<li><p>Feng, ZP., Zhang, CT. (2000): Prediction of membrane protein types based on the hydrophobic index of amino acids. J Protein Chem, 19: 262–275. 10.1023/A:1007091128394</p></li>
+<li><p>Lin, Z., Pan, XM. (2001): Accurate prediction of protein secondary structural content. J Protein Chem, 20: 217–220. 10.1023/A:1010967008838</p></li>
+<li><p>Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859</p></li>
 </ul>
 </div>
 <div class="section" id="id57">
 <h3>Examples<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">geary</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">moreau_broto</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gearyC</span> <span class="o">=</span> <span class="n">geary</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gearyC</span>
-<span class="go">array([[0.52746275, 1.12898944, 0.94222955, 0.39077186, 0.96444569,</span>
-<span class="go">        0.66346012, 0.87481962, 0.32546227],</span>
-<span class="go">       [0.65656058, 0.95397893, 0.87962853, 0.70972353, 0.65407555,</span>
-<span class="go">        0.96823847, 1.01949384, 0.21073089]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mb</span> <span class="o">=</span> <span class="n">moreau_broto</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mb</span>
+<span class="go">array([[ 0.20075105, -0.19610635, -0.22859247,  0.40627137, -0.19552707,</span>
+<span class="go">         0.16803808,  0.11262517,  0.3817956 ],</span>
+<span class="go">       [ 0.34693551,  0.55361789,  0.12660283,  0.37790326,  0.43905717,</span>
+<span class="go">         0.00559139, -0.09331898,  0.36367721]])</span>
 </pre></div>
 </div>
 </div>
@@ -1306,8 +1356,15 @@ this number is based on one-based indexing.</p>
 <p>Moran’s I based on AAIndex1.</p>
 <p>Moran’s I autocorrelation descriptors are defined based on the distribution
 of AAIndex1-based amino acid properties along the sequence. All indices are
-standardized before computing the descriptors. For the exact formula, please
-refer to the documentation at <a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+standardized before computing the descriptors.</p>
+<p>Moran’s I descriptors are computed as follows:</p>
+<div class="math notranslate nohighlight">
+\[I(d) = \frac{ \frac{ 1 }{ N-d } \sum_{i=1}^{N-d} (P_i-\overline{P}')(P_{i+d}-\overline{P}')}{\frac{ 1 }{ N } \sum_{i=1}^{N} (P_i-\overline{P}')^2} \quad d=1,2,...,30\]</div>
+<p>where <em>N</em>, <em>d</em>, <em>P</em><sub>i</sub> , and <em>P</em><sub>i+d</sub> are the same as in the
+Moreau-Broto autocorrelation.  <span class="math notranslate nohighlight">\(\overline{P}'\)</span> is the considered
+property P along the sequence, which is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\overline{P}' = \frac{ \sum_{i=1}^{N} P_i }{N}\]</div>
 <div class="section" id="id58">
 <h3>Parameters<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -1355,16 +1412,21 @@ this number is based on one-based indexing.</p>
 </div>
 </div>
 </div>
-<div class="section" id="moreau-broto">
-<h2>moreau_broto<a class="headerlink" href="#moreau-broto" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.moreau_broto(X, *, d=1, properties=default, start=1, end=None)
+<div class="section" id="geary">
+<h2>geary<a class="headerlink" href="#geary" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.geary(X, *, d=1, properties=default, start=1, end=None)
 </pre></div>
 </div>
-<p>Normalized Moreau-Broto autocorrelation based on AAIndex1.</p>
-<p>Moreau-Broto autocorrelation descriptors are defined based on the
-distribution of AAIndex1-based amino acid properties along the sequence. All
-indices are standardized before computing the descriptors. For the exact
-formula, please refer to the documentation at <a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+<p>Geary’s C based on AAIndex1.</p>
+<p>Geary’s C autocorrelation descriptors are defined based on the distribution
+of AAIndex1-based amino acid properties along the sequence. All indices are
+standardized before computing the descriptors.</p>
+<p>Geary’s C descriptors are computed as follows:</p>
+<div class="math notranslate nohighlight">
+\[C(d) = \frac{ \frac{ 1 }{ 2(N-d) } \sum_{i=1}^{N-d} (P_{i}-P_{i+d})^2}{\frac{ 1 }{ N-1 } \sum_{i=1}^{N} (P_i-\overline{P}')^2} \quad d=1,2,...,30\]</div>
+<p>where <em>N</em>, <em>d</em>, <em>P</em><sub>i</sub> , and <em>P</em><sub>i+d</sub> are the same as in the
+Moreau-Broto autocorrelation, and <span class="math notranslate nohighlight">\(\overline{P}'\)</span> is the same as in
+Moran’s I.</p>
 <div class="section" id="id62">
 <h3>Parameters<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -1385,29 +1447,29 @@ this number is based on one-based indexing.</p>
 <div class="section" id="id63">
 <h3>Returns<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>arr: ndarray of shape (n_samples, n_properties)</dt><dd><p>Array containing Moreau-Broto autocorrelation descriptors.</p>
+<dt>arr: ndarray of shape (n_samples, n_properties)</dt><dd><p>Array containing Geary’s C autocorrelation descriptors.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id64">
 <h3>References<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Moreau &amp; Broto (1980), Autocorrelation of a topological structure: A new molecular descriptor, Nouv. J. Chim. 4, 359–360.</p></li>
-<li><p>Feng, ZP., Zhang, CT. (2000): Prediction of membrane protein types based on the hydrophobic index of amino acids. J Protein Chem, 19: 262–275. 10.1023/A:1007091128394</p></li>
-<li><p>Lin, Z., Pan, XM. (2001): Accurate prediction of protein secondary structural content. J Protein Chem, 20: 217–220. 10.1023/A:1010967008838</p></li>
-<li><p>Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859</p></li>
+<li><p>Geary, R. (1954). The Contiguity Ratio and Statistical Mapping. The Incorporated Statistician, 5(3), 115-146. doi:10.2307/2986645</p></li>
+<li><p>Jeffers, J. (1973). A Basic Subroutine for Geary’s Contiguity Ratio. Journal of the Royal Statistical Society. Series D (The Statistician), 22(4), 299-302. doi:10.2307/2986827</p></li>
+<li><p>Sokal, RR., Thomson, BA. (2006). Population structure inferred by local spatial autocorrelation: an example from an Amerindian tribal population. Am J Phys Anthropol, 129: 121–131. 10.1002/ajpa.20250</p></li>
+<li><p>Xiao et al. (2015). protr/ProtrWeb: R package and web server for generating various numerical representation schemes of protein sequences. Bioinformatics 31 (11), 1857-1859.</p></li>
 </ul>
 </div>
 <div class="section" id="id65">
 <h3>Examples<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">moreau_broto</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">geary</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mb</span> <span class="o">=</span> <span class="n">moreau_broto</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">mb</span>
-<span class="go">array([[ 0.20075105, -0.19610635, -0.22859247,  0.40627137, -0.19552707,</span>
-<span class="go">         0.16803808,  0.11262517,  0.3817956 ],</span>
-<span class="go">       [ 0.34693551,  0.55361789,  0.12660283,  0.37790326,  0.43905717,</span>
-<span class="go">         0.00559139, -0.09331898,  0.36367721]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gearyC</span> <span class="o">=</span> <span class="n">geary</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gearyC</span>
+<span class="go">array([[0.52746275, 1.12898944, 0.94222955, 0.39077186, 0.96444569,</span>
+<span class="go">        0.66346012, 0.87481962, 0.32546227],</span>
+<span class="go">       [0.65656058, 0.95397893, 0.87962853, 0.70972353, 0.65407555,</span>
+<span class="go">        0.96823847, 1.01949384, 0.21073089]])</span>
 </pre></div>
 </div>
 </div>
@@ -1423,15 +1485,48 @@ the protein mainly using a matrix of amino-acid frequencies, which helps
 with dealing with proteins without significant sequence homology to other
 proteins. However, additional information are also included in the
 matrix to represent some local features, such as correlation between
-residues of a certain distance. For the exact method of calculating the
-pseudo amino acid composition, please refer to the documentation at
-<a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+residues of a certain distance.</p>
+<p>First, the original hydrophobicity, hydrophilicity, and side chain mass values
+are converted using the following equation:</p>
+<div class="math notranslate nohighlight">
+\[P(i) = \frac{ P^o(i) - \frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)}{ \sqrt{\frac{ \sum_{i=1}^{20} [P^o(i)-\frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)]^2 } { 20 } }}\]</div>
+<p>where <em>P(i)</em> denotes the converted property (hydrophobicity, hydrophilicity, or side chain
+mass) of amino acid <em>i</em>, and <em>P</em><sup>o</sup>*(i)* denotes the original value of these
+properties.</p>
+<p>Next, a correlation function is defined that averages the values of the three
+physicochemical properties:</p>
+<div class="math notranslate nohighlight">
+\[\Theta (J_k,J_l) = \frac{ 1 }{ 3 } \{[H_1(J_k)-H_1(J_l)]^2+[H_2(J_k)-H_2(J_l)]^2+[M(J_k)-M(J_l)]^2\}\]</div>
+<p>where <em>H</em><sub>1</sub> , <em>H</em><sub>2</sub> , and <em>M</em> refer to hydrophilicity, hydrophilicity,
+and side chain mass, respectively, and <em>J</em><sub>k</sub> and <em>J</em><sub>l</sub> denote
+the amino acids at positions <em>k</em> and <em>l</em>.</p>
+<img alt="Pseudo amino acid composition" class="align-center" src="_images/paac.png" />
+<p>Then, a set of sequence-order-correlated factors are defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\theta_1 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} \Theta (J_k,J_{k+1})\]</div>
+<div class="math notranslate nohighlight">
+\[\theta_2 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} \Theta (J_k,J_{k+2})\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[\theta_\lambda = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} \Theta (J_k,J_{k+\lambda})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is an integer parameter to be chosen and must be smaller
+than the sequence length <em>N</em>.</p>
+<p>With <em>f</em><sub>i</sub> being the normalized occurrence frequency of amino acid <em>i</em>
+in the sequence, a set of 20+:math:<cite>lambda</cite> descriptors, called the pseudo amino
+acid composition, can be defined as:</p>
+<div class="math notranslate nohighlight">
+\[X_c = \frac{ f_c }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{\lambda} \theta_j }, \quad (1 &lt; c &lt; 20)\]</div>
+<div class="math notranslate nohighlight">
+\[X_c = \frac{ w \theta_{c-20} }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{\lambda} \theta_j }, \quad (21 &lt; c &lt; 20+\lambda)\]</div>
+<p>where <em>w</em> is the weighting factor for the sequence-order effect and is set to 0.05 as
+suggested by Chou et al. (2001).</p>
 <div class="section" id="id66">
 <h3>Parameters<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
 </dd>
-<dt><a href="#id87"><span class="problematic" id="id88">lambda_</span></a>: int, default=30</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence. <br />
+<dt>“””lambda_”””: int, default=30</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence. <br />
 This parameter has to be smaller than the shortest sequence in the
 dataset.</p>
 </dd>
@@ -1448,16 +1543,16 @@ this number is based on one-based indexing.</p>
 <div class="section" id="id67">
 <h3>Returns<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>arr:  ndarray of shape (n_samples, <a href="#id89"><span class="problematic" id="id90">20+lambda_</span></a>)</dt><dd><p>Array containing pseudo amino acid composition.</p>
+<dt>arr:  ndarray of shape (n_samples, 20+”””lambda_”””)</dt><dd><p>Array containing pseudo amino acid composition.</p>
 </dd>
-<dt>desc: list of length <a href="#id91"><span class="problematic" id="id92">20+lambda_</span></a></dt><dd><p>Order of amino acids and lambda values corresponding to columns in arr.</p>
+<dt>desc: list of length 20+”””lambda_”””</dt><dd><p>Order of amino acids and lambda values corresponding to columns in arr.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id68">
 <h3>Notes<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
 <p>Columns containing only zeros will be deleted. Therefore, the returned
-array and list may have a lower dimensionality than <a href="#id93"><span class="problematic" id="id94">20+lambda_</span></a>.</p>
+array and list may have a lower dimensionality than 20+”””lambda_”””.</p>
 </div>
 <div class="section" id="id69">
 <h3>References<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
@@ -1495,15 +1590,42 @@ array and list may have a lower dimensionality than <a href="#id93"><span class=
 <p>This feature has the same form as the vanilla amino acid composition, but
 contains much more information that is related to the sequence order of a
 protein and the distribution of the hydrophobic and hydrophilic amino acids
-along its chain. For the exact method of calculating the amphiphilic
-pseudo amino acid composition, please refer to the documentation at
-<a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+along its chain.</p>
+<p>Using <em>H</em><sub>1</sub> *(i)* and <em>H</em><sub>2</sub> *(i)* as defined above in the
+pseudo amino acid composition function, the correlation functions for
+hydrophobicity and hydrophilicity can be computed as follows:</p>
+<div class="math notranslate nohighlight">
+\[H_{i,j}^1 = H_1(i) H1(j)\]</div>
+<div class="math notranslate nohighlight">
+\[H_{i,j}^2 = H_2(i) H2(j)\]</div>
+<p>Next, sequence-order factors can be defined as:</p>
+<div class="math notranslate nohighlight">
+\[\tau_1 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} H_{i,i+1}^1\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_2 = \frac{ 1 }{ N-1 } \sum_{i=1}^{N-1} H_{i,i+1}^2\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_3 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} H_{i,i+2}^1\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_4 = \frac{ 1 }{ N-2 } \sum_{i=1}^{N-2} H_{i,i+2}^2\]</div>
+<div class="math notranslate nohighlight">
+\[...\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_{2\lambda-1} = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} H_{i,i+\lambda}^1\]</div>
+<div class="math notranslate nohighlight">
+\[\tau_{2\lambda} = \frac{ 1 }{ N-\lambda } \sum_{i=1}^{N-\lambda} H_{i,i+\lambda}^2\]</div>
+<p>Finally, a set of descriptors, called amphiphilic pseudo amino acid composition,
+is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[P_c = \frac{ f_c }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{2\lambda} \tau_j }, \quad (1 &lt; c &lt; 20)\]</div>
+<div class="math notranslate nohighlight">
+\[P_c = \frac{ w \tau_u }{ \sum_{r=1}^{20} f_r + w \sum_{j=1}^{2\lambda} \tau_j }, \quad (21 &lt; c &lt; 20+2\lambda)\]</div>
+<p>where <em>w</em> is the weighting factor, which is set to 0.05.</p>
 <div class="section" id="id71">
 <h3>Parameters<a class="headerlink" href="#id71" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
 <dt>X: string, fasta, or a list thereof</dt><dd><p>Dataset of amino acid sequences.</p>
 </dd>
-<dt><a href="#id95"><span class="problematic" id="id96">lambda_</span></a>: int, default=30</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence. <br />
+<dt>“””lambda_”””: int, default=30</dt><dd><p>Counted rank (tier) of the correlation along an amino acid sequence. <br />
 This parameter has to be smaller than the shortest sequence in the
 dataset.</p>
 </dd>
@@ -1520,16 +1642,16 @@ this number is based on one-based indexing.</p>
 <div class="section" id="id72">
 <h3>Returns<a class="headerlink" href="#id72" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>arr: ndarray of shape (n_samples, 20+2*lambda_)</dt><dd><p>Array containing amphiphilic pseudo amino acid composition.</p>
+<dt>arr: ndarray of shape (n_samples, 20+2*”””lambda_”””)</dt><dd><p>Array containing amphiphilic pseudo amino acid composition.</p>
 </dd>
-<dt>desc: list of length 20+2*lambda_</dt><dd><p>Order of amino acids and lambda values corresponding to columns in arr.</p>
+<dt>desc: list of length 20+2*”””lambda_”””</dt><dd><p>Order of amino acids and lambda values corresponding to columns in arr.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="id73">
 <h3>Notes<a class="headerlink" href="#id73" title="Permalink to this headline">¶</a></h3>
 <p>Columns containing only zeros will be deleted. Therefore, the returned
-array and list may have a lower dimensionality than 20+2*lambda_.</p>
+array and list may have a lower dimensionality than 20+2*”””lambda_”””.</p>
 </div>
 <div class="section" id="id74">
 <h3>References<a class="headerlink" href="#id74" title="Permalink to this headline">¶</a></h3>
@@ -1540,9 +1662,8 @@ array and list may have a lower dimensionality than 20+2*lambda_.</p>
 <li><p>Jain et al. TpPred: A Tool for Hierarchical Prediction of Transport Proteins Using Cluster of Neural Networks and Sequence Derived Features. International Journal for Computational Biology (IJCB), 2012;1:28-36.</p></li>
 </ul>
 </div>
-</div>
 <div class="section" id="id75">
-<h2>Examples<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h2>
+<h3>Examples<a class="headerlink" href="#id75" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">apaac</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">apaac_comp</span><span class="p">,</span> <span class="n">desc</span> <span class="o">=</span> <span class="n">apaac</span><span class="p">(</span><span class="n">seqs</span><span class="p">,</span> <span class="n">lambda_</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
@@ -1575,6 +1696,7 @@ array and list may have a lower dimensionality than 20+2*lambda_.</p>
 </pre></div>
 </div>
 </div>
+</div>
 <div class="section" id="socn">
 <h2>socn<a class="headerlink" href="#socn" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.features.socn(X, *, d=30, start=1, end=None)
@@ -1583,9 +1705,14 @@ array and list may have a lower dimensionality than 20+2*lambda_.</p>
 <p>Sequence-order-coupling number.</p>
 <p>This feature is derived from the distance matrix between the 20 amino acids.
 Here, we use two different distance matrices based on studies by Grantham
-and Schneider-Wrede, respectively. For the exact method of calculating the
-sequence-order-coupling number, please refer to the documentation at
-<a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+and Schneider-Wrede, respectively.</p>
+<p>The <em>d</em>-th rank sequence-order-coupling number is defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[\tau_d = \sum_{i=1}^{N-d} (d_{i,i+d})^2 \quad d=1,2,3,...,nlag\]</div>
+<p>where <em>d</em><sub>i,i+d</sub> is the value in a given distance matrix describing the
+distance between two amino acids at position <em>i</em> and <em>i+d</em>, <em>nlag</em> refers to the
+maximum value of the lag (30), and <em>N</em> is the total sequence length.</p>
+<img alt="Pseudo amino acid composition" class="align-center" src="_images/socn.png" />
 <div class="section" id="id76">
 <h3>Parameters<a class="headerlink" href="#id76" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
@@ -1639,9 +1766,17 @@ this number is based on one-based indexing.</p>
 <p>Quasi-sequence-order.</p>
 <p>This feature is derived from the distance matrix between the 20 amino acids.
 Here, we use two different distance matrices based on studies by Grantham
-and Schneider-Wrede, respectively. For the exact method of calculating the
-quasi-sequence order, please refer to the documentation at
-<a class="reference external" href="https://protlearn.readthedocs.io/">https://protlearn.readthedocs.io/</a>.</p>
+and Schneider-Wrede, respectively.</p>
+<p>For each amino acid <em>i</em>, a quasi-sequence-order descriptor can be computed as
+follows:</p>
+<div class="math notranslate nohighlight">
+\[X_i = \frac{ f_i }{ \sum_{i=1}^{20}f_i + w \sum_{d=1}^{nlag}\tau_d }, \quad i=1,2,...,20\]</div>
+<p>where <em>f</em><sub>i</sub> is the normalized occurrence of amino acid type <em>i</em> and <em>w</em>
+is a weighting factor, which is set to 0.1. <em>nlag</em> and <em>tau_d</em> are defined as
+in the sequence-order-coupling number function above.</p>
+<p>The other 30 QSO descriptors are defined as follows:</p>
+<div class="math notranslate nohighlight">
+\[X_d = \frac{ w \tau_d - 20 }{ \sum_{i=1}^{20}f_i + w \sum_{d=1}^{nlag}\tau_d }, \quad d=21,22,...,20+nlag\]</div>
 <div class="section" id="id80">
 <h3>Parameters<a class="headerlink" href="#id80" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">

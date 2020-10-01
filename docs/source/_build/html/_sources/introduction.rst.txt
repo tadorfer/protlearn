@@ -14,6 +14,10 @@ machine learning tasks.
 Package Contents 
 ----------------
 
+.. image:: protlearn_summary.png
+   :alt: Summary of Modules
+   :align: center
+
 *protlearn* is currenty comprised of three main modules:
 
 * preprocessing
