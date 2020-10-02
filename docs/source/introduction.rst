@@ -52,4 +52,4 @@ be installed and upgraded using the following terminal commands:
 .. code::
 
     pip install protlearn  
-    pip install --upragde protlearn 
+    pip install --upgrade protlearn 

@@ -25,6 +25,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -87,15 +88,61 @@
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="feature_extraction.html">Feature Extraction</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Dimensionality Reduction &amp; Feature Selection</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#correlation">correlation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lasso">lasso</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lda">lda</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#pca">pca</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#rfe">rfe</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#sequential">sequential</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tree-importance">tree_importance</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#tsne">tsne</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#univariate-filter">univariate_filter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#univariate-filter">univariate_filter</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#returns">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#correlation">correlation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lasso">lasso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tree-importance">tree_importance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id7">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#sequential">sequential</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id10">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#rfe">rfe</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#pca">pca</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lda">lda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tsne">tsne</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Returns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
@@ -165,41 +212,478 @@
             
   <div class="section" id="dimensionality-reduction-feature-selection">
 <span id="dimensionality-reduction"></span><h1>Dimensionality Reduction &amp; Feature Selection<a class="headerlink" href="#dimensionality-reduction-feature-selection" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="univariate-filter">
+<h2>univariate_filter<a class="headerlink" href="#univariate-filter" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.univariate_filter(X, y, *, method=&#39;f_test&#39;, top=10)
+</pre></div>
+</div>
+<p>Univariate feature selection.</p>
+<p>This function returns the features selected by univariate filtering after
+examining each feature individually and determining the strength of its
+relationship with the response variable. Here, three statistical tests can
+be chosen: f-test, chi-squared, and mutual information.</p>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>method: string, default=’f_test’</dt><dd><p>‘f_test’ : ANOVA f-scores <br />
+‘chi2’ : Chi-squared statistics <br />
+‘mutual_info’ : Mutual information</p>
+</dd>
+<dt>top: int, default=10</dt><dd><p>Number of top (most informative) features to select.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="returns">
+<h3>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr: ndarray of shape (n_samples, top)</dt><dd><p>Array containing the top most informative features.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">univariate_filter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">univariate_filter</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;f_test&#39;</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 10)</span>
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="correlation">
 <h2>correlation<a class="headerlink" href="#correlation" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.correlation(X, thres=.9)
+</pre></div>
+</div>
+<p>Pearson correlation.</p>
+<p>This function returns the features whose Pearson correlation with one
+another is below a specified threshold, thus circumventing the problem of
+multicollinearity.</p>
+<div class="section" id="id1">
+<h3>Parameters<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>thres: float, default=.9</dt><dd><p>Features whose correlation coefficient is higher than this threshold
+value will be removed.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id2">
+<h3>Returns<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_features_post)</dt><dd><p>Array containing features that correlate below the threshold with one
+another.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id3">
+<h3>Examples<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">correlation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">correlation</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">thres</span><span class="o">=.</span><span class="mi">99</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 12)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="lasso">
 <h2>lasso<a class="headerlink" href="#lasso" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.lasso(X, y, C=1.0)
+</pre></div>
 </div>
-<div class="section" id="lda">
-<h2>lda<a class="headerlink" href="#lda" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<p>Lasso (L1) regularization.</p>
+<p>Linear Model trained with L1 prior as regularizer.</p>
+<div class="section" id="id4">
+<h3>Parameters<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>C: float, default=1.0</dt><dd><p>Inverse of regularization strength.</p>
+</dd>
+</dl>
 </div>
-<div class="section" id="pca">
-<h2>pca<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="section" id="id5">
+<h3>Returns<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr<span class="classifier">ndarray of shape (n_samples, n_features_post)</span></dt><dd><p>Array containing lasso-reduced features.</p>
+</dd>
+</dl>
 </div>
-<div class="section" id="rfe">
-<h2>rfe<a class="headerlink" href="#rfe" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="section" id="id6">
+<h3>Examples<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">lasso</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">lasso</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 2)</span>
+</pre></div>
 </div>
-<div class="section" id="sequential">
-<h2>sequential<a class="headerlink" href="#sequential" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+</div>
 </div>
 <div class="section" id="tree-importance">
 <h2>tree_importance<a class="headerlink" href="#tree-importance" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.tree_importance(X, y, *, clf=None, method=&#39;random_forest&#39;, top=None, n_estimators=100, max_depth=None, importance_type=&#39;gain&#39;)
+</pre></div>
+</div>
+<p>Decision tree feature importance.</p>
+<p>This function returns the features that were selected as important by
+decision tree algorithms such as Random Forest and XGBoost.</p>
+<div class="section" id="id7">
+<h3>Parameters<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>clf: object or None, default=None</dt><dd><p>Customized classifier.</p>
+</dd>
+<dt>method: string, default=’random_forest’</dt><dd><p>‘random_forest’ : Random Forest Classifier
+‘xgboost’ : XGBoost Classifier</p>
+</dd>
+<dt>top: int or None, default=None</dt><dd><p>Number of top features to select.</p>
+</dd>
+<dt>n_estimators: int or None, default=2</dt><dd><p>Number of trees in the forest.</p>
+</dd>
+<dt>max_depth: int or None, default=None</dt><dd><p>Maximum depth of the tree.</p>
+</dd>
+<dt>importance_type: string, default=’gain’</dt><dd><p>For XGBoost only: <br />
+‘gain’ : average gain of splits which use the feature <br />
+‘weight’ : number of times the a feature appears in the tree <br />
+‘cover’ : average coverage of splits which use the feature <br />
+‘total_gain’ : Total gain <br />
+‘total_cover’ : Total cover</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id8">
+<h3>Returns<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, top)</dt><dd><p>Array containing the top features based on tree-importance.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id9">
+<h3>Examples<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">tree_importance</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">tree_importance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 10)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="sequential">
+<h2>sequential<a class="headerlink" href="#sequential" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.sequential(X, y, *, estimator, direction=&#39;forward&#39;, n_features=10, cv=0)
+</pre></div>
+</div>
+<p>Sequential feature selection.</p>
+<p>Sequential feature selection algorithms are a family of greedy search
+algorithms that are used to reduce an initial d-dimensional feature space
+to a k-dimensional feature subspace where k &lt; d. These algorithms remove or
+add one feature at a time based on the classifier performance until a
+feature subset of the desired size k is reached.</p>
+<div class="section" id="id10">
+<h3>Parameters<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: labels, ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>estimator: object</dt><dd><p>Classifier - must include <a href="#id25"><span class="problematic" id="id26">coef_</span></a> or <a href="#id27"><span class="problematic" id="id28">feature_importances_</span></a> attribute.</p>
+</dd>
+<dt>direction: string, default=’forward’</dt><dd><p>Direction of sequential model, can be ‘forward’ or ‘backward’.</p>
+</dd>
+<dt>n_features: int, default=None</dt><dd><p>Number of features to select.</p>
+</dd>
+<dt>cv: int, default=0</dt><dd><p>Number of cross-validation steps.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id11">
+<h3>Returns<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_features)</dt><dd><p>Array containing features selected by the sequential models.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id12">
+<h3>Examples<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">sequential</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">sequential</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 10)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="rfe">
+<h2>rfe<a class="headerlink" href="#rfe" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.rfe(X, y, *, estimator, n_features=None, step=1)
+</pre></div>
+</div>
+<p>Recursive feature elimination.</p>
+<p>This function selects features by recursively considering smaller and
+smaller feature subsets. First, the estimator is trained on the initial
+feature matrix and the importance of each feature is obtaibed through a
+“””coef_””” or a “””feature_importances_””” attribute. Subsequently, the least
+important features are pruned from the current feature subset. This is
+repeated recursively on the pruned subset until the desired number of
+features is eventually reached.</p>
+<div class="section" id="id13">
+<h3>Parameters<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: labels, ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>estimator: object</dt><dd><p>Classifier - must include “””coef_””” or “””feature_importances_””” attribute.</p>
+</dd>
+<dt>n_features: int or None, default=None</dt><dd><p>Number of features to select. If None, half of the features are selected.</p>
+</dd>
+<dt>step: int, default=1</dt><dd><p>Number of features to remove at each iteration.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id14">
+<h3>Returns<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_features)</dt><dd><p>Array containing the RFE-selected features.</p>
+</dd>
+<dt>ranking: ndarray of shape (n_features_pre,)</dt><dd><p>Ranking of the features (with 1 being the best).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id15">
+<h3>Examples<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">rfe</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">rfe</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 10)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pca">
+<h2>pca<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.pca(X, *, thres=.9, whiten=False)
+</pre></div>
+</div>
+<p>Principal component analysis.</p>
+<p>PCA is defined as an orthogonal linear transformation that transforms the
+data to a new coordinate system such that the greatest variance by some
+scalar projection of the data comes to lie on the first coordinate (called
+the first principal component), the second greatest variance on the second
+coordinate, and so on.</p>
+<div class="section" id="id16">
+<h3>Parameters<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>thres: float, default=.9</dt><dd><p>Specify the desired explained variance.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id17">
+<h3>Returns<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_features_post)</dt><dd><p>Array containing the PCA components comprising the specified variance.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="notes">
+<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h3>
+<p>For the output to be meaningful, the number of samples should be larger than
+the number of features.</p>
+</div>
+<div class="section" id="id18">
+<h3>Examples<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">pca</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span> <span class="c1">#from a larger dataset (not shown here)</span>
+<span class="go">(1000, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">pca</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">thres</span><span class="o">=.</span><span class="mi">9</span><span class="p">)</span>
+<span class="go">(1000, 32)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="lda">
+<h2>lda<a class="headerlink" href="#lda" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.lda(X, y, *, solver=&#39;svd&#39;, shrinkage=None, n_components=None)
+</pre></div>
+</div>
+<p>Linear discriminant analysis.</p>
+<p>This function reduces the dimensionality of the input by projecting it to
+the most discriminative directions.</p>
+<div class="section" id="id19">
+<h3>Parameters<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>y: ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
+</dd>
+<dt>solver: string, default=’svd’</dt><dd><p>‘svd’ : Singular value decomposition <br />
+‘lsqr’ : Least squares solution <br />
+‘eigen’ : Eigenvalue decomposition</p>
+</dd>
+<dt>shrinkage: string, float, or None, default=None</dt><dd><p>Shrinkage parameter. <br />
+None : no shrinkage <br />
+‘auto’ : automatic shrinkage using the Ledoit-Wolf lemma <br />
+float between 0 and 1: fixed shrinkage parameter</p>
+</dd>
+<dt>n_components: int or None, default=None</dt><dd><p>Number of components for dimensionality reduction. This parameter
+cannot be larger than min(n_features, n_classes - 1).</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id20">
+<h3>Returns<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_features_post)</dt><dd><p>Array containing the LDA-transformed features.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id21">
+<h3>Examples<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">lda</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">lda</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 1)</span>
+</pre></div>
+</div>
+</div>
 </div>
 <div class="section" id="tsne">
 <h2>tsne<a class="headerlink" href="#tsne" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.tsne(X, *, n_components=2, perplexity=30, prior_pca=True, pca_components=50)
+</pre></div>
 </div>
-<div class="section" id="univariate-filter">
-<h2>univariate_filter<a class="headerlink" href="#univariate-filter" title="Permalink to this headline">¶</a></h2>
-<p>Coming soon!</p>
+<p>t-distributed stochastic neighbor embedding.</p>
+<p>t-SNE converts similarities between data points to joint probabilities and
+tries to minimize the Kullback-Leibler divergence between the joint
+probabilities of the low-dimensional embedding and the high-dimensional data.</p>
+<div class="section" id="id22">
+<h3>Parameters<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>X: ndarray of shape (n_samples, n_features_pre)</dt><dd><p>Feature matrix.</p>
+</dd>
+<dt>n_components: int or None, default=2</dt><dd><p>Dimension of embedded space.</p>
+</dd>
+<dt>perplexity: int, default=30</dt><dd><p>Related to the number of nearest neighbors that is used in other
+manifold learning algorithms. Should be between 5 and 50. Larger
+datasets require larger perplexity.</p>
+</dd>
+<dt>prior_pca: bool, default=True</dt><dd><p>It is recommended to reduce dimensionality before running t-SNE to
+decrease computation time and noise.</p>
+</dd>
+<dt>pca_components: int, default=50</dt><dd><p>Dimension of PCA-preprocessed data that will serve as input to t-SNE.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id23">
+<h3>Returns<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<dl class="simple">
+<dt>arr:  ndarray of shape (n_samples, n_components)</dt><dd><p>Array containing the t-SNE-transformed features.</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id24">
+<h3>Examples<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.features</span> <span class="kn">import</span> <span class="n">aac</span><span class="p">,</span> <span class="n">aaindex1</span><span class="p">,</span> <span class="n">ngram</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">protlearn.dimreduction</span> <span class="kn">import</span> <span class="n">tsne</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">seqs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ARKLY&#39;</span><span class="p">,</span> <span class="s1">&#39;EERKPGL&#39;</span><span class="p">,</span> <span class="s1">&#39;PGPGEERNLY&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">comp</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aac</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">aaind</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">aaindex1</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ng</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ngram</span><span class="p">(</span><span class="n">seqs</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 575)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">tsne</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">pca_components</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">(3, 2)</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 
