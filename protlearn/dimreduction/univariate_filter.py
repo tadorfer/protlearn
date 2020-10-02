@@ -4,15 +4,22 @@ from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import f_classif, chi2, mutual_info_classif
 from sklearn.preprocessing import MinMaxScaler
 
-def univariate_filter(X, y, method='f_test', top=10):
-    """Select top features based on univariate filtering.
+def univariate_filter(X, y, *, method='f_test', top=10):
+    """Univariate feature selection.
+
+    This function returns the features selected by univariate filtering after 
+    examining each feature individually and determining the strength of its 
+    relationship with the response variable. Here, three statistical tests can 
+    be chosen: f-test, chi-squared, and mutual information.
     
     Parameters
     ----------
     
     X : ndarray of shape (n_samples, n_features_pre)
+        Feature matrix.
     
     y : ndarray of shape (n_samples,)
+        Response variables.
     
     method : string, default='f_test'
         'f_test' : ANOVA f-scores
@@ -20,12 +27,31 @@ def univariate_filter(X, y, method='f_test', top=10):
         'mutual_info' : Mutual information
     
     top : int, default=10
-        Choose number of top features to select.
+        Number of top features to select.
         
     Returns
     -------
     
     arr : ndarray of shape (n_samples, top)
+        Array containing the top most informative features.
+    
+    Examples
+    --------
+
+    >>> import numpy as np
+    >>> from protlearn.features import aac, aaindex1, ngram
+    >>> from protlearn.dimreduction import univariate_filter
+    >>> seqs = ['ARKLY', 'EERKPGL', 'PGPGEERNLY']
+    >>> labels = [1., 0., 0.]
+    >>> comp, _ = aac(seqs)
+    >>> aaind, _ = aaindex1(seqs)
+    >>> ng, _ = ngram(seqs)
+    >>> features = np.concatenate([comp, aaind, ng], axis=1)
+    >>> features.shape
+    (3, 575)
+    >>> reduced = univariate_filter(features, labels, method='f_test', top=10)
+    >>> reduced.shape
+    (3, 10)
     
     """  
     
