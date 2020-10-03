@@ -17,7 +17,7 @@ def test_rfe():
 
     # perform rfe
     svc = SVC(kernel='linear')
-    X_reduced, rank = rfe(X, y, svc, n_features=10, step=2)
+    X_reduced, rank = rfe(X, y, estimator=svc, n_features=10, step=2)
 
     # test array contents
     np.testing.assert_almost_equal(X_reduced[0,:], np.array([

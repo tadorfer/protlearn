@@ -17,8 +17,8 @@ def test_sequential():
 
     # perform SFS
     clf = RandomForestClassifier(n_estimators=100)
-    X_fwd = sequential(X, y, clf)
-    X_bwd = sequential(X, y, clf, direction='backward')
+    X_fwd = sequential(X, y, estimator=clf)
+    X_bwd = sequential(X, y, estimator=clf, direction='backward')
 
     # test shapes
     X_fwd.shape == (700, 10)
