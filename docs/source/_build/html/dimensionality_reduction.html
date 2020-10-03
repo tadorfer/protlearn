@@ -233,14 +233,14 @@ be chosen: f-test, chi-squared, and mutual information.</p>
 ‘chi2’ : Chi-squared statistics <br />
 ‘mutual_info’ : Mutual information</p>
 </dd>
-<dt>top: int, default=10</dt><dd><p>Number of top (most informative) features to select.</p>
+<dt>top: int, default=10</dt><dd><p>Number of top features to select.</p>
 </dd>
 </dl>
 </div>
 <div class="section" id="returns">
 <h3>Returns<a class="headerlink" href="#returns" title="Permalink to this headline">¶</a></h3>
 <dl class="simple">
-<dt>arr: ndarray of shape (n_samples, top)</dt><dd><p>Array containing the top most informative features.</p>
+<dt>arr: ndarray of shape (n_samples, top)</dt><dd><p>Array containing the top features.</p>
 </dd>
 </dl>
 </div>
@@ -312,7 +312,7 @@ another.</p>
 </div>
 <div class="section" id="lasso">
 <h2>lasso<a class="headerlink" href="#lasso" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.lasso(X, y, C=1.0)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.lasso(X, y, C=1.0)
 </pre></div>
 </div>
 <p>Lasso (L1) regularization.</p>
@@ -357,7 +357,7 @@ another.</p>
 </div>
 <div class="section" id="tree-importance">
 <h2>tree_importance<a class="headerlink" href="#tree-importance" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.tree_importance(X, y, *, clf=None, method=&#39;random_forest&#39;, top=None, n_estimators=100, max_depth=None, importance_type=&#39;gain&#39;)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.tree_importance(X, y, *, clf=None, method=&#39;random_forest&#39;, top=None, n_estimators=100, max_depth=None, importance_type=&#39;gain&#39;)
 </pre></div>
 </div>
 <p>Decision tree feature importance.</p>
@@ -419,7 +419,7 @@ decision tree algorithms such as Random Forest and XGBoost.</p>
 </div>
 <div class="section" id="sequential">
 <h2>sequential<a class="headerlink" href="#sequential" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.sequential(X, y, *, estimator, direction=&#39;forward&#39;, n_features=10, cv=0)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.sequential(X, y, *, estimator, direction=&#39;forward&#39;, n_features=10, cv=0)
 </pre></div>
 </div>
 <p>Sequential feature selection.</p>
@@ -435,7 +435,7 @@ feature subset of the desired size k is reached.</p>
 </dd>
 <dt>y: labels, ndarray of shape (n_samples,)</dt><dd><p>Response variables.</p>
 </dd>
-<dt>estimator: object</dt><dd><p>Classifier - must include <a href="#id25"><span class="problematic" id="id26">coef_</span></a> or <a href="#id27"><span class="problematic" id="id28">feature_importances_</span></a> attribute.</p>
+<dt>estimator: object</dt><dd><p>Classifier - must include coef_ or feature_importances_ attribute.</p>
 </dd>
 <dt>direction: string, default=’forward’</dt><dd><p>Direction of sequential model, can be ‘forward’ or ‘backward’.</p>
 </dd>
@@ -476,7 +476,7 @@ feature subset of the desired size k is reached.</p>
 </div>
 <div class="section" id="rfe">
 <h2>rfe<a class="headerlink" href="#rfe" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.rfe(X, y, *, estimator, n_features=None, step=1)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.rfe(X, y, *, estimator, n_features=None, step=1)
 </pre></div>
 </div>
 <p>Recursive feature elimination.</p>
@@ -535,7 +535,7 @@ features is eventually reached.</p>
 </div>
 <div class="section" id="pca">
 <h2>pca<a class="headerlink" href="#pca" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.pca(X, *, thres=.9, whiten=False)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.pca(X, *, thres=.9, whiten=False)
 </pre></div>
 </div>
 <p>Principal component analysis.</p>
@@ -578,7 +578,7 @@ the number of features.</p>
 </div>
 <div class="section" id="lda">
 <h2>lda<a class="headerlink" href="#lda" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.lda(X, y, *, solver=&#39;svd&#39;, shrinkage=None, n_components=None)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.lda(X, y, *, solver=&#39;svd&#39;, shrinkage=None, n_components=None)
 </pre></div>
 </div>
 <p>Linear discriminant analysis.</p>
@@ -634,7 +634,7 @@ cannot be larger than min(n_features, n_classes - 1).</p>
 </div>
 <div class="section" id="tsne">
 <h2>tsne<a class="headerlink" href="#tsne" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduciton.tsne(X, *, n_components=2, perplexity=30, prior_pca=True, pca_components=50)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.dimreduction.tsne(X, *, n_components=2, perplexity=30, prior_pca=True, pca_components=50)
 </pre></div>
 </div>
 <p>t-distributed stochastic neighbor embedding.</p>

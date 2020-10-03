@@ -88,7 +88,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#what-is-protlearn">What is protlearn?</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#package-contents">Package Contents</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#input-formats">Input Formats</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#installing-protlearn">Installing protlearn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-protlearn">Installing protlearn</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pypi">PyPI</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="preprocessing.html">Preprocessing</a></li>
@@ -178,12 +181,13 @@ machine learning tasks.</p>
 <li><p>dimensionality reduction</p></li>
 </ul>
 <p>The <a class="reference internal" href="preprocessing.html#preprocessing"><span class="std std-ref">Preprocessing</span></a> section allows the user to prepare the datasets according to
-specific needs, such as sequence identity or representation (i.e. conversion
-of alphabetical strings to integers). The <a class="reference internal" href="feature_extraction.html#feature-extraction"><span class="std std-ref">Feature Extraction</span></a> section can then be
+specific needs, such as filtering out sequences containing unnatural amino acids or converting
+the alphabetical strings to integers. The <a class="reference internal" href="feature_extraction.html#feature-extraction"><span class="std std-ref">Feature Extraction</span></a> section can then be
 used to compute amino acid sequence features from the dataset, such as amino acid
-composition or AAIndex-based physicochemical properties. Finally,
-<a class="reference internal" href="dimensionality_reduction.html#dimensionality-reduction"><span class="std std-ref">Dimensionality Reduction &amp; Feature Selection</span></a> methods are provided to reduce the dimensionality of the computed
-features, which reduces redundancy and alleviates the computational demand for the classifiers.</p>
+composition or AAIndex-based physicochemical properties. In total, <em>protlearn</em> currently
+provides 21 such features. Finally, <a class="reference internal" href="dimensionality_reduction.html#dimensionality-reduction"><span class="std std-ref">Dimensionality Reduction &amp; Feature Selection</span></a> methods are
+provided to reduce the dimensionality of the computed features, which reduces
+redundancy and alleviates the computational burden for the classifiers.</p>
 </div>
 <div class="section" id="input-formats">
 <h2>Input Formats<a class="headerlink" href="#input-formats" title="Permalink to this headline">¶</a></h2>
@@ -200,9 +204,12 @@ following formats:</p>
 <h2>Installing protlearn<a class="headerlink" href="#installing-protlearn" title="Permalink to this headline">¶</a></h2>
 <p><em>protlearn</em> is currently supported and tested on Python 3.6, 3.7, and 3.8 and can
 be installed and upgraded using the following terminal commands:</p>
+<div class="section" id="pypi">
+<h3>PyPI<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">protlearn</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">protlearn</span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

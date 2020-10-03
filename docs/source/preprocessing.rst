@@ -11,12 +11,12 @@ integer_encode
 
 .. code-block:: text
 
-    protlearn.preprocessing.integer_encode(X, padding=False)
+    protlearn.preprocessing.integer_encode(X, *, padding=False)
 
 Encode amino acids as integers.
 
 This function converts amino acids into their corresponding integers 
-based on the specified notation, starting at 1. Zeros are reserverd for optional
+based on the specified notation, starting at 1. Zeros are reserved for optional
 padding. This is particularly useful for preparing a sequence-based model such 
 as a long short-term memory (LSTM) or a gated recurrent unit (GRU). 
 
@@ -74,7 +74,7 @@ remove_duplicates
 
 .. code-block:: text
 
-    protlearn.preprocessing.remove_duplicates(X, verbose=1)
+    protlearn.preprocessing.remove_duplicates(X, *, verbose=1)
 
 Remove duplicate sequences.
 

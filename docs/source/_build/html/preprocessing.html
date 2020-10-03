@@ -25,6 +25,7 @@
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -176,12 +177,12 @@
 <span id="id1"></span><h1>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="integer-encode">
 <h2>integer_encode<a class="headerlink" href="#integer-encode" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.integer_encode(X, padding=False)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.integer_encode(X, *, padding=False)
 </pre></div>
 </div>
 <p>Encode amino acids as integers.</p>
 <p>This function converts amino acids into their corresponding integers
-based on the specified notation, starting at 1. Zeros are reserverd for optional
+based on the specified notation, starting at 1. Zeros are reserved for optional
 padding. This is particularly useful for preparing a sequence-based model such
 as a long short-term memory (LSTM) or a gated recurrent unit (GRU).</p>
 <div class="section" id="parameters">
@@ -232,7 +233,7 @@ of the longest sequence in the dataset.</p>
 </div>
 <div class="section" id="remove-duplicates">
 <h2>remove_duplicates<a class="headerlink" href="#remove-duplicates" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.remove_duplicates(X, verbose=1)
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>protlearn.preprocessing.remove_duplicates(X, *, verbose=1)
 </pre></div>
 </div>
 <p>Remove duplicate sequences.</p>

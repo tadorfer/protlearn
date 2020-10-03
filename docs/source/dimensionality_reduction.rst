@@ -35,13 +35,13 @@ method: string, default='f_test'
     'mutual_info' : Mutual information
 
 top: int, default=10
-    Number of top (most informative) features to select.
+    Number of top features to select.
     
 Returns
 #######
 
 arr: ndarray of shape (n_samples, top)
-    Array containing the top most informative features.
+    Array containing the top features.
 
 Examples
 ########
@@ -117,7 +117,7 @@ lasso
 
 .. code-block:: text
 
-    protlearn.dimreduciton.lasso(X, y, C=1.0)
+    protlearn.dimreduction.lasso(X, y, C=1.0)
 
 Lasso (L1) regularization.
 
@@ -166,7 +166,7 @@ tree_importance
 
 .. code-block:: text
 
-    protlearn.dimreduciton.tree_importance(X, y, *, clf=None, method='random_forest', top=None, n_estimators=100, max_depth=None, importance_type='gain')
+    protlearn.dimreduction.tree_importance(X, y, *, clf=None, method='random_forest', top=None, n_estimators=100, max_depth=None, importance_type='gain')
 
 Decision tree feature importance.
 
@@ -237,7 +237,7 @@ sequential
 
 .. code-block:: text
 
-    protlearn.dimreduciton.sequential(X, y, *, estimator, direction='forward', n_features=10, cv=0)
+    protlearn.dimreduction.sequential(X, y, *, estimator, direction='forward', n_features=10, cv=0)
 
 Sequential feature selection.
 
@@ -257,7 +257,7 @@ y: labels, ndarray of shape (n_samples,)
     Response variables.
 
 estimator: object
-    Classifier - must include """\coef_""" or """\feature_importances_""" attribute.
+    Classifier - must include \coef_ or \feature_importances_ attribute.
     
 direction: string, default='forward'
     Direction of sequential model, can be 'forward' or 'backward'.
@@ -301,14 +301,14 @@ rfe
 
 .. code-block:: text
 
-    protlearn.dimreduciton.rfe(X, y, *, estimator, n_features=None, step=1)
+    protlearn.dimreduction.rfe(X, y, *, estimator, n_features=None, step=1)
 
 Recursive feature elimination.
 
 This function selects features by recursively considering smaller and 
 smaller feature subsets. First, the estimator is trained on the initial 
-feature matrix and the importance of each feature is obtaibed through a 
-"""\coef_""" or a """\feature_importances_""" attribute. Subsequently, the least 
+feature matrix and the importance of each feature is obtained through a 
+\coef_ or a \feature_importances_ attribute. Subsequently, the least 
 important features are pruned from the current feature subset. This is 
 repeated recursively on the pruned subset until the desired number of 
 features is eventually reached.
@@ -323,10 +323,10 @@ y: labels, ndarray of shape (n_samples,)
     Response variables.
 
 estimator: object
-    Classifier - must include """\coef_""" or """\feature_importances_""" attribute.
+    Classifier - must include \coef_ or \feature_importances_ attribute.
     
 n_features: int or None, default=None
-    Number of features to select. If None, half of the features are selected.
+    Number of features to select. If ``None``, half of the features are selected.
     
 step: int, default=1
     Number of features to remove at each iteration.
@@ -367,7 +367,7 @@ pca
 
 .. code-block:: text
 
-    protlearn.dimreduciton.pca(X, *, thres=.9, whiten=False)
+    protlearn.dimreduction.pca(X, *, thres=.9, whiten=False)
 
 Principal component analysis.
 
@@ -414,7 +414,7 @@ lda
 
 .. code-block:: text
 
-    protlearn.dimreduciton.lda(X, y, *, solver='svd', shrinkage=None, n_components=None)
+    protlearn.dimreduction.lda(X, y, *, solver='svd', shrinkage=None, n_components=None)
 
 Linear discriminant analysis.
 
@@ -476,7 +476,7 @@ tsne
 
 .. code-block:: text
 
-    protlearn.dimreduciton.tsne(X, *, n_components=2, perplexity=30, prior_pca=True, pca_components=50)
+    protlearn.dimreduction.tsne(X, *, n_components=2, perplexity=30, prior_pca=True, pca_components=50)
 
 t-distributed stochastic neighbor embedding.
 

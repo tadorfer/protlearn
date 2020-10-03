@@ -136,7 +136,7 @@ then averaged across the sequence.
    aaindex1(i) = \frac{ \sum_{n=1}^{N}AAindex_i (aa_n) }{N}
 
 where *i* denotes the 566 AAIndex1 indices, *aa*\ :sub:`n` \ denotes the amino acid at 
-position *n*, and N is the total number of residues in the sequence.
+position *n*, and *N* is the total number of residues in the sequence.
 
 Parameters
 ##########
@@ -246,7 +246,7 @@ Returns
 #######
 
 arr: ndarray of shape (n_samples, n_unique^n)
-    Depending on n, the returned array will be of size: |br|
+    Depending on *n*, the returned array will be of size: |br|
     - (n_samples, 400) for dipeptide composition |br|
     - (n_samples, 8000) for tripeptide composition |br|
     if all possible n-gram combinations are represented.
@@ -303,9 +303,9 @@ X: string, fasta, or a list thereof
     Dataset of amino acid sequences.
 
 standardize: string, default='none'
-    'none' : unstandardized index matrix will be returned |br|
-    'zscore' : index matrix is standardized to have a mean of 0 and standard deviation of 1. |br|
-    'minmax' : index matrix is normalized to have a range of [0, 1].
+    'none' : unstandardized matrix will be returned |br|
+    'zscore' : matrix is standardized to have a mean of 0 and standard deviation of 1. |br|
+    'minmax' : matrix is normalized to have a range of [0, 1].
 
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is
@@ -361,7 +361,7 @@ Returns
 #######
 
 arr: ndarray of shape (n_samples, ) or (n_samples, n_positions)
-    Binary vector indicating position-specific presence of amino acids.
+    Binary vector/matrix indicating position-specific presence of amino acids.
 
 Notes
 #####
@@ -421,18 +421,6 @@ Returns
 arr:  ndarray of shape (n_samples,)
     Binary vector indicating the presence of the motif in sequences.
 
-Notes
-#####
-
-Based on the example above, 'pattern1' is interpreted as follows:
-Two consecutive amino acids 'A', followed by any amino acid, followed by
-either a 'K' or a 'C'. 
-
-Likewise, pattern2 is interpreted as follows:
-Any two consecutive amino acids, followed by a 'C', followed by either a 'D'
-or an 'A', followed by any two amino acids, followed by any amino acid
-except 'Y'.
-
 Examples
 ########
 
@@ -448,6 +436,15 @@ Examples
     >>> m2 = motif(seqs, pattern2)
     >>> m2
     array([0., 1., 0.])    
+
+Based on the example above, 'pattern1' is interpreted as follows:
+Two consecutive amino acids 'A', followed by any amino acid, followed by
+either a 'K' or a 'C'. 
+
+Likewise, pattern2 is interpreted as follows:
+Any two consecutive amino acids, followed by a 'C', followed by either a 'D'
+or an 'A', followed by any two amino acids, followed by any amino acid
+except 'Y'.
 
 atc 
 ---
@@ -509,7 +506,7 @@ arr_bonds: ndarray of shape (n_samples, 3)
 Notes
 #####
 
-The 'method' argument only applies to the atomic composition, not
+The ``method`` argument only applies to the atomic composition, not
 the bond composition.
 
 References
@@ -539,7 +536,7 @@ binary
 
 .. code-block:: text
 
-    protlearn.features.binary(X, *, padding=False, start=1, end=None)
+    protlearn.features.binary(X, *, padding=True, start=1, end=None)
 
 Binary profile pattern.
 
@@ -554,7 +551,7 @@ Parameters
 X: string, fasta, or a list thereof 
     Dataset of amino acid sequences.
 
-padding: bool, default=False
+padding: bool, default=True
     Pad sequences of unequal lengths with zeros at the posterior end.
 
 start: int, default=1
@@ -632,7 +629,7 @@ Parameters
 X: string, fasta, or a list thereof 
     Dataset of amino acid sequences.
 
-"""\lambda_""": int, default=1
+\lambda_: int, default=1
     Counted rank (tier) of the correlation along an amino acid sequence.
     
 k: int, default=1
@@ -1131,7 +1128,7 @@ Then, the Moreau_Broto descriptors are computed as follows:
     AC(d) = \sum_{n=1}^{N-d} P_i P_{i+d} \quad d=1,2,...,nlag
 
 where *d* denotes the lag of the autocorrelation, *P*\ :sub:`i` \ and *P*\ :sub:`i+d` \ 
-are the properties of the amino acids at positions i and i+d, respectively and 
+are the properties of the amino acids at positions i and i+d, respectively, and 
 *nlag* is the maximum value of the lag.
 
 Finally, these descriptors are normalized:
@@ -1360,7 +1357,7 @@ are converted using the following equation:
     P(i) = \frac{ P^o(i) - \frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)}{ \sqrt{\frac{ \sum_{i=1}^{20} [P^o(i)-\frac{ 1 }{ 20 } \sum_{i=1}^{20} P^o(i)]^2 } { 20 } }}
 
 where *P(i)* denotes the converted property (hydrophobicity, hydrophilicity, or side chain 
-mass) of amino acid *i*, and *P*\ :sup:`o`\*(i)* denotes the original value of these 
+mass) of amino acid *i*, and *P*\ :sup:`o`\(i) denotes the original value of these 
 properties.
 
 Next, a correlation function is defined that averages the values of the three 
@@ -1399,7 +1396,7 @@ where :math:`\lambda` is an integer parameter to be chosen and must be smaller
 than the sequence length *N*. 
 
 With *f*\ :sub:`i` \ being the normalized occurrence frequency of amino acid *i* 
-in the sequence, a set of 20+:math:`\lambda` descriptors, called the pseudo amino 
+in the sequence, a set of 20+ :math:`\lambda` descriptors, called the pseudo amino 
 acid composition, can be defined as:
 
 .. math::
@@ -1419,7 +1416,7 @@ Parameters
 X: string, fasta, or a list thereof 
     Dataset of amino acid sequences.
 
-"""\lambda_""": int, default=30
+\lambda_: int, default=30
     Counted rank (tier) of the correlation along an amino acid sequence. |br|
     This parameter has to be smaller than the shortest sequence in the 
     dataset.
@@ -1438,17 +1435,17 @@ end: int, default=None
 Returns
 #######
 
-arr:  ndarray of shape (n_samples, 20+"""\lambda_""")
+arr:  ndarray of shape (n_samples, 20+\lambda_)
     Array containing pseudo amino acid composition.
 
-desc: list of length 20+"""\lambda_"""
+desc: list of length 20+\lambda_
     Order of amino acids and lambda values corresponding to columns in arr.
 
 Notes
 #####
 
 Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 20+"""\lambda_""".
+array and list may have a lower dimensionality than 20+\lambda_.
 
 References
 ##########
@@ -1490,7 +1487,7 @@ contains much more information that is related to the sequence order of a
 protein and the distribution of the hydrophobic and hydrophilic amino acids
 along its chain. 
 
-Using *H*\ :sub:`1` \*(i)* and *H*\ :sub:`2` \*(i)* as defined above in the 
+Using *H*\ :sub:`1` \(i) and *H*\ :sub:`2` \(i) as defined above in the 
 pseudo amino acid composition function, the correlation functions for 
 hydrophobicity and hydrophilicity can be computed as follows:
 
@@ -1550,7 +1547,7 @@ Parameters
 X: string, fasta, or a list thereof 
     Dataset of amino acid sequences.
 
-"""\lambda_""": int, default=30
+\lambda_: int, default=30
     Counted rank (tier) of the correlation along an amino acid sequence. |br|
     This parameter has to be smaller than the shortest sequence in the 
     dataset.
@@ -1569,17 +1566,17 @@ end: int, default=None
 Returns
 #######
 
-arr: ndarray of shape (n_samples, 20+2*"""\lambda_""")
+arr: ndarray of shape (n_samples, 20+2*\lambda_)
     Array containing amphiphilic pseudo amino acid composition.
 
-desc: list of length 20+2*"""\lambda_"""
+desc: list of length 20+2*\lambda_
     Order of amino acids and lambda values corresponding to columns in arr.
 
 Notes
 #####
 
 Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 20+2*"""\lambda_""".
+array and list may have a lower dimensionality than 20+2*\lambda_.
 
 References
 ##########
@@ -1718,7 +1715,7 @@ follows:
     X_i = \frac{ f_i }{ \sum_{i=1}^{20}f_i + w \sum_{d=1}^{nlag}\tau_d }, \quad i=1,2,...,20
 
 where *f*\ :sub:`i` \ is the normalized occurrence of amino acid type *i* and *w* 
-is a weighting factor, which is set to 0.1. *nlag* and *\tau_d* are defined as 
+is a weighting factor, which is set to 0.1. *nlag* and :math:`\tau_d` are defined as 
 in the sequence-order-coupling number function above.
 
 The other 30 QSO descriptors are defined as follows:

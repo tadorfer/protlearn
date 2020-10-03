@@ -25,12 +25,13 @@ Package Contents
 * dimensionality reduction
 
 The :ref:`preprocessing` section allows the user to prepare the datasets according to 
-specific needs, such as sequence identity or representation (i.e. conversion 
-of alphabetical strings to integers). The :ref:`feature_extraction` section can then be 
+specific needs, such as filtering out sequences containing unnatural amino acids or converting  
+the alphabetical strings to integers. The :ref:`feature_extraction` section can then be 
 used to compute amino acid sequence features from the dataset, such as amino acid  
-composition or AAIndex-based physicochemical properties. Finally, 
-:ref:`dimensionality_reduction` methods are provided to reduce the dimensionality of the computed 
-features, which reduces redundancy and alleviates the computational demand for the classifiers.
+composition or AAIndex-based physicochemical properties. In total, *protlearn* currently 
+provides 21 such features. Finally, :ref:`dimensionality_reduction` methods are 
+provided to reduce the dimensionality of the computed features, which reduces 
+redundancy and alleviates the computational burden for the classifiers.
 
 Input Formats
 -------------
@@ -48,6 +49,9 @@ Installing protlearn
 
 *protlearn* is currently supported and tested on Python 3.6, 3.7, and 3.8 and can 
 be installed and upgraded using the following terminal commands:
+
+PyPI
+****
 
 .. code::
 
