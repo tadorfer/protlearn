@@ -3,7 +3,7 @@
 from collections import Counter
 from ..utils.validation import check_input
 
-def remove_duplicates(X, verbose=1):
+def remove_duplicates(X, *, verbose=1):
     """Remove duplicate sequences.
 
     This function detects and removes duplicate sequences from the dataset.

@@ -29,7 +29,7 @@ def posrich(X, *, position, aminoacid):
     -------
     
     arr : ndarray of shape (n_samples, ) or (n_samples, n_positions)
-        Binary vector indicating position-specific presence of amino acids.
+        Binary vector/matrix indicating position-specific presence of amino acids.
 
     Notes
     -----

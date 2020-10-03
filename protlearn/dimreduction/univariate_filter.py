@@ -33,7 +33,7 @@ def univariate_filter(X, y, *, method='f_test', top=10):
     -------
     
     arr : ndarray of shape (n_samples, top)
-        Array containing the top most informative features.
+        Array containing the top features.
     
     Examples
     --------

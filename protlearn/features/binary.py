@@ -3,7 +3,7 @@
 import numpy as np
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def binary(X, *, padding=False, start=1, end=None):
+def binary(X, *, padding=True, start=1, end=None):
     """Binary profile pattern.
 
     This function returns the binary profile pattern for each amino acid 
@@ -17,7 +17,7 @@ def binary(X, *, padding=False, start=1, end=None):
     X : string, fasta, or a list thereof 
         Dataset of amino acid sequences.
     
-    padding : bool, default=False
+    padding : bool, default=True
         Pad sequences of unequal lengths with zeros at the posterior end.
 
     start : int, default=1

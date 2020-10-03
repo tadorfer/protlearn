@@ -36,18 +36,6 @@ def motif(X, pattern, *, start=1, end=None):
     arr :  ndarray of shape (n_samples,)
         Binary vector indicating the presence of the motif in sequences.   
 
-    Notes
-    -----
-
-    Based on the example above, 'pattern1' is interpreted as follows:
-    Two consecutive amino acids 'A', followed by any amino acid, followed by
-    either a 'K' or a 'C'. 
-
-    Likewise, pattern2 is interpreted as follows:
-    Any two consecutive amino acids, followed by a 'C', followed by either a 'D'
-    or an 'A', followed by any two amino acids, followed by any amino acid
-    except 'Y'.
-
     Examples
     --------
 
@@ -61,6 +49,15 @@ def motif(X, pattern, *, start=1, end=None):
     >>> m2 = motif(seqs, pattern2)
     >>> m2
     array([0., 1., 0.]) 
+
+    Based on the example above, 'pattern1' is interpreted as follows:
+    Two consecutive amino acids 'A', followed by any amino acid, followed by
+    either a 'K' or a 'C'. 
+
+    Likewise, pattern2 is interpreted as follows:
+    Any two consecutive amino acids, followed by a 'C', followed by either a 'D'
+    or an 'A', followed by any two amino acids, followed by any amino acid
+    except 'Y'.
 
     """
     

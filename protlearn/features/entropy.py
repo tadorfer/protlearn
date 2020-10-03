@@ -18,10 +18,10 @@ def entropy(X, *, standardize='none', start=1, end=None):
         Dataset of amino acid sequences.
 
     standardize : string, default='none'
-        'none' : unstandardized index matrix will be returned
-        'zscore' : index matrix is standardized to have
+        'none' : unstandardized matrix will be returned
+        'zscore' : matrix is standardized to have
                    a mean of 0 and standard deviation of 1.
-        'minmax' : index matrix is normalized to have a range of [0, 1].
+        'minmax' : matrix is normalized to have a range of [0, 1].
 
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is

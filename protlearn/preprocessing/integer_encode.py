@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def integer_encode(X, padding=False):
+def integer_encode(X, *, padding=False):
     """Encode amino acids as integers.
 
     This function converts amino acids into their corresponding integers 
