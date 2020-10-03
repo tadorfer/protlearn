@@ -7,4 +7,3 @@ __pycache__/
 build/
 dist/
 protlearn.egg-info
-click/
