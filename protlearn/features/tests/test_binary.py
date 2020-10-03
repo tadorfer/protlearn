@@ -60,4 +60,4 @@ def test_binary():
 
     # test ValueError (equal length)
     with pytest.raises(ValueError):
-        binary_err = binary(X_list)
+        binary_err = binary(X_list, padding=False)
