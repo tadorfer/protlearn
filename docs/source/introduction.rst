@@ -57,3 +57,11 @@ PyPI
 
     pip install protlearn  
     pip install --upgrade protlearn 
+
+Conda
+*****
+
+.. code::
+
+   conda install protlearn
+   conda update protlearn

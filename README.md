@@ -48,6 +48,14 @@ You can install _protlearn_ with `pip`:
 $ pip install protlearn
 ```
 
+#### Conda
+
+You can install _protlearn_ with `conda`:
+
+```
+$ conda install protlearn
+```
+
 ## Authors
 
 This package is maintained by [Thomas Dorfer](https://github.com/tadorfer).
