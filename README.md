@@ -26,6 +26,12 @@ It is comprised of three stages - preprocessing, feature computation, and
 subsequent dimensionality reduction. Currently, the package is being maintained 
 for Python versions 3.6, 3.7, and 3.8. 
 
+## Overview
+
+<p align="center">
+  <img src="/imgs/protlearn_summary.png">
+</p>
+
 For more information on how to use it, please refer to the [documentation](https://protlearn.readthedocs.io/en/latest/).
 
 ## Installation
