@@ -53,7 +53,7 @@ $ pip install protlearn
 You can install _protlearn_ with `conda`:
 
 ```
-$ conda install protlearn
+$ conda install -c conda-forge protlearn
 ```
 
 ## Authors
