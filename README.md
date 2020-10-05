@@ -15,6 +15,7 @@
   <a href="https://codecov.io/gh/tadorfer/protlearn"><img alt="Codecov" src="https://codecov.io/gh/tadorfer/protlearn/branch/master/graph/badge.svg"></a>
   <a href="https://protlearn.readthedocs.io/en/latest/?badge=latest"><img alt="Docs" src="https://readthedocs.org/projects/protlearn/badge/?version=latest"></a> 
   <a href="https://pypi.org/project/protlearn/"><img alt="PyPI" src="https://img.shields.io/pypi/v/protlearn"></a>
+  <a href="https://anaconda.org/conda-forge/protlearn"><img alt="Conda version" src="https://img.shields.io/conda/vn/conda-forge/protlearn.svg"></a>
   <a href="https://img.shields.io/pypi/pyversions/protlearn"><img alt="Python versions" src="https://img.shields.io/pypi/pyversions/protlearn"></a>  
   <a href="https://lbesson.mit-license.org/"><img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>   
 </p>
