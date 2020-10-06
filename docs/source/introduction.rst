@@ -63,5 +63,5 @@ Conda
 
 .. code::
 
-   conda install protlearn
+   conda install -c conda-forge protlearn
    conda update protlearn
