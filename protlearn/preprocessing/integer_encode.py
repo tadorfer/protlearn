@@ -1,12 +1,10 @@
 # Author: Thomas Dorfer <thomas.a.dorfer@gmail.com>
 
-import os
 import numpy as np
-import pandas as pd
 from ..utils.validation import check_input, check_alpha, check_natural
 
 def integer_encode(X, *, padding=False):
-    """Encode amino acids as integers.
+    """Integer encoding.
 
     This function converts amino acids into their corresponding integers 
     based on the specified notation, starting at 1. Zeros are reserverd for 
@@ -29,7 +27,7 @@ def integer_encode(X, *, padding=False):
 
     enc : ndarray of shape (n_samples,) if padding=False
           ndarray of shape (n_samples, max_len) if padding=True
-        Contains the label-encoded peptide sequences.
+        Contains the integer-encoded amino acid sequences.
 
     amino_acids : amino acid order of enc array
         This serves as a lookup for the encoded sequences.
@@ -58,7 +56,6 @@ def integer_encode(X, *, padding=False):
     for seq in X:
         check_alpha(seq) # check if alphabetical      
         check_natural(seq) # check for unnatural amino acids 
-        seq = seq.upper()
         seq_trans = [aa_dict[aa] for aa in seq]
         enc_list.append(np.asarray(seq_trans))
     enc_arr = np.asarray(enc_list)
