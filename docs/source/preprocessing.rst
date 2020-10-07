@@ -34,7 +34,7 @@ Returns
 #######
 
 enc: ndarray of shape (n_samples,) if padding=False or (n_samples, max_len) if padding=True
-    Contains the label-encoded peptide sequences.
+    Contains the integer-encoded amino acid sequences.
 
 amino_acids: amino acid order of enc array
     This serves as a lookup for the encoded sequences.
@@ -68,6 +68,44 @@ of the longest sequence in the dataset.
            [14,  4, 13,  6, 13,  6, 10, 10, 10,  9]])
     >>> aa
     'ACDEFGHIKLMNPQRSTVWY'
+
+onehot_encode
+-------------
+
+.. code-block:: text 
+
+    protlearn.preprocessing.onehot_encode(X)
+
+One-hot encoding.
+
+This function converts amino acid sequences into their corresponding
+one-hot encoded representations. Sequences will be padded with zeros 
+to the maximum sequence length so that the final output has the shape 
+of (n_samples, maximum_length, 20), where 20 is the number of natural 
+amino acids.
+
+Parameters
+##########
+
+X: string, fasta, or a list thereof
+    Dataset of amino acid sequences.
+
+Returns
+#######
+
+enc: ndarray of shape (n_samples, max_len, 20) 
+    Contains the one-hot-encoded amino acid sequences.
+
+Examples
+########
+
+.. code-block:: python
+
+    >>> from protlearn.preprocessing import onehot_encode
+    >>> seqs = ['ARKLY', 'EERNPAA', 'QEPGPGLLLK']
+    >>> enc = onehot_encode(seqs, padding=True)
+    >>> enc.shape
+    (3, 10, 20)
 
 remove_duplicates
 -----------------
