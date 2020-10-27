@@ -50,6 +50,9 @@ def tree_importance(X, y, *, clf=None, method='random_forest', top=None,
     arr :  ndarray of shape (n_samples, top)
         Array containing the top features based on tree-importance.
 
+    indices : ndarray
+        Indices indicating the position of the selected feature in the input vector.
+
     Examples
     --------
 
@@ -64,12 +67,14 @@ def tree_importance(X, y, *, clf=None, method='random_forest', top=None,
     >>> features = np.concatenate([comp, aaind, ng], axis=1)
     >>> features.shape
     (3, 575)
-    >>> reduced = tree_importance(features, labels, top=10)
+    >>> reduced, indices  = tree_importance(features, labels, top=10)
     >>> reduced.shape
     (3, 10)
+    >>> indices
+    array([249, 514,   4, 155, 182,  82, 214, 405, 140, 364])
     
     """
-    
+
     if clf != None:
         clf = clf
     else:
@@ -86,4 +91,4 @@ def tree_importance(X, y, *, clf=None, method='random_forest', top=None,
     indices = np.argsort(-importances)[:top]
     arr = X[:,indices]
     
-    return arr
+    return arr, indices
