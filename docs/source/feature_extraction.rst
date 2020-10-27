@@ -197,7 +197,7 @@ ngram
 
 .. code-block:: text
 
-    protlearn.features.ngram(X, *, method='relative', start=1, end=None)
+    protlearn.features.ngram(X, *, n=2, method='relative', start=1, end=None)
 
 N-gram composition.
 
