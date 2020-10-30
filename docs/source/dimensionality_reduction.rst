@@ -191,6 +191,9 @@ method: string, default='random_forest'
 
 top: int or None, default=None
     Number of top features to select.
+
+n_iterations: int, default=3
+    Number of iterations.
     
 n_estimators: int or None, default=2
     Number of trees in the forest.
