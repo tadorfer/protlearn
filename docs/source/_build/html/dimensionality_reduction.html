@@ -380,6 +380,8 @@ decision tree algorithms such as Random Forest and XGBoost.</p>
 </dd>
 <dt>top: int or None, default=None</dt><dd><p>Number of top features to select.</p>
 </dd>
+<dt>n_iterations: int, default=3</dt><dd><p>Number of iterations.</p>
+</dd>
 <dt>n_estimators: int or None, default=2</dt><dd><p>Number of trees in the forest.</p>
 </dd>
 <dt>max_depth: int or None, default=None</dt><dd><p>Maximum depth of the tree.</p>
@@ -415,9 +417,11 @@ decision tree algorithms such as Random Forest and XGBoost.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">features</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">comp</span><span class="p">,</span> <span class="n">aaind</span><span class="p">,</span> <span class="n">ng</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">features</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(3, 575)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span> <span class="o">=</span> <span class="n">tree_importance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="p">,</span> <span class="n">indices</span> <span class="o">=</span> <span class="n">tree_importance</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">reduced</span><span class="o">.</span><span class="n">shape</span>
 <span class="go">(3, 10)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span>
+<span class="go">array([249, 514, 4, 155, 182,  82, 214, 405, 140, 364])</span>
 </pre></div>
 </div>
 </div>
