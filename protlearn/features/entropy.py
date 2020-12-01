@@ -5,7 +5,7 @@ from collections import Counter
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def entropy(X, *, standardize='none', start=1, end=None):
+def entropy(X, *, standardize='none', start=1, end=None, base=2.0):
     """Shannon entropy.
 
     This function computes the Shannon entropy for each sequence in the 
@@ -30,6 +30,9 @@ def entropy(X, *, standardize='none', start=1, end=None):
     end : int, default=None
         Determines the end point of the amino acid sequence. Similarly to start,
         this number is based on one-based indexing.
+
+    base : float, default=2.0
+        The base of the logarithm function, used in the calculation of entropy.
 
     Returns
     -------
@@ -60,7 +63,9 @@ def entropy(X, *, standardize='none', start=1, end=None):
         check_natural(seq) # check for unnatural amino acids 
         seq = seq[start-1:end] # positional information
         cnt = Counter(seq)
-        ent_aa = {k: (cnt[k]/len(seq))*np.log2(cnt[k]/len(seq)) for k in cnt.keys()}
+        logfunc = lambda x: np.log(x) / np.log(base)
+        ent_aa = {k: (cnt[k]/len(seq))*logfunc(cnt[k]/len(seq))
+                  for k in cnt.keys()}
         arr[i] = -sum(ent_aa.values())
         
     if len(arr) == 1:
