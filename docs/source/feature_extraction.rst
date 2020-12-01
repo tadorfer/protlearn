@@ -291,7 +291,7 @@ dataset as follows:
 
 .. math::
 
-   H(X) = -\sum_{i=1}^{20}P(x_i)log_2 P(x_i)
+   H(X) = -\sum_{i=1}^{20}P(x_i)log P(x_i)
 
 where *i* denotes the 20 amino acids and *P(x*\ :sub:`i`\) denotes the 
 probability of a given amino acid in the sequence.
@@ -315,6 +315,9 @@ end: int, default=None
     Determines the end point of the amino acid sequence. Similarly to start,
     this number is based on one-based indexing.
 
+base: float, default=2.0
+    The base of the logarithm function, used in the calculation of entropy.
+
 Returns
 #######
 
@@ -330,7 +333,7 @@ Examples
     >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
     >>> ent = entropy(seqs)
     >>> ent
-    array([2.32192809, 2.52164064, 0.64020643])
+    array([2.32192809, 2.52164064, 1.06127812])
 
 posrich
 -------
