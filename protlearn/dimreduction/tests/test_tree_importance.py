@@ -15,8 +15,8 @@ def test_tree_importance():
     y = np.load(PATH+'features_largeN_labels.npy')
 
     # compute tree-based feature importances
-    X_rf = tree_importance(X, y, top=5)
-    X_xgb = tree_importance(X, y, method='xgboost', top=5)
+    X_rf, _ = tree_importance(X, y, top=5)
+    X_xgb, _ = tree_importance(X, y, method='xgboost', top=5)
 
     # test array contents
     np.testing.assert_almost_equal(X_xgb[0,:], np.array([
@@ -30,7 +30,7 @@ def test_tree_importance():
 
     # test customized classifier
     clf = XGBClassifier()
-    X_clf = tree_importance(X, y, clf=clf, top=5)
+    X_clf, _ = tree_importance(X, y, clf=clf, top=5)
 
     np.testing.assert_almost_equal(X_clf[0,:], np.array([
         -0.01,  1.14444444,  4.73777778,  0.16666667, -0.67777778]), decimal=3)

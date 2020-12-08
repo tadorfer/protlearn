@@ -191,6 +191,9 @@ method: string, default='random_forest'
 
 top: int or None, default=None
     Number of top features to select.
+
+n_iterations: int, default=3
+    Number of iterations.
     
 n_estimators: int or None, default=2
     Number of trees in the forest.
@@ -212,6 +215,10 @@ Returns
 arr:  ndarray of shape (n_samples, top)
     Array containing the top features based on tree-importance.
 
+indices:  ndarray
+    Indices indicating the position of the selected feature in the input vector.
+
+
 Examples
 ########
 
@@ -228,9 +235,11 @@ Examples
     >>> features = np.concatenate([comp, aaind, ng], axis=1)
     >>> features.shape
     (3, 575)
-    >>> reduced = tree_importance(features, labels, top=10)
+    >>> reduced, indices = tree_importance(features, labels, top=10)
     >>> reduced.shape
     (3, 10)
+    >>> indices
+    array([249, 514, 4, 155, 182,  82, 214, 405, 140, 364])
 
 sequential
 ----------
