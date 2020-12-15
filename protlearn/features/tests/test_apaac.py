@@ -13,7 +13,7 @@ def test_apaac():
     X_err = 'AGT2HT9'
     
     # get apaac
-    apaac_list, aa = apaac(X_list, lambda_=1)
+    apaac_list, aa = apaac(X_list, lambda_=1, remove_zero_cols=True)
     
     # test apaac
     np.testing.assert_almost_equal(apaac_list, 
