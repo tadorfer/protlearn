@@ -13,7 +13,7 @@ def test_cksaap():
     X_err = 'AGT2HT9'
     
     # get cksaap 
-    cksaap_list, desc = cksaap(X_list, k=3)
+    cksaap_list, desc = cksaap(X_list, k=3, remove_zero_cols=True)
     
     # test cksaap
     assert np.array_equal(cksaap_list, np.array([
