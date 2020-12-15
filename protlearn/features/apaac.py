@@ -8,7 +8,7 @@ import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
 
-def apaac(X, *, lambda_=30, w=.05, start=1, end=None):
+def apaac(X, *, lambda_=30, w=.05, remove_zero_cols=False, start=1, end=None):
     """Amphiphilic pseudo amino acid composition.
 
     This feature has the same form as the vanilla amino acid composition, but 
@@ -32,6 +32,10 @@ def apaac(X, *, lambda_=30, w=.05, start=1, end=None):
     w : float, default=.05
         Weighting factor for the sequence-order effect.
 
+    remove_zero_cols : bool, default=False
+        Columns containing only zeros will be deleted. Therefore, the returned 
+        array and list may have a lower dimensionality than 20+2*lambda_.
+
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
         based on one-based indexing.
@@ -48,12 +52,6 @@ def apaac(X, *, lambda_=30, w=.05, start=1, end=None):
     
     desc : list of length 20+2*lambda_
         Order of amino acids and lambda values corresponding to columns in arr.
-
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    array and list may have a lower dimensionality than 20+2*lambda_.
 
     References
     ----------
@@ -150,8 +148,9 @@ def apaac(X, *, lambda_=30, w=.05, start=1, end=None):
         arr[i,:] = apse_aac
 
     # delete zero columns
-    cols_zeros = np.where(~arr.any(axis=0))[0]
-    arr = np.delete(arr, cols_zeros, axis=1)
-    desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
+    if remove_zero_cols == True:
+        cols_zeros = np.where(~arr.any(axis=0))[0]
+        arr = np.delete(arr, cols_zeros, axis=1)
+        desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
 
     return arr, desc
