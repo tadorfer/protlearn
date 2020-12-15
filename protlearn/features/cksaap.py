@@ -5,7 +5,7 @@ import numpy as np
 from itertools import product
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def cksaap(X, *, k=1, start=1, end=None):
+def cksaap(X, *, k=1, remove_zero_cols=False, start=1, end=None):
     """Composition of k-spaced amino acid pairs.
 
     This function returns the k-spaced amino acid pair composition of each 
@@ -27,6 +27,12 @@ def cksaap(X, *, k=1, start=1, end=None):
     k : int, default=1
         Space between two amino acid pairs.
 
+    remove_zero_cols : bool, default=False
+        If true, columns containing only zeros will be deleted. Therefore, the 
+        returned array and list may have a lower dimensionality than 400, 
+        depending on the unique number of k-spaced amino acid pairs in the 
+        dataset. 
+
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
         based on one-based indexing.
@@ -43,13 +49,6 @@ def cksaap(X, *, k=1, start=1, end=None):
     
     patterns : list of length 400
         Amino acid pairs with k gaps corresponding to columns in arr.
-
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    array and list may have a lower dimensionality than 400, depending on the 
-    unique number of k-spaced amino acid pairs in the dataset. 
 
     References
     ----------
@@ -100,9 +99,10 @@ def cksaap(X, *, k=1, start=1, end=None):
             cnt_pattern = len(re.findall(r'(?=('+pattern+'))', seq))
             arr[i, j] = cnt_pattern
             
-    # delete zero columns
-    cols_zeros = np.where(~arr.any(axis=0))[0]
-    arr = np.delete(arr, cols_zeros, axis=1)
-    patterns = [i for j, i in enumerate(patterns) if j not in cols_zeros]
+    if remove_zero_cols == True:
+        # delete zero columns
+        cols_zeros = np.where(~arr.any(axis=0))[0]
+        arr = np.delete(arr, cols_zeros, axis=1)
+        patterns = [i for j, i in enumerate(patterns) if j not in cols_zeros]
     
     return arr, patterns
