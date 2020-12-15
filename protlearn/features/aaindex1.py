@@ -41,17 +41,11 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
     Returns
     -------
 
-    arr : ndarray of shape (n_samples, 553-566) 
+    arr : ndarray of shape (n_samples, 553) 
         Array containing the AAIndex1 physicochemical properties.
 
-    desc : list of length 553-566
+    desc : list of length 553
         Corresponds to the columns (AAIndices) in arr.
-
-    Notes
-    -----
-
-    Columns (indices) containing NaNs will be removed. Thus, the resulting index
-    matrix will have a column size between 553-566.
 
     References
     ----------
@@ -91,7 +85,7 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
     X = check_input(X)
     
     # Number of indices
-    LEN = 566
+    LEN = 553
     
     # list of amino acids (IUPAC extended)
     amino_acids = 'ACDEFGHIKLMNPQRSTVWY'
@@ -103,7 +97,7 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
     # convert to dict for better performance
     aaind1 = {aa: aaind1[aa].to_numpy() for aa in amino_acids}
 
-    # initialize empty array with shape (n_samples, 566)
+    # initialize empty array with shape (n_samples, 553)
     arr = np.zeros((len(X), LEN))
 
     # fill array with mean of indices per protein/peptide
@@ -121,38 +115,11 @@ def aaindex1(X, *, standardize='none', start=1, end=None):
         # fill rows with mean vector of tmp_arr
         arr[i,:] = tmp_arr.mean(axis=1)
 
-    # find columns with NaNs
-    inds_nan = np.argwhere(np.isnan(arr))
-    if len(inds_nan) != 0:
-        cols_nan = np.unique(inds_nan[:,1])
-        cols_nan = np.hstack(cols_nan)
-    
     if standardize == 'none' or arr.shape[0] == 1:
-        # remove columns with NaNs
-        if len(inds_nan) != 0:
-            arr = np.delete(arr, cols_nan, axis=1)
-            desc = np.delete(desc, cols_nan)
+        
         return arr, desc
 
     else:
-        # remove columns with NaNs and all zeros
-        cols_all = []
-        cols_zeros = np.where(~arr.any(axis=0))[0]
-            
-        if len(inds_nan) != 0 and len(cols_zeros) != 0:
-            cols_all = np.array((cols_nan, cols_zeros))
-            cols_all = np.hstack(cols_all)
-
-        elif len(inds_nan) != 0 and len(cols_zeros) == 0:
-            cols_all = cols_nan
-
-        elif len(inds_nan) == 0 and len(cols_zeros) != 0:
-            cols_all = cols_zeros
-
-        if len(cols_all) > 0:
-            arr = np.delete(arr, cols_all, axis=1)
-            desc = np.delete(desc, cols_all)
-
         # standardization
         if standardize == 'zscore':
             scaler = StandardScaler().fit(arr)
