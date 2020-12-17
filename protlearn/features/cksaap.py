@@ -28,10 +28,7 @@ def cksaap(X, *, k=1, remove_zero_cols=False, start=1, end=None):
         Space between two amino acid pairs.
 
     remove_zero_cols : bool, default=False
-        If true, columns containing only zeros will be deleted. Therefore, the 
-        returned array and list may have a lower dimensionality than 400, 
-        depending on the unique number of k-spaced amino acid pairs in the 
-        dataset. 
+        If true, columns containing only zeros will be deleted. 
 
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
@@ -99,8 +96,8 @@ def cksaap(X, *, k=1, remove_zero_cols=False, start=1, end=None):
             cnt_pattern = len(re.findall(r'(?=('+pattern+'))', seq))
             arr[i, j] = cnt_pattern
             
-    if remove_zero_cols == True:
-        # delete zero columns
+    # delete zero columns
+    if remove_zero_cols:
         cols_zeros = np.where(~arr.any(axis=0))[0]
         arr = np.delete(arr, cols_zeros, axis=1)
         patterns = [i for j, i in enumerate(patterns) if j not in cols_zeros]
