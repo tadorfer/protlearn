@@ -6,7 +6,7 @@ from collections import Counter
 from .socn import socn
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def qso(X, *, d=30, w=.1, start=1, end=None): 
+def qso(X, *, d=30, w=.1, remove_zero_cols=False, start=1, end=None): 
     """Quasi-sequence-order.
 
     This feature is derived from the distance matrix between the 20 amino acids.
@@ -26,6 +26,9 @@ def qso(X, *, d=30, w=.1, start=1, end=None):
         
     w : float, default=.1
         Weighting factor for the sequence-order effect.
+
+    remove_zero_cols : bool, default=False
+        If true, columns containing only zeros will be deleted. 
     
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
@@ -126,9 +129,10 @@ def qso(X, *, d=30, w=.1, start=1, end=None):
         arr_g[i,:] = qso_g
 
     # delete zero columns
-    cols_zeros = np.where(~arr_sw.any(axis=0))[0]
-    arr_sw = np.delete(arr_sw, cols_zeros, axis=1)
-    arr_g = np.delete(arr_g, cols_zeros, axis=1)
-    desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
+    if remove_zero_cols:
+        cols_zeros = np.where(~arr_sw.any(axis=0))[0]
+        arr_sw = np.delete(arr_sw, cols_zeros, axis=1)
+        arr_g = np.delete(arr_g, cols_zeros, axis=1)
+        desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
         
     return arr_sw, arr_g, desc
