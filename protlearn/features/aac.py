@@ -4,7 +4,7 @@ import numpy as np
 from collections import Counter
 from ..utils.validation import check_input, check_alpha, check_natural
 
-def aac(X, *, method='relative', start=1, end=None):
+def aac(X, *, method='relative', remove_zero_cols=False, start=1, end=None):
     """Amino acid composition.
 
     This function returns the frequency of amino acids for each sequence in the
@@ -19,6 +19,9 @@ def aac(X, *, method='relative', start=1, end=None):
     method : string, default='relative'
         'absolute' : absolute amino acid composition
         'relative' : relative amino acid composition
+
+    remove_zero_cols : bool, default=False
+        If true, columns containing only zeros will be deleted.
 
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
@@ -75,10 +78,11 @@ def aac(X, *, method='relative', start=1, end=None):
         arr[i,indices] = list(counts.values())
 
     # delete zero columns
-    cols_zeros = np.where(~arr.any(axis=0))[0]
-    arr = np.delete(arr, cols_zeros, axis=1)
-    amino_acids = [i for j, i in enumerate(amino_acids) if j not in cols_zeros]
-    amino_acids = ''.join(amino_acids)
+    if remove_zero_cols:
+        cols_zeros = np.where(~arr.any(axis=0))[0]
+        arr = np.delete(arr, cols_zeros, axis=1)
+        amino_acids = [i for j, i in enumerate(amino_acids) if j not in cols_zeros]
+        amino_acids = ''.join(amino_acids)
 
     if method == 'absolute':
         return arr, amino_acids
