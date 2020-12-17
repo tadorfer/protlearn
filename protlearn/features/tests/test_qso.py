@@ -13,7 +13,7 @@ def test_qso():
     X_err = 'AGT2HT9'
     
     # get qso
-    qso_sw, qso_g, desc = qso(X_list, d=1)
+    qso_sw, qso_g, desc = qso(X_list, d=1, remove_zero_cols=True)
     
     # test qso
     np.testing.assert_almost_equal(qso_sw, 
