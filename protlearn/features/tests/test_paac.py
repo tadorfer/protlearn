@@ -13,7 +13,7 @@ def test_paac():
     X_err = 'AGT2HT9'
     
     # get paac
-    paac_list, aa = paac(X_list, lambda_=1)
+    paac_list, aa = paac(X_list, lambda_=1, remove_zero_cols=True)
     
     # test paac
     np.testing.assert_almost_equal(paac_list, 
