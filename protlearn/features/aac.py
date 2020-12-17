@@ -45,7 +45,7 @@ def aac(X, *, method='relative', remove_zero_cols=False, start=1, end=None):
 
     >>> from protlearn.features import aac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> comp, aa = aac(seqs)
+    >>> comp, aa = aac(seqs, remove_zero_cols=True)
     >>> comp
     array([[0.2       , 0.        , 0.        , 0.2       , 0.2       ,
             0.        , 0.2       , 0.2       ],

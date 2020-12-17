@@ -59,14 +59,14 @@ def cksaap(X, *, k=1, remove_zero_cols=False, start=1, end=None):
 
     >>> from protlearn.features import cksaap
     >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
-    >>> ck, pairs = cksaap(seqs)
+    >>> ck, pairs = cksaap(seqs, remove_zero_cols=True)
     >>> ck
     array([[0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
            [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1],
            [4, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]])
     >>> pairs
     ['A.A', 'A.K', 'A.L', 'A.Y', 'E.K', 'E.R', 'K.G', 'K.Y', 'P.L', 'R.L', 'R.P']
-    >>> ck2, pairs2 = cksaap(seqs, k=2)
+    >>> ck2, pairs2 = cksaap(seqs, k=2, remove_zero_cols=True)
     >>> ck2
     array([[0, 1, 0, 0, 0, 0, 0, 1],
            [0, 0, 0, 1, 1, 1, 1, 0],

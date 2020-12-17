@@ -49,12 +49,6 @@ def qso(X, *, d=30, w=.1, remove_zero_cols=False, start=1, end=None):
 
     desc : list of length 20+d
         Order of QSO descriptors corresponding to columns in arr_sw and arr_g.
-
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    arrays and list may have a lower dimensionality than 20+d.
     
     References
     ----------
@@ -75,7 +69,7 @@ def qso(X, *, d=30, w=.1, remove_zero_cols=False, start=1, end=None):
 
     >>> from protlearn.features import qso
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> sw, g, desc = qso(seqs, d=3)
+    >>> sw, g, desc = qso(seqs, d=3, remove_zero_cols=True)
     >>> sw
     array([[0.66139001, 0.        , 0.        , 0.66139001, 0.66139001,
             0.        , 0.66139001, 0.66139001, 0.12285782, 0.15604737,

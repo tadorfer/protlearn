@@ -75,7 +75,7 @@ def apaac(X, *, lambda_=30, w=.05, remove_zero_cols=False, start=1, end=None):
 
     >>> from protlearn.features import apaac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> apaac_comp, desc = apaac(seqs, lambda_=3)
+    >>> apaac_comp, desc = apaac(seqs, lambda_=3, remove_zero_cols=True)
     >>> apaac_comp
     array([[ 1.15705278e+00,  0.00000000e+00,  0.00000000e+00,
              1.15705278e+00,  1.15705278e+00,  0.00000000e+00,
