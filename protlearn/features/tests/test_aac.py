@@ -13,7 +13,7 @@ def test_aac():
     X_err = 'AGT2HT9'
     
     # test relative composition
-    aac_rel, aa = aac(X_list)
+    aac_rel, aa = aac(X_list, remove_zero_cols=True)
 
     # test array contents
     np.testing.assert_almost_equal(aac_rel[0], np.array([
@@ -34,7 +34,7 @@ def test_aac():
         assert round(aac_rel[0,:].sum()) == 1
     
     # test absolute composition
-    aac_abs, aa = aac(X_list, method='absolute')
+    aac_abs, aa = aac(X_list, method='absolute', remove_zero_cols=True)
 
     # test array contents
     assert np.array_equal(aac_abs[0], np.array([
