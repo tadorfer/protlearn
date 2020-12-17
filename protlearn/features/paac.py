@@ -8,7 +8,7 @@ import pkg_resources
 
 PATH = pkg_resources.resource_filename(__name__, 'data/')
 
-def paac(X, *, lambda_=30, w=.05, start=1, end=None):
+def paac(X, *, lambda_=30, w=.05, remove_zero_cols=False, start=1, end=None):
     """Pseudo amino acid composition.
 
     Similar to the vanilla amino acid composition, this feature characterizes 
@@ -34,6 +34,9 @@ def paac(X, *, lambda_=30, w=.05, start=1, end=None):
     w : float, default=.05
         Weighting factor for the sequence-order effect.
 
+    remove_zero_cols : bool, default=False
+        If true, columns containing only zeros will be deleted.
+
     start : int, default=1
         Determines the starting point of the amino acid sequence. This number is
         based on one-based indexing.
@@ -50,12 +53,6 @@ def paac(X, *, lambda_=30, w=.05, start=1, end=None):
     
     desc : list of length 20+lambda_
         Order of amino acids and lambda values corresponding to columns in arr.
-
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    array and list may have a lower dimensionality than 20+lambda_.
 
     References
     ----------
@@ -79,7 +76,7 @@ def paac(X, *, lambda_=30, w=.05, start=1, end=None):
 
     >>> from protlearn.features import paac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> paac_comp, desc = paac(seqs, lambda_=3)
+    >>> paac_comp, desc = paac(seqs, lambda_=3, remove_zero_cols=True)
     >>> paac_comp
     array([[0.62956037, 0.        , 0.        , 0.62956037, 0.62956037,
             0.        , 0.62956037, 0.62956037, 0.10830885, 0.16327632,
@@ -136,8 +133,9 @@ def paac(X, *, lambda_=30, w=.05, start=1, end=None):
         arr[i,:] = pse_aac
 
     # delete zero columns
-    cols_zeros = np.where(~arr.any(axis=0))[0]
-    arr = np.delete(arr, cols_zeros, axis=1)
-    desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
+    if remove_zero_cols:
+        cols_zeros = np.where(~arr.any(axis=0))[0]
+        arr = np.delete(arr, cols_zeros, axis=1)
+        desc = [i for j, i in enumerate(desc) if j not in cols_zeros]
 
     return arr, desc
