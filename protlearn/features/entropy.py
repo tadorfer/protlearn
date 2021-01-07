@@ -34,7 +34,7 @@ def entropy(X, *, standardize='none', start=1, end=None):
     Returns
     -------
 
-    arr :  ndarray of shape (n_samples,) if len(X) > 1, otherwise float
+    arr :  ndarray of shape (n_samples, 1) if len(X) > 1, otherwise float
         Array containing Shannon entropy values for each sequence.
 
     Examples
@@ -67,12 +67,12 @@ def entropy(X, *, standardize='none', start=1, end=None):
         return arr[0][0]
     
     if standardize == 'none':
-        return np.reshape(arr, (len(arr),))
+        return arr
 
     elif standardize == 'zscore':
         scaler = StandardScaler().fit(arr)
-        return np.reshape(scaler.transform(arr), (len(arr),))
+        return scaler.transform(arr)
     
     elif standardize == 'minmax':
         scaler = MinMaxScaler().fit(arr)
-        return np.reshape(scaler.transform(arr), (len(arr),))
+        return scaler.transform(arr)

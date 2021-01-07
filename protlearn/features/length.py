@@ -24,7 +24,7 @@ def length(X, *, method='int'):
     Returns
     -------
 
-    arr : int or ndarray of shape (n_samples, ) or (n_samples, n_unique_lengths) 
+    arr : int or ndarray of shape (n_samples, 1) or (n_samples, n_unique_lengths) 
         Array containing sequence lengths.
 
     Examples
@@ -46,7 +46,7 @@ def length(X, *, method='int'):
     X = check_input(X)
     
     # compute lengths
-    arr = np.zeros((len(X),))
+    arr = np.zeros((len(X), 1))
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
         check_natural(seq) # check for unnatural amino acids 
@@ -58,9 +58,8 @@ def length(X, *, method='int'):
             return arr[0]
         # for multiple sequences return array
         else:
-            return np.asarray(arr)
+            return arr
     elif method == 'ohe':
-        arr = np.asarray(arr).reshape((len(arr), 1))
         encoder = OneHotEncoder(sparse=False)
         arr_ohe = encoder.fit_transform(arr)
         return arr_ohe
