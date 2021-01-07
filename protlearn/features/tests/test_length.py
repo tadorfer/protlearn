@@ -16,7 +16,7 @@ def test_lengths():
     # test integer lengths
     len_single = length(X_str)
     len_int = length(X_list)
-    assert np.array_equal(len_int, np.array([7,9,8]))
+    assert np.array_equal(len_int, np.array([[7],[9],[8]]))
     
     # test one-hot-encoded lengths
     len_ohe = length(X_list, method='ohe')
