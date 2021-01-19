@@ -39,4 +39,12 @@ setup(
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
   ],
+  extras_require={ 
+     ':python_version <= "3.4"': [ 
+         'pandas >= 0.16.2, <= 0.22.*' 
+     ], 
+     ':python_version > "3.4"': [ 
+         'pandas >= 0.23.2' 
+     ] 
+  } 
 )
