@@ -1,6 +1,5 @@
-numpy
-pandas >= 0.16.2, <= 0.22.*;python_version <= '3.4' 
-pandas >= 0.23.2;python_version > '3.4' 
+numpy==1.8
+pandas
 scikit-learn
 xgboost
 mlxtend
