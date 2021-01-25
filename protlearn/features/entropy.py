@@ -44,7 +44,7 @@ def entropy(X, *, standardize='none', start=1, end=None):
     >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
     >>> ent = entropy(seqs)
     >>> ent
-    array([2.32192809, 2.52164064, 0.64020643])
+    array([[2.32192809], [2.52164064], [0.64020643]])
 
    """ 
     

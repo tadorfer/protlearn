@@ -34,7 +34,7 @@ def length(X, *, method='int'):
     >>> seqs = ['ARKLY', 'EERKPGL', 'LLYPGP']
     >>> l_int = length(seqs)
     >>> l_int
-    array([5, 7, 6])
+    array([[5], [7], [6]])
     >>> l_ohe = length(seqs, method='ohe')
     array([[1., 0., 0.],
            [0., 0., 1.],
