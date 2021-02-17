@@ -63,9 +63,11 @@ def socn(X, *, d=30, start=1, end=None):
     >>> seqs = ['ARKLY', 'EERKPGL']
     >>> sw, g = socn(seqs, d=3)
     >>> sw
-    array([1.138343, 1.64627 , 2.150641])
+    array([1.85757 , 2.359385, 0.902717],
+          [1.138343, 1.64627 , 2.150641]])
     >>> g
-    array([35009., 42394., 38859.])
+    array([[25965., 28865., 15145.],
+           [35009., 42394., 38859.]])
 
     """
 
@@ -100,7 +102,7 @@ def socn(X, *, d=30, start=1, end=None):
             tmp_g[n] = sum([(g[aa_dict[seq[j]], aa_dict[seq[j+lag]]])**2 \
                             for j in range(len(seq)-lag)])
         
-        arr_sw = tmp_sw
-        arr_g = tmp_g
+        arr_sw[i,:] = tmp_sw
+        arr_g[i,:] = tmp_g
         
     return arr_sw, arr_g
