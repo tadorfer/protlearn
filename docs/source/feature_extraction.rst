@@ -32,7 +32,7 @@ method: string, default='int'
 Returns
 #######
 
-arr: int or ndarray of shape (n_samples, ) or (n_samples, n_unique_lengths) 
+arr: int or ndarray of shape (n_samples, 1) or (n_samples, n_unique_lengths) 
     Array containing sequence lengths.
 
 Examples
@@ -44,7 +44,7 @@ Examples
     >>> seqs = ['ARKLY', 'EERKPGL', 'LLYPGP']
     >>> l_int = length(seqs)
     >>> l_int
-    array([5, 7, 6])
+    array([[5], [7], [6]])
     >>> l_ohe = length(seqs, method='ohe')
     array([[1., 0., 0.],
            [0., 0., 1.],
@@ -55,7 +55,7 @@ aac
 
 .. code-block:: text
 
-    protlearn.features.aac(X, *, method='relative', start=1, end=None)
+    protlearn.features.aac(X, *, method='relative', remove_zero_cols=False, start=1, end=None)
 
 Amino acid composition.
 
@@ -80,6 +80,9 @@ method: string, default='relative'
     'absolute' : absolute amino acid composition |br|
     'relative' : relative amino acid composition
 
+remove_zero_cols : bool, default=False
+    If true, columns containing only zeros will be deleted.
+
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is based on one-based indexing.
 
@@ -103,7 +106,7 @@ Examples
 
     >>> from protlearn.features import aac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> comp, aa = aac(seqs)
+    >>> comp, aa = aac(seqs, remove_zero_cols=True)
     >>> comp
     array([[0.2       , 0.        , 0.        , 0.2       , 0.2       ,
             0.        , 0.2       , 0.2       ],
@@ -158,17 +161,11 @@ end: int, default=None
 Returns
 #######
 
-arr: ndarray of shape (n_samples, 553-566) 
+arr: ndarray of shape (n_samples, 553) 
     Array containing the AAIndex1 physicochemical properties.
 
-desc: list of length 553-566
+desc: list of length 553
     Corresponds to the columns (AAIndices) in arr.
-
-Notes
-#####
-
-Columns (indices) containing NaNs will be removed. Thus, the resulting index
-matrix will have a column size between 553-566.
 
 References
 ##########
@@ -245,13 +242,12 @@ end: int, default=None
 Returns
 #######
 
-arr: ndarray of shape (n_samples, n_unique^n)
+arr: ndarray of shape (n_samples, n_combinations)
     Depending on *n*, the returned array will be of size: |br|
     - (n_samples, 400) for dipeptide composition |br|
     - (n_samples, 8000) for tripeptide composition |br|
-    if all possible n-gram combinations are represented.
 
-n-grams: list of length n_unique^n
+n-grams: list of length 400 or 8000
     List of n-grams corresponding to columns in arr.
 
 Examples
@@ -262,20 +258,15 @@ Examples
     >>> from protlearn.features import ngram
     >>> seqs = ['ARKLY', 'EERKPGL']
     >>> di, ngrams = ngram(seqs, n=2)
-    >>> di
-    array([[0.25      , 0.25      , 0.25      , 0.25      , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.16666667, 0.16666667,
-            0.16666667, 0.16666667, 0.16666667, 0.16666667]])
-    >>> ngrams
-    ['AR', 'KL', 'LY', 'RK', 'EE', 'ER', 'GL', 'KP', 'PG']
+    >>> di.shape
+    (2, 400)
+    >>> len(ngrams)
+    400
     >>> tri, ngrams = ngram(seqs, n=3)
-    array([[0.33333333, 0.33333333, 0.33333333, 0.        , 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.2       , 0.2       ,
-            0.2       , 0.2       , 0.2       ]])
-    >>> ngrams
-    ['ARK', 'KLY', 'RKL', 'EER', 'ERK', 'KPG', 'PGL', 'RKP']
+    >>> tri.shape
+    (2, 8000)
+    >>> len(ngrams)
+    8000
 
 entropy
 -------
@@ -318,7 +309,7 @@ end: int, default=None
 Returns
 #######
 
-arr:  ndarray of shape (n_samples,) if len(X) > 1, otherwise float
+arr:  ndarray of shape (n_samples, 1) if len(X) > 1, otherwise float
     Array containing Shannon entropy values for each sequence.
 
 Examples
@@ -330,7 +321,7 @@ Examples
     >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
     >>> ent = entropy(seqs)
     >>> ent
-    array([2.32192809, 2.52164064, 0.64020643])
+    array([[2.32192809], [2.52164064], [0.64020643]])
 
 posrich
 -------
@@ -612,7 +603,7 @@ cksaap
 
 .. code-block:: text
 
-    protlearn.features.cksaap(X, *, k=1, start=1, end=None)
+    protlearn.features.cksaap(X, *, k=1, remove_zero_cols=False, start=1, end=None)
 
 Composition of k-spaced amino acid pairs.
 
@@ -635,6 +626,9 @@ X: string, fasta, or a list thereof
 k: int, default=1
     Space between two amino acid pairs.
 
+remove_zero_cols : bool, default=False
+    If true, columns containing only zeros will be deleted. 
+
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is
     based on one-based indexing.
@@ -652,13 +646,6 @@ arr:  ndarray of shape (n_samples, 400)
 patterns: list of length 400
     Amino acid pairs with k gaps corresponding to columns in arr.
 
-Notes
-#####
-
-Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 400, depending on the 
-unique number of k-spaced amino acid pairs in the dataset. 
-
 References
 ##########
 
@@ -671,14 +658,14 @@ Examples
 
     >>> from protlearn.features import cksaap
     >>> seqs = ['ARKLY', 'EERKPGL', 'AAAAAALY']
-    >>> ck, pairs = cksaap(seqs)
+    >>> ck, pairs = cksaap(seqs, remove_zero_cols=True)
     >>> ck
     array([[0, 1, 0, 0, 0, 0, 0, 1, 0, 1, 0],
            [0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1],
            [4, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]])
     >>> pairs
     ['A.A', 'A.K', 'A.L', 'A.Y', 'E.K', 'E.R', 'K.G', 'K.Y', 'P.L', 'R.L', 'R.P']
-    >>> ck2, pairs2 = cksaap(seqs, k=2)
+    >>> ck2, pairs2 = cksaap(seqs, k=2, remove_zero_cols=True)
     >>> ck2
     array([[0, 1, 0, 0, 0, 0, 0, 1],
            [0, 0, 0, 1, 1, 1, 1, 0],
@@ -1338,7 +1325,7 @@ paac
 
 .. code-block:: text
 
-    protlearn.features.paac(X, *, lambda_=30, w=.05, start=1, end=None)
+    protlearn.features.paac(X, *, lambda_=30, w=.05, remove_zero_cols=False, start=1, end=None)
 
 Pseudo amino acid composition.
 
@@ -1424,6 +1411,9 @@ X: string, fasta, or a list thereof
 w: float, default=.05
     Weighting factor for the sequence-order effect.
 
+remove_zero_cols : bool, default=False
+    If true, columns containing only zeros will be deleted.
+
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is
     based on one-based indexing.
@@ -1441,12 +1431,6 @@ arr:  ndarray of shape (n_samples, 20+\lambda_)
 desc: list of length 20+\lambda_
     Order of amino acids and lambda values corresponding to columns in arr.
 
-Notes
-#####
-
-Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 20+\lambda_.
-
 References
 ##########
 
@@ -1462,7 +1446,7 @@ Examples
 
     >>> from protlearn.features import paac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> paac_comp, desc = paac(seqs, lambda_=3)
+    >>> paac_comp, desc = paac(seqs, lambda_=3, remove_zero_cols=True)
     >>> paac_comp
     array([[0.62956037, 0.        , 0.        , 0.62956037, 0.62956037,
             0.        , 0.62956037, 0.62956037, 0.10830885, 0.16327632,
@@ -1478,7 +1462,7 @@ apaac
 
 .. code-block:: text
 
-    protlearn.features.apaac(X, *, lambda_=30, w=.05, start=1, end=None)
+    protlearn.features.apaac(X, *, lambda_=30, w=.05, remove_zero_cols=False, start=1, end=None)
 
 Amphiphilic pseudo amino acid composition.
 
@@ -1555,6 +1539,9 @@ X: string, fasta, or a list thereof
 w: float, default=.05
     Weighting factor for the sequence-order effect.
 
+remove_zero_cols : bool, default=False
+    If true, columns containing only zeros will be deleted. 
+
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is
     based on one-based indexing.
@@ -1572,12 +1559,6 @@ arr: ndarray of shape (n_samples, 20+2*\lambda_)
 desc: list of length 20+2*\lambda_
     Order of amino acids and lambda values corresponding to columns in arr.
 
-Notes
-#####
-
-Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 20+2*\lambda_.
-
 References
 ##########
 
@@ -1593,7 +1574,7 @@ Examples
 
     >>> from protlearn.features import apaac
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> apaac_comp, desc = apaac(seqs, lambda_=3)
+    >>> apaac_comp, desc = apaac(seqs, lambda_=3, remove_zero_cols=True)
     >>> apaac_comp
     array([[ 1.15705278e+00,  0.00000000e+00,  0.00000000e+00,
              1.15705278e+00,  1.15705278e+00,  0.00000000e+00,
@@ -1690,16 +1671,18 @@ Examples
     >>> seqs = ['ARKLY', 'EERKPGL']
     >>> sw, g = socn(seqs, d=3)
     >>> sw
-    array([1.138343, 1.64627 , 2.150641])
+    array([1.85757 , 2.359385, 0.902717],
+          [1.138343, 1.64627 , 2.150641]])
     >>> g
-    array([35009., 42394., 38859.])
+    array([[25965., 28865., 15145.],
+           [35009., 42394., 38859.]])
 
 qso 
 ---
 
 .. code-block:: text
 
-    protlearn.features.qso(X, *, d=30, start=1, end=None)
+    protlearn.features.qso(X, *, d=30, remove_zero_cols=False, start=1, end=None)
 
 Quasi-sequence-order.
 
@@ -1736,6 +1719,9 @@ d: int, default=30
 w: float, default=.1
     Weighting factor for the sequence-order effect.
 
+remove_zero_cols : bool, default=False
+    If true, columns containing only zeros will be deleted. 
+
 start: int, default=1
     Determines the starting point of the amino acid sequence. This number is
     based on one-based indexing.
@@ -1756,12 +1742,6 @@ arr_g:  ndarray of shape (n_samples, 20+d)
 desc: list of length 20+d
     Order of QSO descriptors corresponding to columns in arr_sw and arr_g.
 
-Notes
-#####
-
-Columns containing only zeros will be deleted. Therefore, the returned 
-arrays and list may have a lower dimensionality than 20+d.
-
 References
 ##########
 
@@ -1776,7 +1756,7 @@ Examples
 
     >>> from protlearn.features import qso
     >>> seqs = ['ARKLY', 'EERKPGL']
-    >>> sw, g, desc = qso(seqs, d=3)
+    >>> sw, g, desc = qso(seqs, d=3, remove_zero_cols=True)
     >>> sw
     array([[0.66139001, 0.        , 0.        , 0.66139001, 0.66139001,
             0.        , 0.66139001, 0.66139001, 0.12285782, 0.15604737,
