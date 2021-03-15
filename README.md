@@ -29,7 +29,7 @@ for Python versions 3.6, 3.7, and 3.8.
 ## Overview
 
 <p align="center">
-  <img src="/imgs/protlearn_summary.png" height="430" width="624">
+  <img src="https://raw.githubusercontent.com/tadorfer/protlearn/master/imgs/protlearn_summary.png" height="430" width="624">
 </p>
 
 For more information on how to use it, please refer to the [documentation](https://protlearn.readthedocs.io/en/latest/).
