@@ -11,7 +11,7 @@ setup(
   name = 'protlearn',       
   packages = find_packages(exclude=["tests.*", "tests"]), 
   package_data={'protlearn': ['features/data/*.csv']},  
-  version = '0.0.1',      
+  version = '0.0.2',      
   license='MIT',        
   description = 'A Python package for extracting protein sequence features', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/protlearn',   
-  download_url = 'https://github.com/tadorfer/protlearn/archive/v0.0.1.tar.gz',  
+  download_url = 'https://github.com/tadorfer/protlearn/archive/v0.0.2.tar.gz',  
   keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'dimensionality reduction', 'machine learning'], 
   setup_requires = ['wheel'],
   install_requires=[            
@@ -32,9 +32,9 @@ setup(
       ],
   classifiers=[
     'Development Status :: 4 - Beta',      
-    'Intended Audience :: Science/Research',      # Define that your audience are developers
+    'Intended Audience :: Science/Research',      
     'Topic :: Software Development :: Build Tools',
-    'License :: OSI Approved :: MIT License',   # Again, pick a license
+    'License :: OSI Approved :: MIT License',   
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
