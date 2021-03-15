@@ -13,22 +13,14 @@ def test_ctd():
     X_err = 'AGT2HT9'
     
     # get ctd
-    ctd_list, desc = ctd(X_list)
+    ctd_arr, desc = ctd(X_list)
     
     # test ctd
-    assert np.array_equal(ctd_list, np.array([
-       [1., 1., 1., 1., 1., 0., 0., 0., 0., 
-        0., 0., 0., 0., 0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0., 1., 1., 1., 1.,
-        1., 1., 1., 0., 0., 0., 0., 0., 0.],
-       [0., 0., 0., 0., 0., 0., 0., 0., 0., 
-        0., 0., 0., 1., 1., 1., 1., 1., 1.]]))
-
-    # test appending loop
-    ctd_app = ctd(['AARKLY', 'AARKPGY'])[0]
-    assert np.array_equal(ctd_app, np.array([
-       [1., 1., 1., 1., 0., 0.],
-       [1., 1., 0., 1., 1., 1.]]))
+    assert ctd_arr.shape == (3, 343)
+    assert len(desc) == 343
+    assert sum(ctd_arr[0]) == 5
+    assert sum(ctd_arr[1]) == 7
+    assert sum(ctd_arr[2]) == 6
 
     # test ValueError
     with pytest.raises(ValueError):

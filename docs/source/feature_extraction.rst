@@ -730,13 +730,6 @@ arr:  ndarray of shape (n_samples, 343)
 ctd_list: list of length 343
     Unique class triads corresponding to columns in arr.
 
-Notes
-#####
-
-Columns containing only zeros will be deleted. Therefore, the returned 
-array and list may have a lower dimensionality than 343, depending on the 
-unique number conjoint triad descriptors in the dataset.
-
 References
 ##########
 
@@ -750,11 +743,10 @@ Examples
     >>> from protlearn.features import ctd
     >>> seqs = ['ARKKLYLYL', 'EEEERKPGL']
     >>> ctd_arr, ctd_desc = ctd(seqs)
-    >>> ctd_arr
-    array([[1., 2., 1., 1., 1., 1., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 1., 0., 1., 1., 1., 1., 2.]])
-    >>> ctd_desc
-    ['155', '232', '323', '523', '552', '555', '212', '521', '655', '665', '666']
+    >>> ctd_arr.shape
+    (2, 343)
+    >>> len(ctd_desc)
+    343
 
 ctdc
 ----

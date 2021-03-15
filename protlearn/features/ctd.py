@@ -2,6 +2,7 @@
 
 import numpy as np
 from collections import Counter
+from itertools import product
 from ..utils.validation import check_input, check_alpha, check_natural
 
 def ctd(X, *, start=1, end=None):
@@ -36,13 +37,6 @@ def ctd(X, *, start=1, end=None):
     ctd_list : list of length 343
         Unique class triads corresponding to columns in arr.
 
-    Notes
-    -----
-
-    Columns containing only zeros will be deleted. Therefore, the returned 
-    array and list may have a lower dimensionality than 343, depending on the 
-    unique number conjoint triad descriptors in the dataset.
-
     References
     ----------
 
@@ -56,11 +50,10 @@ def ctd(X, *, start=1, end=None):
     >>> from protlearn.features import ctd
     >>> seqs = ['ARKKLYLYL', 'EEEERKPGL']
     >>> ctd_arr, ctd_desc = ctd(seqs)
-    >>> ctd_arr
-    array([[1., 2., 1., 1., 1., 1., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 1., 0., 1., 1., 1., 1., 2.]])
-    >>> ctd_desc
-    ['155', '232', '323', '523', '552', '555', '212', '521', '655', '665', '666']
+    >>> ctd_arr.shape
+    (2, 343)
+    >>> len(ctd_desc)
+    343
 
     """
 
@@ -77,38 +70,26 @@ def ctd(X, *, start=1, end=None):
                'C': 7}
 
     # compute CTD
-    ctd = dict()
+    ctd_list = [''.join(i) for i in product('1234567', repeat=3)]
+    ctd = {ctd_list[i]: [] for i in range(len(ctd_list))}
     for i, seq in enumerate(X):
         check_alpha(seq) # check if alphabetical  
         check_natural(seq) # check for unnatural amino acids 
         seq = seq[start-1:end] # positional information
         seq = ''.join([str(classes[aa]) for aa in seq])
         keys = [seq[x:x+3] for x in range(len(seq)-2)]
-        unq = sorted(set(keys))
+        unq = set(keys)
+        other = ctd.keys()-unq
         ctd_vals = sorted(Counter(keys).items())
         vals = [i[1] for i in ctd_vals]
-        # get min and max
-        if len(vals) < 343:
-            minimum = 0
-        else:
-            minimum = min(vals)
-        maximum = max(vals)
-        vals = [(vals[i]-minimum)/maximum for i in range(len(vals))]
 
         for num, j in enumerate(unq):
             if j in ctd:
                 ctd[j].append(vals[num])
-            else:
-                ctd[j] = i*[0]+[vals[num]]
-
-        # append values not present in ctd with zero
-        if i != 0:
-            maxlen = max([len(c) for c in ctd.values()])
-            for z in ctd.values():
-                if len(z) < maxlen:
-                    z.append(0)
+            
+        for k in other:
+            ctd[k].append(0)
     
     arr = np.array(list(ctd.values()), dtype=float).T
-    ctd_list = list(ctd.keys())
     
     return arr, ctd_list
