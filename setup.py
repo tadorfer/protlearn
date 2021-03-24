@@ -11,7 +11,7 @@ setup(
   name = 'protlearn',       
   packages = find_packages(exclude=["tests.*", "tests"]), 
   package_data={'protlearn': ['features/data/*.csv']},  
-  version = '0.0.2',      
+  version = '0.0.3',      
   license='MIT',        
   description = 'A Python package for extracting protein sequence features', 
   long_description_content_type='text/markdown',
@@ -19,7 +19,7 @@ setup(
   author = 'Thomas Dorfer',                   
   author_email = 'thomas.a.dorfer@gmail.com',   
   url = 'https://github.com/tadorfer/protlearn',   
-  download_url = 'https://github.com/tadorfer/protlearn/archive/v0.0.2.tar.gz',  
+  download_url = 'https://github.com/tadorfer/protlearn/archive/v0.0.3.tar.gz',  
   keywords = ['amino acids', 'proteins', 'peptides', 'preprocessing', 'feature engineering', 'dimensionality reduction', 'machine learning'], 
   setup_requires = ['wheel'],
   install_requires=[            
