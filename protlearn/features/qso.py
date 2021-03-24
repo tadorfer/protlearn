@@ -114,12 +114,12 @@ def qso(X, *, d=30, w=.1, remove_zero_cols=False, start=1, end=None):
         
         cnt = Counter(seq)
         
-        qso_sw = [cnt[aa] / (1+w * sum(socn_sw)) for aa in amino_acids]
-        qso_sw = qso_sw + [(w*j) / (1+w * sum(socn_sw)) for j in socn_sw]
+        qso_sw = [cnt[aa] / (1+w * sum(socn_sw[0])) for aa in amino_acids]
+        qso_sw = qso_sw + [(w*j) / (1+w * sum(socn_sw[0])) for j in socn_sw[0]]
         arr_sw[i,:] = qso_sw
         
-        qso_g = [cnt[aa] / (1+w * sum(socn_g)) for aa in amino_acids]
-        qso_g = qso_g + [(w*j) / (1+w * sum(socn_g)) for j in socn_g]
+        qso_g = [cnt[aa] / (1+w * sum(socn_g[0])) for aa in amino_acids]
+        qso_g = qso_g + [(w*j) / (1+w * sum(socn_g[0])) for j in socn_g[0]]
         arr_g[i,:] = qso_g
 
     # delete zero columns
